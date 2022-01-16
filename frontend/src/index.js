@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
+// ADD BACK WHEN WE FILL THE SKELETON
+import Root from './components/root'
 
-ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+document.addEventListener('DOMContentLoaded', () => {
+    const root = document.getElementById('root')
+    ReactDOM.render(<Root />, root)
+    // ReactDOM.render(<Root store={store}/>, root)
+})
