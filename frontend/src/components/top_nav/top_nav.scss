@@ -1,0 +1,67 @@
+
+.top-nav {
+    display: flex;
+    justify-content: center;
+    height: 6rem;
+    margin: 0.5rem 1rem;
+    margin-top: 2.5rem;
+}
+
+.top-nav > div {
+    padding: 0 1rem;
+}
+
+.top-nav__logo {
+    display: flex;
+    justify-content: center;
+    width: 85%;
+}
+
+// Renders the logo sharper
+.logo--large {
+    img {
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        -ms-interpolation-mode: nearest-neighbor;
+    }
+}
+
+.top-nav__developers, .top-nav__session {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-decoration: underline;
+    white-space: nowrap;
+}
+
+.top-nav__developers {
+    color: #D7263D;
+}
+
+.top-nav__session {
+    color: #FFBC42;
+}
+
+@media (min-width: 820px) {
+    .top-nav {
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
+
+    .top-nav__logo {
+        justify-content: flex-start;
+    }
+
+    .top-nav__developers {
+        display: flex;
+    }
+    
+    .top-nav__session {
+        display: flex;
+    }
+}
