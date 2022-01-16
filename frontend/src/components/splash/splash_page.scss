@@ -1,13 +1,34 @@
 @use '../app.scss';
 
+body, html {
+    scroll-snap-type: mandatory;
+    scroll-snap-points-y: repeat(100vh);
+    scroll-snap-type: y mandatory;
+}
+
+.splash-page__container {
+    display: flex;
+    flex-direction: column;
+}
+
 .splash-page__container > div{
     height: 100vh;
 }
 
 .splash-page__main {
     background-color: #003e5b;
+    scroll-snap-align: start;
+}
+
+.splash.page__wizard-container {
+
+}
+
+.splash.page__quote-text {
+    background: white;
 }
 
 .splash-page__bottom {
     background-color: #1D3354;
+    scroll-snap-align: start;
 }

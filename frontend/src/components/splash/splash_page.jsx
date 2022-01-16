@@ -57,7 +57,21 @@ class SplashPage extends React.Component {
                                 🧙
                             </div>
                         </div>
-                        
+                        <div className="splash-page__title">
+                            <div className="splash-page__buttons">
+                                <button
+                                    className="splash-page__center-button">
+                                    Join Game
+                                </button>
+                                <button
+                                    className="splash-page__center-button">
+                                    Create Quiz
+                                </button>
+                            </div>
+                            <div className="splash-page__tagline">
+                                Do you have what it takes to rise to the top?
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="splash-page__bottom">
