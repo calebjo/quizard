@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// ADD BACK WHEN WE FILL THE SKELETON
+// SKELETON -- when store is finished, change render
 import Root from './components/root'
 
 document.addEventListener('DOMContentLoaded', () => {

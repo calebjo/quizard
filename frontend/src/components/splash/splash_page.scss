@@ -1,4 +1,13 @@
+@use '../app.scss';
 
-.splash-page-container {
-    background-color: #013E5B;
+.splash-page__container > div{
+    height: 100vh;
+}
+
+.splash-page__main {
+    background-color: #003e5b;
+}
+
+.splash-page__bottom {
+    background-color: #1D3354;
 }
