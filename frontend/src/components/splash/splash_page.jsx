@@ -1,4 +1,5 @@
 import React from 'react'
+import './splash_page.scss'
 
 class SplashPage extends React.Component {
     constructor(props) {
