@@ -4,6 +4,7 @@
     justify-content: center;
     height: 6rem;
     margin: 0.5rem 1rem;
+    margin-top: 2.5rem;
 }
 
 .top-nav > div {
@@ -46,9 +47,10 @@
     color: #FFBC42;
 }
 
-@media (min-width: 780px) {
+@media (min-width: 820px) {
     .top-nav {
         justify-content: space-between;
+        margin-top: 1rem;
     }
 
     .top-nav__logo {

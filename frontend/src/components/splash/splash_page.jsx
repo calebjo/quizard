@@ -1,6 +1,9 @@
 import React from 'react'
 import './splash_page.scss'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+
 // SKELETON -- To be replaced with TopNavContainer for login/signup
 import TopNav from '../top_nav/top_nav'
 
@@ -8,12 +11,42 @@ class SplashPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            quote: "Oh no, we've got an ugly one this time..."
+            quote: "Oh no, we've got an ugly one this time...",
+            screenWidth: null,
+            joinButtonText: "Join",
+            createButtonText: "Create",
         }
     }
 
     componentDidMount() {
+        // set random quote text on reload
         this.randomQuoteText()
+
+        // change button text on small/large screens
+        window.addEventListener("resize", this.resize.bind(this));
+        this.resize();
+    }
+    
+    resize() {
+        this.setState({
+            screenWidth: window.innerWidth
+        })
+        // if screen is over the breakpoint, make the buttons have more text
+        if ( this.state.screenWidth >= 770) {
+            this.setState({
+                joinButtonText: "Join Game",
+                createButtonText: "Create Quiz"
+            })
+        } else {
+            this.setState({
+                joinButtonText: "Join",
+                createButtonText: "Create"
+            })
+        }
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.resize.bind(this));
     }
 
     randomQuoteText() {
@@ -48,10 +81,10 @@ class SplashPage extends React.Component {
                     <div className="splash-page__center">
                         <div className="splash-page__wizard-container">
                             <div className="splash-page__wizard-quotes">
-                                <div className="splash-page__quote-box" />
-                                <div className="splash-page__quote-text">
-                                    { this.state.quote }
+                                <div className="splash-page__quote-box">
+                                    <span>{ this.state.quote }</span>
                                 </div>
+                                <div className="splash-page__quote-triangle" />
                             </div>
                             <div className="splash-page__wizard-sprite">
                                 🧙
@@ -61,17 +94,22 @@ class SplashPage extends React.Component {
                             <div className="splash-page__buttons">
                                 <button
                                     className="splash-page__center-button">
-                                    Join Game
+                                    { this.state.joinButtonText }
                                 </button>
                                 <button
                                     className="splash-page__center-button">
-                                    Create Quiz
+                                    { this.state.createButtonText }
                                 </button>
                             </div>
                             <div className="splash-page__tagline">
                                 Do you have what it takes to rise to the top?
                             </div>
                         </div>
+                    </div>
+                    <div className="splash-page__center-lower">
+                        <FontAwesomeIcon 
+                            icon={faChevronDown}
+                            size="5x" />
                     </div>
                 </div>
                 <div className="splash-page__bottom">
