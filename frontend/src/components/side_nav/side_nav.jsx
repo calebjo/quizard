@@ -6,9 +6,15 @@ import {NavLink} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faList, faPlus } from '@fortawesome/free-solid-svg-icons';
 
+// NOTE: components rendered alongside the side nav will need to have a padding-left of 20vw
+// to account for this sidebar
+
+
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     handleLogout (e) {
@@ -23,7 +29,7 @@ class SideNav extends React.Component {
                     <img className="logo--nav" src={QuizardLogo} alt="logo" />
 
                     <NavLink to="/users/1" activeClassName="selected"> 
-                    {/* VK: Replace the link address above with "/users/${currentUser.id}" when current user prop is available */}
+                    {/* SKELETON: Replace the link address above with "/users/${currentUser.id}" when current user prop is available */}
                         <div className="sidebar-nav__icons">
                             <FontAwesomeIcon 
                                 icon={faUser}
@@ -51,7 +57,9 @@ class SideNav extends React.Component {
                     </NavLink>
                 </div>
                 
-                <button className="styled-button red-bg">Log out</button>
+                <button 
+                    className="styled-button red-bg"
+                    onClick={this.handleLogout}>Log out</button>
             </aside>
         );
     }
