@@ -14,7 +14,7 @@
 .top-nav__logo {
     display: flex;
     justify-content: center;
-    width: 85%;
+    width: 40%;
 }
 
 // Renders the logo sharper
@@ -36,6 +36,7 @@
     font-weight: 700;
     font-size: 1.5rem;
     text-decoration: underline;
+    text-decoration-thickness: 0.25rem;
     white-space: nowrap;
 }
 
@@ -63,5 +64,11 @@
     
     .top-nav__session {
         display: flex;
+    }
+}
+
+@media (min-width: 960px) {
+    .top-nav__logo {
+        width: 100%;
     }
 }
