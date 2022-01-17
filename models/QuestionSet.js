@@ -1,21 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const QuizSetSchema = new Schema({
+const QuestionSetSchema = new Schema({
     creator_id: {
         type: Schema.Types.ObjectId,
         ref: "User"
     },
     category: {
         type: String,
-        require: true
+        required: true
     },
-    questions: [{
-        type: Schema.Types.ObjectId,
-        ref: "Question"
-    }]},
+    title: {
+        type: String, 
+        required: true
+    },
+    description: String
+    },
     { timestamps: true },
     { minimize: false }
 );
 
-module.exports = Set = mongoose.model("QuizSet", QuizSetSchema)
+module.exports = QuestionSet = mongoose.model("QuestionSet", QuestionSetSchema)

@@ -8,6 +8,21 @@ const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 const User = require('../../models/User');
 
+router.get('/:id', (req, res) => {
+    // filters by question id
+    const filter = { _id: req.params.id };
+
+    User.findOne(filter)
+        .then(user => {
+            if (user) {
+                return res.json(user)
+            } else {
+                return res.json({ error: "User not found" }).status(404)
+            }
+        })
+        .catch(() => res.status(404).json({ error: "Question not found" }))
+})
+
 router.post('/register', (req, res) => {
 
     const { errors, isValid } = validateRegisterInput(req.body);
@@ -44,10 +59,10 @@ router.post('/login', (req, res) => {
         return res.status(400).json(errors);
     }
 
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
 
-    User.findOne({ username })
+    User.findOne({ email })
         .then(user => {
             if (!user) {
                 return res.status(404).json({ email: "This user does not exist." })

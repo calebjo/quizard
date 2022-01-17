@@ -11,24 +11,17 @@ class SplashPage extends React.Component {
     constructor(props) {
         super(props)
 
-        let joinText = "Join"
-        let createText = "Create"
-        if (window.innerWidth >= 770) {
-            joinText = "Join Game"
-            createText = "Create Game"
-        }
         this.state = {
             quote: "Oh no, we've got an ugly one this time...",
-            screenWidth: null,
-            joinButtonText: joinText,
-            createButtonText: createText,
+            screenWidth: window.innerWidth,
+            joinButtonText: "Join Game",
+            createButtonText: "Create Quiz",
         }
     }
 
     componentDidMount() {
         // set random quote text on reload
         this.randomQuoteText()
-
         // change button text on small/large screens
         window.addEventListener("resize", this.resize.bind(this));
         this.resize();

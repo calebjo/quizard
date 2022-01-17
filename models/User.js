@@ -4,22 +4,18 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     email: {
         type: String, 
-        require: true, 
+        required: true, 
         unique: true
     },
     username: {
         type: String,
-        require: true,
+        required: true,
         unique: true
     },
     password: {
         type: String, 
-        require: true
+        required: true
     },
-    sets_created: [{
-        type: Schema.Types.ObjectId,
-        ref: "Set"
-    }],
     games_played: {
         type: Number, 
         default: 0
