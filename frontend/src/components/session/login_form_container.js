@@ -7,7 +7,7 @@ const mSTP = state => ({
     formType: "login",
     headerText: "Log in to Quizard",
     buttonText: "Let's go!",
-    altLink: (<Link to="/signup">No account yet? <span className="orange">Sign up!</span></Link>)
+    altLink: (<Link to="/signup">No account yet? <span className="orange underline">Sign up!</span></Link>)
 });
 
 // add clear form errors action
