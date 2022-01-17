@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema({
-    quiz_set_id: {
+    set_id: {
         type: Schema.Types.ObjectId,
-        ref: "QuizSet"
+        ref: "QuestionSet"
     },
     category: {
         type: String, 

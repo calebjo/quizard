@@ -1,6 +1,6 @@
 const Validator = require('validator');
 const validText = require('./valid-text');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 module.exports = function validateQuestion(data) {
     let errors = {};
@@ -12,9 +12,9 @@ module.exports = function validateQuestion(data) {
     data.correctAnswer = validText(data.correctAnswer) ? data.correctAnswer : '';
     data.type = validText(data.type) ? data.type : '';
 
-    // if (!mongoose.isValidObjectId(data.set_id)) {
-    //     errors.set_id = 'Invalid set id'
-    // }
+    if (!mongoose.isValidObjectId(data.set_id)) {
+        errors.set_id = 'Invalid set id'
+    }
 
     if (!categories.includes(data.category)) {
         errors.category = 'Invalid Category'

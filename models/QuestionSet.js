@@ -24,4 +24,4 @@ const QuestionSetSchema = new Schema({
     { minimize: false }
 );
 
-module.exports = Set = mongoose.model("QuestionSet", QuestionSetSchema)
+module.exports = QuestionSet = mongoose.model("QuestionSet", QuestionSetSchema)
