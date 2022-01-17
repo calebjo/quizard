@@ -1,3 +1,54 @@
 .user-show {
-    margin-left: 20vw;
+    margin: 5vh 2vw 0 22vw;
+}
+
+.user-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+        color: white;
+        font-size: 48px;
+        font-family: 'Fredoka One', cursive;
+        font-weight: lighter;
+        padding: 0 10px;
+    }
+}
+
+.user-header div:first-child {
+    float: left;
+    display: flex;
+    align-items: center;
+}
+.user-header div:last-child {
+    float: right;
+}
+
+.badges-case {
+    background-color: #003e5b;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 8px;
+    width: 50%;
+    color: white;
+
+    h4 {
+        color: white;
+        font-family: "Podkova", serif;
+        font-size: 22px;
+    }
+
+    .badge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 5px;
+    }
+}
+
+.badges-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
