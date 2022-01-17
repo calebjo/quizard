@@ -1,0 +1,50 @@
+.sidebar-nav {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #003e5b;
+    padding: 5vh 0;
+    font-family: "Roboto", sans-serif;
+
+    .logo--nav {
+        height: 69px;
+        width: 212px;
+        margin-bottom: 2vh;
+    }
+
+    .nav-flex, .sidebar-nav__icons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-flex button {
+        margin: 0.5em;
+        width: 15vw;
+    }
+
+    .sidebar-nav__icons {
+        cursor: pointer;
+        color: gray;
+        margin: 2vh 0;
+
+        label {
+            margin-top: 4px;
+        }
+    }
+
+    .sidebar-nav__icons:hover {
+        color: white;
+    }
+
+    .selected .sidebar-nav__icons {
+        color: #ffbc42;
+    }
+}
