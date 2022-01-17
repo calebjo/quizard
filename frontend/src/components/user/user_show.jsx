@@ -13,12 +13,16 @@ class UserShow extends React.Component {
             games_played: 0,
             games_won: 0
         };
+
         this.badges = ["Creator"];
+        this.needsBadges = true; // not necessary once componentDidMount is added
+
+        this.handleEdit = this.handleEdit.bind(this);
     }
 
     componentDidMount () {
         // fetch viewed user info
-        // call getBadges
+        // THEN call getBadges and getquizsets
     }
 
     getBadges () {
@@ -37,15 +41,24 @@ class UserShow extends React.Component {
         }
     }
 
+    handleEdit (e) {
+        e.preventDefault();
+        this.props.history.push("/edit-profile"); // this is NOT nested under users/x since only current user's prof can be edited
+    }
+
     render () {
         // update when user is derived from state props
         const {username, sets_created, games_played, games_won} = this.user;
 
         // remove when componentDidMount is added
-        this.getBadges();
+        if (this.needsBadges) {
+            this.getBadges();
+            this.needsBadges = false;
+        }
 
         return (
         <main className="user-show">
+            {/* HEADER */}
             <div className="user-header">
                 <div>
                     {/* user icon (will need to be updated to show photo instead if we add profile pics) */}
@@ -59,23 +72,31 @@ class UserShow extends React.Component {
 
                 {/* Add conditional when state props present- empty div if not viewing current user profile */}
                 <div>
-                    <button className="styled-button orange-bg">Edit Profile</button>
+                    <button className="styled-button orange-bg" onClick={this.handleEdit}>Edit Profile</button>
                 </div>
             </div>
 
-            <div className="badges-case">
-                <h4>Badges</h4>
+            {/* OTHER ELEMENTS - BADGES AND QUIZ SET INDEX */}
+            <div className="flexed">
+                <div className="badges-case user-show-case">
+                    <h4>Badges</h4>
 
-                <div className="badges-container">
-                    {this.badges.map((badge) => (
-                        <div className="badge">
-                            <svg height="55" width="55">
-                                <circle cx="50%" cy="50%" r="25" fill="#FB3754" />
-                                <text x="50%" y="60%" textAnchor="middle" fill="#111" fontSize="18px">{badge[0].toUpperCase()}</text>
-                            </svg>
-                            <label>{badge}</label>
-                        </div>
-                    ))}
+                    <div className="badges-container">
+                        {this.badges.map((badge) => (
+                            <div className="badge">
+                                <svg height="55" width="55">
+                                    <circle cx="50%" cy="50%" r="25" fill="#FB3754" />
+                                    <text x="50%" y="60%" textAnchor="middle" fill="white" fontSize="18px">{badge[0].toUpperCase()}</text>
+                                </svg>
+                                <label>{badge}</label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="created-sets-container user-show-case">
+                    <h4>Created Question Sets</h4>
+                    <p>None yet!</p>
                 </div>
             </div>
         </main>
