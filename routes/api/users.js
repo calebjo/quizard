@@ -44,10 +44,10 @@ router.post('/login', (req, res) => {
         return res.status(400).json(errors);
     }
 
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
 
-    User.findOne({ username })
+    User.findOne({ email })
         .then(user => {
             if (!user) {
                 return res.status(404).json({ email: "This user does not exist." })
