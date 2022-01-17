@@ -44,6 +44,7 @@ class UserShow extends React.Component {
     handleEdit (e) {
         e.preventDefault();
         this.props.history.push("/edit-profile"); // this is NOT nested under users/x since only current user's prof can be edited
+        // CHANGE IN APP.JS!!!
     }
 
     render () {
@@ -96,7 +97,10 @@ class UserShow extends React.Component {
 
                 <div className="created-sets-container user-show-case">
                     <h4>Created Question Sets</h4>
+                    {/* Get question sets at CDM */}
+                    {/* If none belong to user, render... */}
                     <p>None yet!</p>
+                    {/* Else render array of index items */}
                 </div>
             </div>
         </main>
