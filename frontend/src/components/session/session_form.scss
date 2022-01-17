@@ -1,0 +1,148 @@
+.session-form-background {
+  position: fixed;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  background: rgba(0, 0, 0, .2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.session-form-content {
+  z-index: 10;
+  position: relative;
+  border-radius: 32px;
+  min-height: initial;
+  width: 40vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #003e5b;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.685);
+  font-family: 'Fredoka One', cursive;
+
+  h1 {
+    font-size: 54px;
+    margin: 10px 0 20px 0;
+    font-family: "Podkova", serif;
+    font-weight: 900;
+  }
+
+  input {
+    text-align: left;
+    padding: 1.2em;
+    margin-top: 1.2em;
+    border: 1px solid white;
+    font-family: "Roboto", sans-serif;
+    border-radius: 18px;
+    font-size: 0.95em;
+    width: 28vw;
+    color: white;
+  }
+
+  input:focus {
+    outline: none;
+    box-shadow: 0 0 10px -2px white;
+    caret-color: transparent;
+  }
+
+  .styled-button {
+      margin: 0.5em;
+  }
+
+  .red {
+    color: #d7263d;
+  }
+
+  .orange {
+    color: #ffbc42;
+  }
+}
+
+.session-form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 16px;
+    font-size: 18px;
+
+    a:first-child:hover {
+        color: white;
+    }
+}
+
+.styled-button {
+    width: 10rem;
+    height: 3.5rem;
+    border-radius: 6px;
+    font-size: 1.5rem;
+    font-family: "Podkova", serif;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.styled-button:hover {
+    border: 2px solid white;
+    color: white;
+}
+
+.red-bg {
+    background-color: #d7263d;;
+}
+
+.orange-bg {
+    background-color: #ffbc42;
+}
+
+.session-form > div {
+    position: relative;
+}
+
+label {
+    position: absolute;
+    top: -0.7em;
+    left: 0.08em;
+    color: white;
+    z-index:-1;
+    font-size: 0.85em;
+    animation: float-labels 300ms none ease-out;
+}
+
+input.empty + label {
+    top: 1.65em;
+    left: 0.9em;
+    font-size: 1.3em;
+    animation:none;
+    -webkit-animation:none;
+}
+
+@keyframes float-labels {
+  0% {
+    opacity:1;
+    color:white;
+    top:1.65em;
+    left: 0.9em;
+    font-size:1.3em;
+  }
+  20% {
+    font-size:1.3em;
+    opacity:0;
+  }
+  30% {
+    top:0.1em;
+  }
+  50% {
+    opacity:0;
+    font-size:0.85em;
+  }
+  100% {
+    top:-0.7em; 
+    opacity:1; 
+  }
+}

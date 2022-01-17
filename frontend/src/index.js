@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-// SKELETON -- when store is finished, change render
-import Root from './components/root'
+import Root from './components/root';
+import configureStore from './store/store';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const root = document.getElementById('root')
-    ReactDOM.render(<Root />, root)
-    // ReactDOM.render(<Root store={store}/>, root)
+    // SKELETON -- when store is finished, change render
+    let store = configureStore({}); // VK: empty store for now- update to account for session token later!
+
+    const root = document.getElementById('root');
+    ReactDOM.render(<Root store={store}/>, root);
 })
