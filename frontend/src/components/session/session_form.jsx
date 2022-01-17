@@ -15,6 +15,7 @@ class SessionForm extends React.Component {
             email: "",
             password: ""
         }
+        console.log(this.props)
     }
 
     // componentWillUnmount - clear form errors
