@@ -8,7 +8,7 @@ const QuizSetSchema = new Schema({
     },
     category: {
         type: String,
-        require: true
+        required: true
     },
     questions: [{
         type: Schema.Types.ObjectId,
