@@ -15,7 +15,8 @@ class SessionForm extends React.Component {
             email: "",
             password: ""
         }
-        console.log(this.props)
+        this.update = this.update.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     // componentWillUnmount - clear form errors
@@ -30,6 +31,9 @@ class SessionForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         console.log("form submitted!");
+        const user = Object.assign({}, this.state);
+        this.props.login(user).then(() =>
+            this.props.history.push("/"));
     }
 
     render () {
