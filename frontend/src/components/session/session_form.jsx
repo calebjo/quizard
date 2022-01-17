@@ -6,7 +6,6 @@ import "./session_form.scss";
 //   - error handling
 //   - form submission
 //   - window resizing
-//   - background of wizard hats?
 
 class SessionForm extends React.Component {
     constructor (props) {
