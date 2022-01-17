@@ -3,21 +3,16 @@ const router = express.Router({ mergeParams: true });
 const validateQuestionInput = require('../../validation/questions');
 
 const Question = require('../../models/Question');
-const QuestionSet = require('../../models/QuestionSet');
 
-// 
-// UNDER CONSTRUCTION
-// 
+// Index route; grabs all questions in set
+router.get('/question_sets/:question_set_id/', (req, res) => {
+    // filters by set id key
+    const filter = { set_id: req.params.question_set_id } 
 
-// // Index route; grabs all questions in set
-// router.get('/question_sets/:question_set_id/', (req, res) => {
-//     // filters by set id key
-//     const filter = { question_set_id: req.params.question_set_id } 
-
-//     Question.find(filter)
-//         .then(questions => res.json(questions))
-//         .catch(err => res.status(404).json({ noSetFound: "No set found "}))
-// })
+    Question.find(filter)
+        .then(questions => res.json(questions))
+        .catch(err => res.status(404).json({ noSetFound: "No set found "}))
+})
 
 // Route to retrieve individual questions
 router.get('/:id', (req, res) => {

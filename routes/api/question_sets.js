@@ -3,9 +3,17 @@ const router = express.Router();
 const validateQuestionSet = require('../../validation/question_sets');
 
 const QuestionSet = require('../../models/QuestionSet');
-const Question = require('../../models/Question');
-const User = require('../../models/User');
 
+
+// Index route for a particular user's QSets
+router.get('/users/:user_id', (req, res) => {
+    const filter = { creator_id: req.params.user_id }
+    QuestionSet.find(filter)
+        .then(questions => res.json(questions))
+        .catch(err => res.status(404).json({ noSetFound: "No set found " }))
+})
+
+// Grabs a particular QSet
 router.get('/:id', (req, res) => {
     const filter = { _id: req.params.id };
 
