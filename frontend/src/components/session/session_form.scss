@@ -68,6 +68,23 @@
     text-decoration: underline;
     text-decoration-thickness: 3px;
   }
+
+  label {
+    position: absolute;
+    top: -0.7em;
+    left: 0.08em;
+    color: white;
+    z-index:-1;
+    font-size: 0.85em;
+    animation: float-labels 300ms none ease-out;
+  }
+
+  input.empty + label {
+    top: 1.65em;
+    left: 0.9em;
+    font-size: 1.3em;
+    animation:none;
+  }
 }
 
 .session-form-footer {
@@ -95,6 +112,7 @@
     font-family: "Podkova", serif;
     font-weight: 900;
     cursor: pointer;
+    text-align: center;
 }
 
 .styled-button:hover {
@@ -112,23 +130,6 @@
 
 .session-form > div {
     position: relative;
-}
-
-label {
-    position: absolute;
-    top: -0.7em;
-    left: 0.08em;
-    color: white;
-    z-index:-1;
-    font-size: 0.85em;
-    animation: float-labels 300ms none ease-out;
-}
-
-input.empty + label {
-    top: 1.65em;
-    left: 0.9em;
-    font-size: 1.3em;
-    animation:none;
 }
 
 @keyframes float-labels {
