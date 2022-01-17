@@ -15,9 +15,10 @@ const App = () => (
     <div className="app">
         {/* <SideNavContainer /> */}
         <Route path="/users/:id" component={SideNavContainer}/> {/* VK: temp code for styling purposes */}
+        <Route path="/edit-profile" component={SideNavContainer}/>
 
         <Switch>
-            <Route exact path="/users/:id/edit" component={EditUserFormContainer} />
+            <Route exact path="/edit-profile" component={EditUserFormContainer} />
             <Route exact path="/users/:id" component={UserShowContainer} />
             <Route exact path="/login" component={LoginFormContainer} />
             <Route exact path="/signup" component={SignupFormContainer} />

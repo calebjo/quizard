@@ -14,7 +14,7 @@ class UserShow extends React.Component {
             games_won: 0
         };
 
-        this.badges = ["Creator"];
+        this.badges = [];
         this.needsBadges = true; // not necessary once componentDidMount is added
 
         this.handleEdit = this.handleEdit.bind(this);
@@ -22,14 +22,14 @@ class UserShow extends React.Component {
 
     componentDidMount () {
         // fetch viewed user info
-        // THEN call getBadges and getquizsets
+        // THEN call getBadges
     }
 
     getBadges () {
         // update when user is derived from state props
-        
+        const {games_played, games_won} = this.user;
+
         // badge depending on num of games played
-        const {games_played} = this.user;
         if (games_played > 100) {
             this.badges.push("Quizard");
         } else if (games_played > 51) {
@@ -39,12 +39,20 @@ class UserShow extends React.Component {
         } else {
             this.badges.push("Novice");
         }
+
+        // badge depending on wins/losses
+        if (games_won === 0 /*&& games_played > 1*/) {
+            this.badges.push("Sore Loser")
+        } else if ( games_won / games_played > 0.5) {
+            this.badges.push("Formidable Opponent")
+        }
     }
 
     handleEdit (e) {
         e.preventDefault();
-        this.props.history.push("/edit-profile"); // this is NOT nested under users/x since only current user's prof can be edited
-        // CHANGE IN APP.JS!!!
+        debugger;
+        this.props.history.push("/edit-profile");
+        debugger;
     }
 
     render () {
@@ -83,8 +91,8 @@ class UserShow extends React.Component {
                     <h4>Badges</h4>
 
                     <div className="badges-container">
-                        {this.badges.map((badge) => (
-                            <div className="badge">
+                        {this.badges.map((badge, i) => (
+                            <div key={`bdg${i}`} className="badge">
                                 <svg height="55" width="55">
                                     <circle cx="50%" cy="50%" r="25" fill="#FB3754" />
                                     <text x="50%" y="60%" textAnchor="middle" fill="white" fontSize="18px">{badge[0].toUpperCase()}</text>
