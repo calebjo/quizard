@@ -11,13 +11,57 @@ body, html {
     flex-direction: column;
 }
 
-.splash-page__container > div{
-    height: 100vh;
-}
+// .splash-page__container > div{
+//     height: 100vh;
+// }
 
 .splash-page__main {
+    z-index: 1;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     background-color: #003e5b;
     scroll-snap-align: start;
+    overflow: hidden;
+    
+}
+
+.splash-page__main::before {
+    // REPEATING HATS :)
+    z-index: -1;
+    width: 300vw;
+    height: 300vh;
+    right: 0;
+    bottom: -60rem;
+    content: '';
+    position: absolute;
+    background: url('../../assets/images/hats-repeating.png') repeat;
+    // box-shadow: inset 0 0 40rem #003E5B, inset 0 0 40rem #003E5B, inset 0 0 40rem #003E5B;
+    transform: rotate(-10deg);
+    animation: scroll-background 60s linear infinite;
+}
+
+@keyframes scroll-background {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(-10deg);
+    }
+
+    100% {
+        transform: translate3d(100vw, 0, 0) rotate(-10deg);
+    }
+}
+
+.splash-page__main::after {
+    // lower dark gradient
+    z-index: -1;
+    width: 100%;
+    height: 35vh;
+    margin-top: 65vh;
+    content: '';
+    position: absolute;
+    background: linear-gradient(0deg, rgba(1,24,34,1) 0%, rgba(0,62,91,0) 100%);
 }
 
 .splash-page__center {
@@ -25,8 +69,7 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 50%;
+    flex-grow: 0.5;
 }
 
 .splash-page__wizard-container {
@@ -56,8 +99,19 @@ body, html {
     width: 14rem;
     border-radius: 8px;
     padding: 1rem;
-    background: white;
+    background: #fefefe;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.75);
+}
+
+.splash-page__quote-triangle {
+    position: relative;
+    height: 0px;
+    width: 0px;
+    left: 1rem;
+    border-top: 24px solid #fefefe;
+    border-right: 4px solid rgba(0, 0, 0, 0);
+    border-bottom: 16px solid rgba(0, 0, 0, 0);
+    border-left: 16px solid rgba(0, 0, 0, 0);
 }
 
 .splash-page__title {
@@ -73,8 +127,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 8rem;
-    margin-bottom: 2rem;
+    margin: 1rem 0;
 
     button {
         display: flex;
@@ -100,12 +153,12 @@ body, html {
     display: none;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    max-width: 36rem;
     font-family: 'Fredoka One', cursive;
     color: #ffbc42;
     font-size: 2.5rem;
-    padding: 2rem;
     text-align: center;
+    margin: 1rem;
 }
 
 .splash-page__center-lower {
@@ -115,18 +168,120 @@ body, html {
     width: 100%;
     bottom: 1rem;
     svg {
+        width: 3rem;
+        height: 3rem;
         filter: invert(82%) sepia(66%) saturate(1197%) hue-rotate(323deg) brightness(101%) contrast(101%);
+        animation: slow-bounce 4s infinite ease-in-out;
     }
 }
+
+@keyframes slow-bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(16px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+// LOWER PAGE STYLES (social links, technologies) ----------------------
 
 .splash-page__bottom {
     background-color: #1D3354;
     scroll-snap-align: start;
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
 }
+
+.splash-page__links-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.splash-page__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+    height: 100vh;
+}
+
+.splash-page__links-header {
+    font-size: 1.75rem;
+    color: #ffbc42;
+    text-decoration: underline;
+    text-decoration-thickness: 0.25rem;
+    letter-spacing: 2px;
+    text-align: center;
+    margin: 1.5rem 0 2rem;
+}
+
+.splash-page__links-text {
+    color: #fefefe;
+    max-width: 40rem;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    line-height: 200%;
+    text-align: center;
+    font-weight: 500;
+    padding: 0.25rem;
+}
+
+.splash-page__profile-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.splash-page__profile {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 6rem;
+    margin: 2rem 0.5rem;
+    background: #fefefe;
+}
+
+.splash-page__continue {
+    position: relative;
+    bottom: -5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    svg {
+        filter: invert(1%) sepia(1%) saturate(172%) hue-rotate(314deg) brightness(109%) contrast(89%);
+    }
+}
+
+.splash-page__continue-text {
+    width: 80%;
+    color: #111;
+    font-size: 1.75rem;
+    text-align: center;
+}
+
+.splash-page__technologies {
+    height: 100vh;
+}
+
+// MEDIA QUERIES -------------------------------------------------------
 
 @media (min-width: 770px) {
     .splash-page__wizard-container {
         flex-direction: row;
+    }
+
+    .splash-page__wizard-sprite {
+        font-size: 12rem;
     }
 
     .splash-page__quote-box {
@@ -135,6 +290,16 @@ body, html {
         width: 12rem;
         height: 9rem;
         border-radius: 50%;
+    }
+
+    .splash-page__quote-triangle {
+        bottom: 11rem;
+        left: 10rem;
+        border-top: 18px solid rgba(0, 0, 0, 0);
+        border-right: 4px solid rgba(0, 0, 0, 0);
+        border-bottom: 24px solid rgba(0, 0, 0, 0);
+        border-left: 48px solid #fefefe;
+        transform: rotate(45deg);
     }
 
     .splash-page__buttons {
@@ -154,8 +319,8 @@ body, html {
         justify-content: flex-end;
         right: 2rem;
         svg {
-            width: 5rem;
-            height: 5rem;
+            width: 4rem;
+            height: 4rem;
         }
     }
 }
@@ -164,4 +329,6 @@ body, html {
     .splash-page__center {
         flex-direction: row;
     }
+
+    // insert changes for lower social/technologies pages
 }

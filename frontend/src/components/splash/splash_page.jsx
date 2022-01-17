@@ -10,11 +10,18 @@ import TopNav from '../top_nav/top_nav'
 class SplashPage extends React.Component {
     constructor(props) {
         super(props)
+
+        let joinText = "Join"
+        let createText = "Create"
+        if (window.innerWidth >= 770) {
+            joinText = "Join Game"
+            createText = "Create Game"
+        }
         this.state = {
             quote: "Oh no, we've got an ugly one this time...",
             screenWidth: null,
-            joinButtonText: "Join",
-            createButtonText: "Create",
+            joinButtonText: joinText,
+            createButtonText: createText,
         }
     }
 
@@ -111,13 +118,41 @@ class SplashPage extends React.Component {
                             icon={faChevronDown}
                             size="5x" />
                     </div>
+                    <div className="splash-page__lower-gradient">
+
+                    </div>
                 </div>
                 <div className="splash-page__bottom">
                     <div className="splash-page__links">
-                    
+                        <div className="splash-page__links-container">
+                            <div className="splash-page__links-header">
+                                What is Quizard?
+                            </div>
+                            <div className="splash-page__links-text">
+                                Quizard is a full stack quiz game built in 4 days by these fine folks:
+                            </div>
+                            <div className="splash-page__profile-list">
+                                <div className="splash-page__profile">
+                                    {/* SKELETON -- FILL PROFILE WITH SOCIALS */}
+                                </div>
+                                <div className="splash-page__profile">
+                                    {/* SKELETON -- FILL PROFILE WITH SOCIALS */}
+                                </div>
+                                <div className="splash-page__profile">
+                                    {/* SKELETON -- FILL PROFILE WITH SOCIALS */}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="splash-page__continue">
+                            <div className="splash-page__continue-text">
+                                Quizard's ingredients
+                            </div>
+                            <FontAwesomeIcon 
+                                icon={faChevronDown} 
+                                size="2x" />
+                        </div>
                     </div>
                     <div className="splash-page__technologies">
-                        
                     </div>
                 </div>
             </div>
