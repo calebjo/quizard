@@ -40,7 +40,9 @@ router.post('/', (req, res) => {
 // })
 
 router.delete('/:id', (req, res) => {
-    Question.deleteOne({ _id: req.params.id }).then(() => res.status(204).send()).catch(err => res.status(404)).json({ error: "Question not found "})
+    return Question.findOneAndRemove({ _id: req.params.id })
+    .then(question => res.status(204).json(question))
+    .catch(() => res.status(404).json({ error: "Question not found" }))
 })
 
 module.exports = router;
