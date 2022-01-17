@@ -35,16 +35,14 @@ class QuestionSetIndex extends React.Component {
 
     render(){
         return(
+            // SKELETON -- needs categories to choose from, as well as question set seeds to map
             <div className="question-set-index">
                 <div className="question-set-index__top-nav">
                     <div className="question-set-index__filters">
                         <div className="question-set-index__categories">
                             <select onChange={this.updateCategory}>
-                                <option value="0">Any</option>
-                                <option value="1">1+</option>
-                                <option value="2">2+</option>
-                                <option value="3">3+</option>
-                                <option value="4">4+</option>
+                                <option value="0">INSERT CATEGORY HERE</option>
+                                <option value="1">INSERT CATEGORY HERE</option>
                             </select>
                         </div>
                         <div className="question-set-index__search">
