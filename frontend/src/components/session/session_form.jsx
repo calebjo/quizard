@@ -13,7 +13,8 @@ class SessionForm extends React.Component {
         this.state = {
             username: "",
             email: "",
-            password: ""
+            password: "",
+            password2: ""
         }
         this.update = this.update.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -44,7 +45,7 @@ class SessionForm extends React.Component {
     }
 
     render () {
-        let {username, email, password} = this.state;
+        let {username, email, password, password2} = this.state;
         const {formType, headerText, buttonText, altLink} = this.props;
 
         // differentiating login from signup
@@ -61,6 +62,18 @@ class SessionForm extends React.Component {
             </>
         ) : null;
 
+        const passwordExtra = (formType === "signup") ? (
+            <>
+                <div>
+                    <input type="password"
+                        className={password2 ? "" : "empty"}
+                        value={password2}
+                        onChange={this.update('password2')}></input>
+                    <label>Confirm Password</label>
+                </div>
+                <br />
+            </>
+        ) : null;
         return (
         <main className="splash-page__main">
             <div className="session-form-background">
@@ -84,7 +97,7 @@ class SessionForm extends React.Component {
                             <label>Password</label>
                         </div>
                         <br />
-
+                        { passwordExtra }
                         <button className={formType === "signup" ? "styled-button orange-bg" : "styled-button red-bg"} 
                             onClick={this.handleSubmit}>{buttonText}</button>
                     </form>
