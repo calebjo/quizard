@@ -16,10 +16,6 @@ const UserSchema = new Schema({
         type: String, 
         required: true
     },
-    sets_created: [{
-        type: Schema.Types.ObjectId,
-        ref: "Set"
-    }],
     games_played: {
         type: Number, 
         default: 0

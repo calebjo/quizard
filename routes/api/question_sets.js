@@ -42,16 +42,7 @@ router.post('/', (req, res) => {
     });
 
     newSet.save()
-        .then(q_set => {
-
-            User.findByIdAndUpdate(
-                { _id: creator_id },
-                { $push: { sets_created: q_set._id } },
-                { new: true }
-            ).then(() => { })
-
-            return res.json(q_set).status(200)
-        })
+        .then(q_set =>res.json(q_set).status(200))
         .catch(err => res.json(err).status(404))
 });
 
@@ -86,25 +77,11 @@ router.patch('/:id', (req, res) => {
 
 // Delete route, returns question after removal 
 router.delete('/:id', (req, res) => {
-    
+
     const qSetFilter = { _id: req.params.id };
-    let qSetCreatorId;
     // deletes Question Set
     QuestionSet.findOneAndRemove(qSetFilter)
-        .then(q_set => {
-
-            qSetCreatorId = q_set.creator_id;
-            User.findByIdAndUpdate(
-                { _id: qSetCreatorId },
-                { $pull: { sets_created: q_set._id } },
-            ).then(() => { })
-
-            // delets all Questions associated with the set 
-            const qFilter = { set_id: req.params.id }
-            Question.deleteMany(qFilter).then(() => { })
-
-            return res.status(200).json(q_set)
-        })
+        .then(q_set => res.status(200).json(q_set))
         .catch(() => res.status(404).json({ error: "Question Set not found" })
     )
 });

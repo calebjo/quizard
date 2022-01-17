@@ -62,17 +62,7 @@ router.post('/', (req, res) => {
 
     // saves the question on its own
     newQuestion.save()
-        .then(question => {
-
-            // updates the corresponding set using previously stored questionId
-            QuestionSet.findByIdAndUpdate(
-                { _id: set_id }, 
-                { $push: { questions: question._id } },
-                { new: true }
-            ).then(() => { })
-
-            return res.json(question).status(200);
-        })
+        .then(question => res.json(question).status(200))
         .catch(err => res.json(err))
 });
 
@@ -111,19 +101,11 @@ router.patch('/:id', (req, res) => {
 // Delete route, returns question after removal 
 router.delete('/:id', (req, res) => {
     const filter = { _id: req.params.id };
+
     Question.findOneAndRemove(filter)
-        .then(question => {
-            
-            // removes the question id from its parent question set
-            // QuestionSet.findByIdAndUpdate(
-            //     { _id: set_id },
-            //     { $pull: { questions: question._id } },
-            //     { new: true }
-            // ).then(() => {}).catch(() => {})
-            
-            return res.status(200).json(question)
-        })
-        .catch(() => res.status(404).json({ error: "Question not found" }))
+        .then(question => res.status(200).json(question))
+        .catch(() => res.status(404).json({ error: "Question not found" })
+    )
 });
 
 module.exports = router;
