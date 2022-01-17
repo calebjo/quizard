@@ -4,14 +4,21 @@ const validateQuestionSet = require('../../validation/question_sets');
 
 const QuestionSet = require('../../models/QuestionSet');
 const Question = require('../../models/Question');
+const User = require('../../models/User');
 
+router.get('/:id', (req, res) => {
+    const filter = { _id: req.params.id };
 
-router.get('/:id'), (req, res) => {
-    QuestionSet.findById(req.params.id)
-        .then(set => res.json(set).status(200))
-        .catch(err => res.status(404).json({ error: "Question Set could not be found"})
-    )
-}
+    QuestionSet.findOne(filter)
+        .then(question => {
+            if (question) {
+                return res.json(question)
+            } else {
+                return res.json({ error: "Question Set not found" }).status(404)
+            }
+        })
+        .catch(() => res.status(404).json({ error: "Question Set not found" }))
+})
 
 // Route creates new sets
 router.post('/', (req, res) => {
@@ -35,8 +42,17 @@ router.post('/', (req, res) => {
     });
 
     newSet.save()
-        .then(q_set => res.json(q_set))
-        .catch(err => res.json(err))
+        .then(q_set => {
+
+            User.findByIdAndUpdate(
+                { _id: creator_id },
+                { $push: { sets_created: q_set._id } },
+                { new: true }
+            ).then(() => { })
+
+            return res.json(q_set).status(200)
+        })
+        .catch(err => res.json(err).status(404))
 });
 
 // Updates QSet -- should be used as part of the create page on the front end
@@ -44,7 +60,7 @@ router.post('/', (req, res) => {
 router.patch('/:id', (req, res) => {
 
     // validates updates
-    const { errors, isValid } = validateQuestionInput(req.body);
+    const { errors, isValid } = validateQuestionSet(req.body);
 
     if (!isValid) {
         return res.status(400).json(errors);
@@ -63,28 +79,34 @@ router.patch('/:id', (req, res) => {
         description
     }
 
-    if (questions.length === 0) {
-        return res.status(403).json({ error: "At least 3 Questions required"})
-    }
-
     QuestionSet.findOneAndUpdate(filter, update, { new: true })
-        .then(question => res.json(question)).status(200)
+        .then(question => res.json(question).status(200))
         .catch(() => res.json({ error: "Question Set not found" }).status(404))
 });
 
 // Delete route, returns question after removal 
 router.delete('/:id', (req, res) => {
+    
+    const qSetFilter = { _id: req.params.id };
+    let qSetCreatorId;
     // deletes Question Set
-    const QSetfilter = { _id: req.params.id };
-    QuestionSet.findOneAndRemove(QSetfilter)
-        .then(question => res.status(200).json(question))
-        .catch(() => res.status(404).json({ error: "Question Set not found" }))
+    QuestionSet.findOneAndRemove(qSetFilter)
+        .then(q_set => {
 
-    // delets all Questions associated with the set
-    const Qfilter = { set_id: req.params.id } 
-    Question.deleteMany(Qfilter)
-        .then(question => res.status(200).json(question))
-        .catch(() => res.status(404).json({ error: "Questions not found" }))
+            qSetCreatorId = q_set.creator_id;
+            User.findByIdAndUpdate(
+                { _id: qSetCreatorId },
+                { $pull: { sets_created: q_set._id } },
+            ).then(() => { })
+
+            // delets all Questions associated with the set 
+            const qFilter = { set_id: req.params.id }
+            Question.deleteMany(qFilter).then(() => { })
+
+            return res.status(200).json(q_set)
+        })
+        .catch(() => res.status(404).json({ error: "Question Set not found" })
+    )
 });
 
 module.exports = router;

@@ -21,10 +21,10 @@ require('./config/passport')(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/api/users", users);
-app.use("/api/question_sets", questionSets);
-app.use("/api/questions", questions);
-app.use("/api/game_records", gameRecords);
+app.use("/api/users/", users);
+app.use("/api/question_sets/", questionSets);
+app.use("/api/questions/", questions);
+app.use("/api/game_records/", gameRecords);
 
 
 const port = process.env.PORT || 4000;

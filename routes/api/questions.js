@@ -60,23 +60,20 @@ router.post('/', (req, res) => {
         type
     });
 
-    // use closure to store question Id 
-    let questionId;
-
     // saves the question on its own
     newQuestion.save()
         .then(question => {
-            questionId = question._id;
-            return res.json(question)
+
+            // updates the corresponding set using previously stored questionId
+            QuestionSet.findByIdAndUpdate(
+                { _id: set_id }, 
+                { $push: { questions: question._id } },
+                { new: true }
+            ).then(() => { })
+
+            return res.json(question).status(200);
         })
         .catch(err => res.json(err))
-
-    const qSetFilter = { _id: set_id }
-    const updateParams = {$push: {questions: questionId} }
-    // updates the corresponding set using previously stored
-    QuestionSet.findOneAndUpdate(qSetFilter, updateParams)
-        .then(qSet => res.json(qSet).status(200))
-        .catch(err => res.status(404).json({ error: "Question Set not found"}))
 });
 
 // Update route, returns question after udpate
@@ -115,7 +112,17 @@ router.patch('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     const filter = { _id: req.params.id };
     Question.findOneAndRemove(filter)
-        .then(question => res.status(200).json(question))
+        .then(question => {
+            
+            // removes the question id from its parent question set
+            // QuestionSet.findByIdAndUpdate(
+            //     { _id: set_id },
+            //     { $pull: { questions: question._id } },
+            //     { new: true }
+            // ).then(() => {}).catch(() => {})
+            
+            return res.status(200).json(question)
+        })
         .catch(() => res.status(404).json({ error: "Question not found" }))
 });
 
