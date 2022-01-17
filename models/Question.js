@@ -4,27 +4,27 @@ const Schema = mongoose.Schema;
 const QuestionSchema = new Schema({
     set_id: {
         type: Schema.Types.ObjectId,
-        ref: "QuizSet"
+        ref: "QuestionSet"
     },
     category: {
         type: String, 
-        require: true
+        required: true
     },
     question: {
         type: String,
-        require: true
+        required: true
     },
     correctAnswer: {
         type: String,
-        require: true
+        required: true
     },
     incorrectAnswers: {
         type: Array,
-        require: true
+        required: true
     },
     type: {
         type: String,
-        require: true
+        required: true
     }},
     { timestamps: true }
 ); 
