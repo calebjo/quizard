@@ -12,7 +12,7 @@ class SessionForm extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            handle: "",
+            username: "",
             email: "",
             password: ""
         }
@@ -33,24 +33,25 @@ class SessionForm extends React.Component {
     }
 
     render () {
-        let {handle, email, password} = this.state;
+        let {username, email, password} = this.state;
         const {formType, headerText, buttonText, altLink} = this.props;
 
         // differentiating login from signup
-        const formHandleInput = (formType === "signup") ? (
+        const formUsernameInput = (formType === "signup") ? (
             <>
                 <div>
                     <input type="text"
-                        value={handle}
-                        className={handle ? "" : "empty"}
-                        onChange={this.update('handle')}></input>
-                    <label>Choose handle</label>
+                        value={username}
+                        className={username ? "" : "empty"}
+                        onChange={this.update('username')}></input>
+                    <label>Choose username</label>
                 </div>
                 <br />
             </>
         ) : null;
 
         return (
+        <main className="splash-page__main">
             <div className="session-form-background">
                 <div className="session-form-content">
                     <h1 className={formType === "signup" ? "orange" : "red"}>{headerText}</h1>
@@ -63,7 +64,7 @@ class SessionForm extends React.Component {
                             <label>E-mail</label>
                         </div>
                         <br />
-                        {formHandleInput}
+                        {formUsernameInput}
                         <div>
                             <input type="password"
                                 className={password ? "" : "empty"}
@@ -83,6 +84,7 @@ class SessionForm extends React.Component {
                     </div>
                 </div>
             </div>
+        </main>
         )
     }
 }
