@@ -13,26 +13,39 @@ class SessionForm extends React.Component {
         this.state = {
             username: "",
             email: "",
-            password: ""
+            password: "",
+            password2: ""
         }
+        this.update = this.update.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     // componentWillUnmount - clear form errors
 
     update(field) {
         return (e) => {
-            console.log(e.currentTarget);
+            // console.log(e.currentTarget);
             this.setState({[field]: e.currentTarget.value});
         }
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        
+        const user = Object.assign({}, this.state);
+        if (this.props.formType === "signup") {
+            this.props.signup(user).then(() =>
+                this.props.history.push("/"));
+        } else { // login
+            this.props.login(user).then(() =>
+                this.props.history.push("/"));
+        } // SKELETON -- Change "/" to user profile address after they login/sign up
+        
         console.log("form submitted!");
     }
 
     render () {
-        let {username, email, password} = this.state;
+        let {username, email, password, password2} = this.state;
         const {formType, headerText, buttonText, altLink} = this.props;
 
         // differentiating login from signup
@@ -49,6 +62,18 @@ class SessionForm extends React.Component {
             </>
         ) : null;
 
+        const passwordExtra = (formType === "signup") ? (
+            <>
+                <div>
+                    <input type="password"
+                        className={password2 ? "" : "empty"}
+                        value={password2}
+                        onChange={this.update('password2')}></input>
+                    <label>Confirm Password</label>
+                </div>
+                <br />
+            </>
+        ) : null;
         return (
         <main className="splash-page__main">
             <div className="session-form-background">
@@ -72,7 +97,7 @@ class SessionForm extends React.Component {
                             <label>Password</label>
                         </div>
                         <br />
-
+                        { passwordExtra }
                         <button className={formType === "signup" ? "styled-button orange-bg" : "styled-button red-bg"} 
                             onClick={this.handleSubmit}>{buttonText}</button>
                     </form>
