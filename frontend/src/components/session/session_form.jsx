@@ -23,17 +23,24 @@ class SessionForm extends React.Component {
 
     update(field) {
         return (e) => {
-            console.log(e.currentTarget);
+            // console.log(e.currentTarget);
             this.setState({[field]: e.currentTarget.value});
         }
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log("form submitted!");
+        
         const user = Object.assign({}, this.state);
-        this.props.login(user).then(() =>
-            this.props.history.push("/"));
+        if (this.props.formType === "signup") {
+            this.props.signup(user).then(() =>
+                this.props.history.push("/"));
+        } else { // login
+            this.props.login(user).then(() =>
+                this.props.history.push("/"));
+        } // SKELETON -- Change "/" to user profile address after they login/sign up
+        
+        console.log("form submitted!");
     }
 
     render () {
