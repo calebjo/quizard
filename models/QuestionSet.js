@@ -10,10 +10,6 @@ const QuestionSetSchema = new Schema({
         type: String,
         required: true
     },
-    questions: [{
-        type: Schema.Types.ObjectId,
-        ref: "Question"
-    }],
     title: {
         type: String, 
         required: true

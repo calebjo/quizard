@@ -3,21 +3,16 @@ const router = express.Router({ mergeParams: true });
 const validateQuestionInput = require('../../validation/questions');
 
 const Question = require('../../models/Question');
-const QuestionSet = require('../../models/QuestionSet');
 
-// 
-// UNDER CONSTRUCTION
-// 
+// Index route; grabs all questions in set
+router.get('/question_sets/:question_set_id/', (req, res) => {
+    // filters by set id key
+    const filter = { set_id: req.params.question_set_id } 
 
-// // Index route; grabs all questions in set
-// router.get('/question_sets/:question_set_id/', (req, res) => {
-//     // filters by set id key
-//     const filter = { question_set_id: req.params.question_set_id } 
-
-//     Question.find(filter)
-//         .then(questions => res.json(questions))
-//         .catch(err => res.status(404).json({ noSetFound: "No set found "}))
-// })
+    Question.find(filter)
+        .then(questions => res.json(questions))
+        .catch(err => res.status(404).json({ noSetFound: "No set found "}))
+})
 
 // Route to retrieve individual questions
 router.get('/:id', (req, res) => {
@@ -62,17 +57,7 @@ router.post('/', (req, res) => {
 
     // saves the question on its own
     newQuestion.save()
-        .then(question => {
-
-            // updates the corresponding set using previously stored questionId
-            QuestionSet.findByIdAndUpdate(
-                { _id: set_id }, 
-                { $push: { questions: question._id } },
-                { new: true }
-            ).then(() => { })
-
-            return res.json(question).status(200);
-        })
+        .then(question => res.json(question).status(200))
         .catch(err => res.json(err))
 });
 
@@ -111,19 +96,11 @@ router.patch('/:id', (req, res) => {
 // Delete route, returns question after removal 
 router.delete('/:id', (req, res) => {
     const filter = { _id: req.params.id };
+
     Question.findOneAndRemove(filter)
-        .then(question => {
-            
-            // removes the question id from its parent question set
-            // QuestionSet.findByIdAndUpdate(
-            //     { _id: set_id },
-            //     { $pull: { questions: question._id } },
-            //     { new: true }
-            // ).then(() => {}).catch(() => {})
-            
-            return res.status(200).json(question)
-        })
-        .catch(() => res.status(404).json({ error: "Question not found" }))
+        .then(question => res.status(200).json(question))
+        .catch(() => res.status(404).json({ error: "Question not found" })
+    )
 });
 
 module.exports = router;

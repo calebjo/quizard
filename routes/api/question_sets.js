@@ -3,9 +3,17 @@ const router = express.Router();
 const validateQuestionSet = require('../../validation/question_sets');
 
 const QuestionSet = require('../../models/QuestionSet');
-const Question = require('../../models/Question');
-const User = require('../../models/User');
 
+
+// Index route for a particular user's QSets
+router.get('/users/:user_id', (req, res) => {
+    const filter = { creator_id: req.params.user_id }
+    QuestionSet.find(filter)
+        .then(questions => res.json(questions))
+        .catch(err => res.status(404).json({ noSetFound: "No set found " }))
+})
+
+// Grabs a particular QSet
 router.get('/:id', (req, res) => {
     const filter = { _id: req.params.id };
 
@@ -42,16 +50,7 @@ router.post('/', (req, res) => {
     });
 
     newSet.save()
-        .then(q_set => {
-
-            User.findByIdAndUpdate(
-                { _id: creator_id },
-                { $push: { sets_created: q_set._id } },
-                { new: true }
-            ).then(() => { })
-
-            return res.json(q_set).status(200)
-        })
+        .then(q_set =>res.json(q_set).status(200))
         .catch(err => res.json(err).status(404))
 });
 
@@ -86,25 +85,11 @@ router.patch('/:id', (req, res) => {
 
 // Delete route, returns question after removal 
 router.delete('/:id', (req, res) => {
-    
+
     const qSetFilter = { _id: req.params.id };
-    let qSetCreatorId;
     // deletes Question Set
     QuestionSet.findOneAndRemove(qSetFilter)
-        .then(q_set => {
-
-            qSetCreatorId = q_set.creator_id;
-            User.findByIdAndUpdate(
-                { _id: qSetCreatorId },
-                { $pull: { sets_created: q_set._id } },
-            ).then(() => { })
-
-            // delets all Questions associated with the set 
-            const qFilter = { set_id: req.params.id }
-            Question.deleteMany(qFilter).then(() => { })
-
-            return res.status(200).json(q_set)
-        })
+        .then(q_set => res.status(200).json(q_set))
         .catch(() => res.status(404).json({ error: "Question Set not found" })
     )
 });
