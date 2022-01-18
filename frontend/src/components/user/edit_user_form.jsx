@@ -55,8 +55,11 @@ class EditUserForm extends React.Component {
         e.preventDefault();
         console.log(this.state);
         this.props.updateUser(this.state)
-            .then(() => this.props.history.push(`/users/${this.props.currentUser.id}`))
-            .catch(() => {return;});
+            .then(() => {
+                if (Object.values(this.props.errors).length === 0) {
+                    this.props.history.push(`/users/${this.props.currentUser.id}`)
+                }
+            })
     }
 
     handleDelete(e) {
@@ -70,6 +73,14 @@ class EditUserForm extends React.Component {
         const {email, username, password, password2, oldpassword} = this.state;
         const {errors} = this.props;
         const iconLetter = username ? username[0].toUpperCase() : "?";
+
+        // Error messages
+        let errorMsg;
+        if (Object.values(errors).length > 0) {
+            errorMsg = Object.values(errors).map((error, i) => (
+                <p key={`err${i}`} className="errortxt">{error}</p>
+            ))
+        }
 
         return (
         <main className="user-show">
@@ -86,6 +97,8 @@ class EditUserForm extends React.Component {
                     <text x="50%" y="63%" textAnchor="middle" fill="white" fontSize="50px" 
                         fontWeight="800" fontFamily="Podkova">{iconLetter}</text>
                 </svg>
+
+                {errorMsg}
 
                 <div className="edit-flex">
                     <label>Username</label>
