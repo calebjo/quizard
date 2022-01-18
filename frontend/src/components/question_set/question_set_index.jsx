@@ -1,8 +1,11 @@
 import React from 'react'
-
-import QuestionSetItem from './question_set_item';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
+import './question_set_index.scss'
+
+import QuestionSetItem from './question_set_item';
+import SideNavContainer from '../side_nav/side_nav_container'
 
 class QuestionSetIndex extends React.Component {
     constructor(props) {
@@ -11,6 +14,41 @@ class QuestionSetIndex extends React.Component {
             searchString: '',
             category: null
         }
+        // SKELETON -- hard coded temporary data
+        this.user = {
+            email: "test@gmail.com", 
+            username: "test_user",
+            sets_created: [],
+            games_played: 0,
+            games_won: 0
+        };
+        this.questionSets = [
+            {
+                category: "History",
+                title: "U.S. History from 1800-1900",
+                description: "A quiz of some of the most important historical events to happen between the 19-20th century in the United States."
+            },
+            {
+                category: "Geography",
+                title: "Very Good Cool Quiz",
+                description: "Really cool quiz made by really cool guy"
+            },
+            {
+                category: "Science",
+                title: "ASOIUNDBUIOOUASDDANSD",
+                description: "OA:INSBIOUljb3iyu1v23BASOIUDBOIASNDOPIASD1231231lkjn123OASIUNDOIASNDASNDASPOMD{ODaDSAasdasdas123sdfsdf234243"
+            }
+        ]
+        this.question = {
+            category: "Geography",
+            question: "Which Eastern European capital is the 24th largest city in the world by population?",
+            correctAnswer: "Moscow",
+            incorrectAnswers: ["Kiev", "London", "Minsk"],
+            type: "Multiple Choice"
+        }
+        this.questions = [
+            this.question, this.question, this.question, this.question
+        ]
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.update = this.update.bind(this)
@@ -36,6 +74,7 @@ class QuestionSetIndex extends React.Component {
         return(
             // SKELETON -- needs categories to choose from, as well as question set seeds to map
             <div className="question-set-index">
+                <SideNavContainer />
                 <div className="question-set-index__top-nav">
                     <div className="question-set-index__filters">
                         <div className="question-set-index__categories">
@@ -62,10 +101,17 @@ class QuestionSetIndex extends React.Component {
                     </div>
                 </div>
                 <div className="question-set-index__items">
-                    {/* For all question sets, show an item  */}
-                    <QuestionSetItem />
-                    <QuestionSetItem />
-                    <QuestionSetItem />
+                    {/* SKELETON -- For all question sets, show an item  */}
+                    {/* SKELETON -- For each set, find and pass down its questions */}
+                    <QuestionSetItem 
+                        questionSet={this.questionSets[0]}
+                        questions={this.questions}/>
+                    <QuestionSetItem 
+                        questionSet={this.questionSets[1]}
+                        questions={this.questions}/>
+                    <QuestionSetItem 
+                        questionSet={this.questionSets[2]}
+                        questions={this.questions}/>
                 </div>
             </div>
         )
