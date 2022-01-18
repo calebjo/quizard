@@ -14,7 +14,6 @@ class QuestionSetItem extends React.Component {
             this.setState({
                 questions: response.questions.data
             })
-            console.log(this.state.questions)
         })
     }
 
