@@ -1,27 +1,32 @@
 import React from "react";
 import "./user.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faArrowLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 class EditUserForm extends React.Component {
 
     constructor(props) {
         super(props);
-        // const {currentUser} = this.props;
+        const {currentUser} = this.props;
         // this.state = {
         //     email: currentUser.email,
         //     username: currentUser.username,
-        //     password: ""
+        //     password: "",
+        //     password2: "",
+        //     oldpassword: ""
         // };
 
         //TEMP CODE FOR TESTING PURPOSES:
         this.state = {
             email: "fake@gmail.com",
             username: "test_user",
-            password: ""
+            password: "",
+            password2: "",
+            oldpassword: ""
         };
 
         this.toggleModal = this.toggleModal.bind(this);
+        this.revealPasswordChange = this.revealPasswordChange.bind(this);
         this.update = this.update.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -36,6 +41,16 @@ class EditUserForm extends React.Component {
         const modal = document.getElementsByClassName("delete-modal")[0];
         modal.classList.toggle("hidden");
         e.stopPropagation();
+    }
+
+    revealPasswordChange (e) {
+        e.preventDefault();
+
+        const showButton = document.getElementById("show-password-change");
+        showButton.classList.toggle("rotate-down");
+
+        const passwordChange = document.getElementById("password-change");
+        passwordChange.classList.toggle("hidden");
     }
 
     update(type) {
@@ -55,7 +70,7 @@ class EditUserForm extends React.Component {
     }
 
     render () {
-        const {email, username, password} = this.state;
+        const {email, username, password, password2, oldpassword} = this.state;
 
         const iconLetter = username ? username[0].toUpperCase() : "?";
 
@@ -85,9 +100,26 @@ class EditUserForm extends React.Component {
                     <input type="text" value={email} onChange={this.update("email")} />
                 </div>
 
-                <div className="edit-flex">
-                    <label>Password</label>
-                    <input type="password" value={password} onChange={this.update("password")} />
+                {/* Update password fields- hidden until toggled */}
+                <div className="edit-flex" onClick={this.revealPasswordChange}>
+                    <h4 className="">Update password</h4>
+                    <div id="show-password-change">
+                        <FontAwesomeIcon icon={faChevronRight} />
+                    </div>
+                </div>
+                <div id="password-change" className="hidden">
+                    <div className="edit-flex">
+                        <label>Enter old password:</label>
+                        <input type="password" value={oldpassword} onChange={this.update("oldpassword")} />
+                    </div>
+                    <div className="edit-flex">
+                        <label>Enter new password:</label>
+                        <input type="password" value={password} onChange={this.update("password")} />
+                    </div>
+                    <div className="edit-flex">
+                        <label>Confirm new password:</label>
+                        <input type="password2" value={password2} onChange={this.update("password2")} />
+                    </div>
                 </div>
 
                 <br/>
@@ -103,7 +135,8 @@ class EditUserForm extends React.Component {
                     </div>
 
                     <h1>Delete your account</h1>
-                    <p>Once you delete your account, you can't get it back!<br/>Are you sure you want to delete your account forever?</p>
+                    <p><span className="red">Once you delete your account, you can't get it back!</span>
+                        <br/>Are you sure you want to delete your account forever?</p>
 
                     <div className="delete-buttons">
                         <button className="styled-button red-bg" 

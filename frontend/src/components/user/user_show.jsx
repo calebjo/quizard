@@ -6,64 +6,59 @@ class UserShow extends React.Component {
     constructor(props) {
         super(props);
 
-        // this will evenutally be subbed out for actual user's info via state props
-        this.user = {
-            username: "test_user",
-            sets_created: [],
-            games_played: 0,
-            games_won: 0
+        this.state = {
+            badges: []
         };
 
-        this.badges = [];
-        this.needsBadges = true; // not necessary once componentDidMount is added
-
         this.handleEdit = this.handleEdit.bind(this);
+        this.getBadges = this.getBadges.bind(this);
     }
 
     componentDidMount () {
-        // fetch viewed user info
-        // THEN call getBadges
+        this.props.fetchUser(this.props.match.params.id)
+            .then(({user}) => {
+                console.log(user.data);
+                this.getBadges(user.data);});
+
+        console.log(this.props.viewedUser);
     }
 
-    getBadges () {
-        // update when user is derived from state props
-        const {games_played, games_won} = this.user;
+    getBadges (user) {
+        const {games_played, games_won} = user;
+        let badges = [];
 
         // badge depending on num of games played
         if (games_played > 100) {
-            this.badges.push("Quizard");
+            badges.push("Quizard");
         } else if (games_played > 51) {
-            this.badges.push("Elder");
+            badges.push("Elder");
         } else if (games_played > 10) {
-            this.badges.push("Master");
+            badges.push("Master");
         } else {
-            this.badges.push("Novice");
+            badges.push("Novice");
         }
 
         // badge depending on wins/losses
         if (games_won === 0 /*&& games_played > 1*/) {
-            this.badges.push("Sore Loser")
+            badges.push("Sore Loser");
         } else if ( games_won / games_played > 0.5) {
-            this.badges.push("Formidable Opponent")
+            badges.push("Formidable Opponent");
         }
+
+        this.setState({badges: badges});
     }
 
     handleEdit (e) {
         e.preventDefault();
-        debugger;
         this.props.history.push("/edit-profile");
-        debugger;
     }
 
     render () {
-        // update when user is derived from state props
-        const {username} = this.user;
+        const {viewedUser, currentUser} = this.props;
 
-        // remove when componentDidMount is added
-        if (this.needsBadges) {
-            this.getBadges();
-            this.needsBadges = false;
-        }
+        if (!viewedUser) return null;
+
+        const {username} = viewedUser;
 
         return (
         <main className="user-show">
@@ -79,9 +74,10 @@ class UserShow extends React.Component {
                     <h1>{username}</h1>
                 </div>
 
-                {/* Add conditional when state props present- empty div if not viewing current user profile */}
                 <div>
-                    <button className="styled-button orange-bg" onClick={this.handleEdit}>Edit Profile</button>
+                    {currentUser.id === viewedUser._id ? (
+                        <button className="styled-button orange-bg" onClick={this.handleEdit}>Edit Profile</button>
+                    ) : null}
                 </div>
             </div>
 
@@ -91,7 +87,7 @@ class UserShow extends React.Component {
                     <h4>Badges</h4>
 
                     <div className="badges-container">
-                        {this.badges.map((badge, i) => (
+                        {this.state.badges.map((badge, i) => (
                             <div key={`bdg${i}`} className="badge">
                                 <svg height="55" width="55">
                                     <circle cx="50%" cy="50%" r="25" fill="#FB3754" />
