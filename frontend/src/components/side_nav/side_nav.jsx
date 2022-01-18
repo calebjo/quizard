@@ -18,7 +18,7 @@ class SideNav extends React.Component {
 
     handleLogout (e) {
         e.preventDefault();
-        console.log("user logged out");
+        this.props.logout();
     }
 
     render () {
