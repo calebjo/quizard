@@ -57,6 +57,8 @@ class EditUserForm extends React.Component {
 
         const {email, username, password} = this.state;
 
+        const iconLetter = username ? username[0].toUpperCase() : "?";
+
         return (
         <main className="user-show">
             <form className="edit-user-form">
@@ -66,26 +68,27 @@ class EditUserForm extends React.Component {
                 <svg height="125" width="125">
                     <circle cx="50%" cy="50%" r="60" fill="#ffbc42" />
                     <text x="50%" y="63%" textAnchor="middle" fill="white" fontSize="50px" 
-                        fontWeight="800" fontFamily="Podkova">{username[0].toUpperCase()}</text>
+                        fontWeight="800" fontFamily="Podkova">{iconLetter}</text>
                 </svg>
 
                 <div className="edit-flex">
                     <label>Username</label>
-                    <input type="text" value={this.state.username} onChange={this.update("username")} />
+                    <input type="text" value={username} onChange={this.update("username")} />
                 </div>
 
                 <div className="edit-flex">
                     <label>E-mail</label>
-                    <input type="text" value={this.state.email} onChange={this.update("email")} />
+                    <input type="text" value={email} onChange={this.update("email")} />
                 </div>
 
                 <div className="edit-flex">
                     <label>Password</label>
-                    <input type="password" value={this.state.password} onChange={this.update("password")} />
+                    <input type="password" value={password} onChange={this.update("password")} />
                 </div>
 
+                <br/>
                 <button className="styled-button red-bg">Save changes</button>
-
+                <br/>
                 <button className="styled-button greyed" onClick={this.toggleModal}>Delete account</button>
             </form>
 
@@ -96,7 +99,7 @@ class EditUserForm extends React.Component {
                     </div>
 
                     <h1>Delete your account</h1>
-                    <p>Once you delete your account, you can't get it back!<br/>Are you sure you want to leave?</p>
+                    <p>Once you delete your account, you can't get it back!<br/>Are you sure you want to delete your account forever?</p>
 
                     <div className="delete-buttons">
                         <button className="styled-button red-bg" 

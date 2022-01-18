@@ -101,21 +101,47 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 10px;
+    }
+
+    label, input {
+        font-size: 18px;
     }
 
     label {
         font-family: 'Fredoka One', cursive;
+        width: 8vw;
+    }
+
+    input {
+        text-align: left;
+        padding: 1.2em;
+        margin-top: 0.5em;
+        border: 1px solid white;
+        font-family: "Roboto", sans-serif;
+        border-radius: 18px;
+        font-size: 0.95em;
+        width: 24vw;
+        color: white;
     }
 
     input:focus {
         outline: none;
-        border-bottom: 1px solid white;
+        box-shadow: 0 0 10px white;
+    }
+
+    .red-bg {
+        color: black;
+    }
+    .red-bg:hover {
+        color: white;
     }
 }
 
 .greyed {
     background-color: darkgray;
     color: gray;
+    width: 12rem;
 }
 
 .delete-modal {
@@ -146,6 +172,7 @@
   background-color: #003e5b;
   width: 33vw;
   color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.685);
 
   h1 {
       font-size: 30px;
@@ -153,8 +180,9 @@
   }
 
   p {
-      font-family: "Roboto", sans-serif;
-      margin-bottom: 2em;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    margin-bottom: 3em;
   }
 
   .delete-buttons {
