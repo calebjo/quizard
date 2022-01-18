@@ -19,7 +19,7 @@ const usersReducer = (state = {}, action) => {
             nextState[action.user.data._id] = action.user.data;
             return nextState;
         case RECEIVE_CURRENT_USER:
-            nextState[action.currentUser.data._id] = action.currentUser.data;
+            nextState[action.currentUser.id] = action.currentUser;
             return nextState;
         case RECEIVE_USER_LOGOUT:
             return _nullSession;
