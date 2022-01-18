@@ -194,9 +194,10 @@
   align-items: center;
   padding: 30px;
   background-color: #003e5b;
-  width: 33vw;
+  width: 35vw;
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.685);
+  animation: zoominandshake 0.5s;
 
   h1 {
       font-size: 30px;
@@ -205,8 +206,9 @@
 
   p {
     font-family: "Roboto", sans-serif;
+    font-size: 18px;
     line-height: 1.5;
-    margin-bottom: 3em;
+    margin-bottom: 2em;
   }
 
   .delete-buttons {
@@ -221,6 +223,11 @@
     right: 30px;
     cursor: pointer;
   }
+
+  .red {
+    color: #FB3754;
+    font-weight: 700;
+  }
 }
 
 .hidden {
@@ -229,4 +236,21 @@
 
 #show-password-change {
     cursor: pointer;
+}
+
+
+@keyframes zoominandshake {
+    0% {
+        transform: scale(0.1,0.1);
+    }
+    40% {
+        transform: scale(1,1);
+        transform: rotate(2deg)
+    }
+    70% {
+        transform: rotate(2deg)
+    }
+    50%,  90% {
+        transform: rotate(-2deg)
+    }
 }

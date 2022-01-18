@@ -135,7 +135,8 @@ class EditUserForm extends React.Component {
                     </div>
 
                     <h1>Delete your account</h1>
-                    <p>Once you delete your account, you can't get it back!<br/>Are you sure you want to delete your account forever?</p>
+                    <p><span className="red">Once you delete your account, you can't get it back!</span>
+                        <br/>Are you sure you want to delete your account forever?</p>
 
                     <div className="delete-buttons">
                         <button className="styled-button red-bg" 
