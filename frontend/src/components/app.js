@@ -10,6 +10,7 @@ import LoginFormContainer from './session/login_form_container';
 import SideNavContainer from './side_nav/side_nav_container';
 import UserShowContainer from './user/user_show_container';
 import EditUserFormContainer from './user/edit_user_form_container';
+import QuestionSetIndexContainer from './question_set/question_set_index_container';
 
 const App = () => (
     <div className="app">
