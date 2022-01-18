@@ -6,6 +6,7 @@ const keys = require("../../config/keys");
 
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+const validateUserUpdate = require('../../validation/update_profile');
 const User = require('../../models/User');
 
 router.get('/:id', (req, res) => {
@@ -92,5 +93,66 @@ router.post('/login', (req, res) => {
                 })
         })
 })
+
+router.patch('/:id', (req, res) => {
+
+    const { errors, isValid, isUpdatingPassword } = validateUserUpdate(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const filter = { _id: req.params.id };
+
+    const username = req.body.username;
+    const email = req.body.email;
+    
+    // Validator contains key to determine whether or not user intends to update their password
+    if (isUpdatingPassword) {
+        User.findOne(filter).then(user => { 
+            const old_password = req.body.old_password
+            if (!user) {
+                return res.status(404).json({ email: "This user does not exist." })
+            }
+            bcrypt.compare(old_password, user.password).then(isMatch => {
+                if (isMatch) {
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(req.body.password, salt, (err, hash) => { 
+                            if (err) throw err;
+
+                            const updateParams = {
+                                username,
+                                email,
+                                password: hash,
+                            };
+
+                            User.findOneAndUpdate(filter, updateParams, { new: true })
+                                .then(user => res.json(user).status(200))
+                                .catch(() => res.json({ error: "This user does not exist" }))
+                        })   
+                    })
+                } else {
+                    return res.status(404).json({ password: "Incorrect password" })
+                }})})
+    } else {
+        const updateParams = {
+            username,
+            email
+        }
+
+        User.findOneAndUpdate(filter, updateParams, { new: true })
+            .then(user => res.json(user).status(200))
+            .catch(() => res.json({ error: "This user does not exist" })
+        )
+    }
+});
+
+router.delete('/:id', (req, res) => {
+    const filter = { _id: req.params.id };
+    User.findByIdAndRemove(filter)
+        .then(user => res.status(200).json(user))
+        .catch(() => res.status(404).json({ error: "This user does not exist"}))
+    }
+);
 
 module.exports = router;

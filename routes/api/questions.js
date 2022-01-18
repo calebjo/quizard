@@ -86,7 +86,7 @@ router.patch('/:id', (req, res) => {
         correctAnswer, 
         incorrectAnswers, 
         type
-    }
+    };
 
     Question.findOneAndUpdate(filter, updateParams, { new: true })
         .then(question => res.json(question)).status(200)
