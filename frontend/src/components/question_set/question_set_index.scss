@@ -55,6 +55,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    input {
+        padding: 0.75rem;
+    }
+    button {
+        margin-left: 0.5rem;
+    }
 }
 
 .question-set-index__items {
