@@ -33,7 +33,7 @@ export const updateQuestionSet = (id, questionSetData) => {
 };
 
 export const deleteQuestionSet = id => {
-    return axios.get(
+    return axios.delete(
         `/api/question_sets/${id}`
     );
 };
