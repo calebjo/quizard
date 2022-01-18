@@ -57,7 +57,7 @@ class UserShow extends React.Component {
 
     render () {
         // update when user is derived from state props
-        const {username, sets_created, games_played, games_won} = this.user;
+        const {username} = this.user;
 
         // remove when componentDidMount is added
         if (this.needsBadges) {
