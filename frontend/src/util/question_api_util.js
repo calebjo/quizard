@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const fetchSetQuestions = (setId) => {
     return axios.get(
-        `/api/question_sets/${setId}`
+        `/api/questions/question_sets/${setId}`
     );
 };
 
@@ -33,7 +33,7 @@ export const updateQuestion = (id, questionData) => {
 };
 
 export const deleteQuestion = id => {
-    return axios.get(
+    return axios.delete(
         `/api/questions/${id}`
     );
 };

@@ -15,30 +15,6 @@ class QuestionSetIndex extends React.Component {
             category: null
         }
         // SKELETON -- hard coded temporary data
-        this.user = {
-            email: "test@gmail.com", 
-            username: "test_user",
-            sets_created: [],
-            games_played: 0,
-            games_won: 0
-        };
-        this.questionSets = [
-            {
-                category: "History",
-                title: "U.S. History from 1800-1900",
-                description: "A quiz of some of the most important historical events to happen between the 19-20th century in the United States."
-            },
-            {
-                category: "Geography",
-                title: "Very Good Cool Quiz",
-                description: "Really cool quiz made by really cool guy"
-            },
-            {
-                category: "Science",
-                title: "ASOIUNDBUIOOUASDDANSD",
-                description: "OA:INSBIOUljb3iyu1v23BASOIUDBOIASNDOPIASD1231231lkjn123OASIUNDOIASNDASNDASPOMD{ODaDSAasdasdas123sdfsdf234243"
-            }
-        ]
         this.question = {
             category: "Geography",
             question: "Which Eastern European capital is the 24th largest city in the world by population?",
@@ -56,7 +32,6 @@ class QuestionSetIndex extends React.Component {
 
     componentDidMount() {
         this.props.fetchAllQuestionSets();
-        console.log(this.props)
     }
 
     handleSubmit(e) {
@@ -71,13 +46,13 @@ class QuestionSetIndex extends React.Component {
     }
 
     render(){
-        console.log(this.props.state.entities.questionSets.length)
         const indexItems = this.props.state.entities.questionSets.length ? (
             this.props.state.entities.questionSets.map((questionSet, idx) => {
                 return (
                     <QuestionSetItem 
                         questionSet={questionSet}
                         questions={this.questions}
+                        fetchSetQuestions={this.props.fetchSetQuestions}
                         key={idx}/>
                 )
             })

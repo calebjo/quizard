@@ -19,6 +19,14 @@ const removeQuestion = id => ({
     id
 })
 
+
+// fetches all of the questions for a given question SET
+export const fetchSetQuestions = (setId) => dispatch => (
+    APIUtil.fetchSetQuestions(setId).then(questions => (
+        dispatch(receiveAllQuestions(questions))
+    ))
+);
+
 export const fetchQuestions = () => dispatch => (
     APIUtil.fetchQuestions().then(questions => (
         dispatch(receiveAllQuestions(questions))
