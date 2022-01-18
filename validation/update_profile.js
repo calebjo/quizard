@@ -8,6 +8,10 @@ module.exports = function validateUserUpdate(data) {
     data.email = validText(data.email) ? data.email : '';
     data.old_password = validText(data.old_password) ? data.old_password : '';
 
+    if (data.username === 'demouser' || data.email === 'demouser@mail.com') {
+        errors.demouser = 'Tsk tsk... Who said you could do that?'
+    }
+
     if (!Validator.isEmpty(data.old_password)) {
 
         if (Validator.isEmpty(data.password)) {
