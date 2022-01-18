@@ -34,6 +34,19 @@
     font-weight: 900;
   }
 
+  h2 {
+    color: gray;
+  }
+
+  h2:hover {
+    cursor: pointer;
+    color: white;
+  }
+
+  h2:hover span {
+    color: white;
+  }
+
   input {
     text-align: left;
     padding: 1.2em;
@@ -95,8 +108,12 @@
     margin-top: 16px;
     font-size: 18px;
 
-    a:first-child:hover {
-        color: white;
+    a:hover {
+      color: white;
+    }
+
+    a:hover span {
+      color: white;
     }
 
     a {

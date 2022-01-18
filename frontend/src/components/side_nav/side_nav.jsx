@@ -41,8 +41,8 @@ class SideNav extends React.Component {
                         </NavLink>
                     ) : null }
                     
-                    {/* Link to quiz set index- always rendered */}
-                    <NavLink to="/quiz-sets" activeClassName="selected"> 
+                    {/* Link to question set index- always rendered */}
+                    <NavLink to="/question-sets" activeClassName="selected"> 
                         <div className="sidebar-nav__icons">
                             <FontAwesomeIcon 
                                 icon={faList}
