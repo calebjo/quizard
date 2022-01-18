@@ -51,7 +51,6 @@ class QuestionSetIndex extends React.Component {
                 return (
                     <QuestionSetItem 
                         questionSet={questionSet}
-                        questions={this.questions}
                         fetchSetQuestions={this.props.fetchSetQuestions}
                         key={idx}/>
                 )
