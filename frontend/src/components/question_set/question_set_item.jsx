@@ -22,6 +22,11 @@ class QuestionSetItem extends React.Component {
         console.log(`Starting a game from a ${this.props.questionSet.category} set!`)
     }
 
+    startGame() {
+        // SKELETON -- change to start a game when built
+        console.log(`Starting a game from a ${this.props.category} set!`)
+    }
+
     render(){
         // Pluralize question number text
         const questionNumText = this.state.questions.length > 1 || this.state.questions.length === 0 ? (
