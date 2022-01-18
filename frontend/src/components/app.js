@@ -18,7 +18,7 @@ const App = () => (
         <Route path="/users/:id" component={SideNavContainer}/> {/* VK: temp code for styling purposes */}
 
         <Switch>
-            <Route exact path="/question_sets" component={QuestionSetIndexContainer} />
+            <Route exact path="/quiz-sets" component={QuestionSetIndexContainer} />
             <Route exact path="/users/:id/edit" component={EditUserFormContainer} />
             <Route exact path="/users/:id" component={UserShowContainer} />
             <Route exact path="/login" component={LoginFormContainer} />

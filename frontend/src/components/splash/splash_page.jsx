@@ -54,7 +54,7 @@ class SplashPage extends React.Component {
             "Oh no, we've got an ugly one this time...",
             "Haven't I seen you before? What a shame.",
             "You should take a break, screens aren't good for you.",
-            "Aren't you the one that that lost TERRIBLY last time?",
+            "Aren't you the one that lost TERRIBLY last time?",
             "You have no one to blame but yourself!",
             "I think I've seen you before... medicine commercial?",
             "You miss 100% of the shots that you take!",
