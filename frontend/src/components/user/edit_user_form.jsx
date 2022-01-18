@@ -32,6 +32,7 @@ class EditUserForm extends React.Component {
     }
 
     toggleModal(e) {
+        e.preventDefault();
         const modal = document.getElementsByClassName("delete-modal")[0];
         modal.classList.toggle("hidden");
         e.stopPropagation();
