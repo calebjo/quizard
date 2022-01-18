@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode';
 
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
+import { fetchAllQuestionSets } from './actions/question_set_actions'; // DEBUG
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -28,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         store = configureStore({});
     }
+
+    window.fetchAllQuestionSets = fetchAllQuestionSets() // DEBUG
 
     const root = document.getElementById('root');
     ReactDOM.render(<Root store={store} />, root);
