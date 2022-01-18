@@ -22,6 +22,10 @@
     .back-arrow:hover {
         color: white;
     }
+
+    .rotate-down {
+        transform: rotate(90deg);
+    }
 }
 
 .user-header {
@@ -109,6 +113,11 @@
         padding: 20px;
     }
 
+    h4 {
+        font-family: "Fredoka One", cursive;
+        margin-right: 5px;
+    }
+
     .edit-flex {
         display: flex;
         align-items: center;
@@ -116,13 +125,15 @@
         margin: 10px;
     }
 
-    label, input {
+    label, input, h4 {
         font-size: 18px;
     }
 
     label {
         font-family: 'Fredoka One', cursive;
         width: 8vw;
+        margin: 15px;
+        text-align: right;
     }
 
     input {
@@ -154,6 +165,7 @@
     background-color: darkgray;
     color: gray;
     width: 12rem;
+    margin-bottom: 20px;
 }
 
 .delete-modal {
@@ -213,4 +225,8 @@
 
 .hidden {
     display: none;
+}
+
+#show-password-change {
+    cursor: pointer;
 }

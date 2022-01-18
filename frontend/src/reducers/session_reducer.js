@@ -2,6 +2,7 @@ import { RECEIVE_CURRENT_USER,
     RECEIVE_USER_LOGOUT, 
     RECEIVE_USER_SIGN_IN 
 } from '../actions/session_actions';
+import { REMOVE_USER } from "../actions/user_actions";
 
 const initialState = {
     isAuthenticated: false,
@@ -16,6 +17,11 @@ export default function(state = initialState, action) {
                 user: action.currentUser
             };
         case RECEIVE_USER_LOGOUT:
+            return {
+                isAuthenticated: false,
+                user: undefined
+            };
+        case REMOVE_USER:
             return {
                 isAuthenticated: false,
                 user: undefined
