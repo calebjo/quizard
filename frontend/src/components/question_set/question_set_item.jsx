@@ -24,7 +24,7 @@ class QuestionSetItem extends React.Component {
 
     startGame() {
         // SKELETON -- change to start a game when built
-        console.log(`Starting a game from a ${this.props.category} set!`)
+        console.log(`Starting a game from a ${this.props.questionSet.category} set!`)
     }
 
     render(){
