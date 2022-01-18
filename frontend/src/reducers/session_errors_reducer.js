@@ -4,7 +4,7 @@ import {
     CLEAR_SESSION_ERRORS
 } from '../actions/session_actions';
   
-const _nullErrors = [];
+const _nullErrors = {};
   
 const sessionErrorsReducer = (state = _nullErrors, action) => {
     Object.freeze(state);

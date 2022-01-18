@@ -6,10 +6,12 @@ import { signup, clearErrors } from "../../actions/session_actions"
 
 // add errors from state
 const mSTP = state => ({
+    currentUser: state.session.user,
     formType: "signup",
     headerText: "Join the Order",
     buttonText: "Enroll",
-    altLink: (<Link to="/login">Already have an account? <span className="red underline">Log in!</span></Link>)
+    altLink: (<Link to="/login">Already have an account? <span className="red underline">Log in!</span></Link>),
+    errors: state.errors.session
 });
 
 // add clear form errors action

@@ -19,7 +19,9 @@ class SessionForm extends React.Component {
         this.handleDemo = this.handleDemo.bind(this);
     }
 
-    // componentWillUnmount - clear form errors
+    componentWillUnmount () {
+        this.props.clearErrors();
+    }
 
     update(field) {
         return (e) => {
@@ -32,11 +34,17 @@ class SessionForm extends React.Component {
         
         const user = Object.assign({}, this.state);
         if (this.props.formType === "signup") {
-            this.props.signup(user).then(() =>
-                this.props.history.push("/question-sets"));
+            this.props.signup(user).then(() => {
+                if (this.props.currentUser) {
+                    this.props.history.push("/question-sets");
+                }
+            });
         } else { // login
-            this.props.login(user).then(() =>
-                this.props.history.push("/question-sets"));
+            this.props.login(user).then(() => {
+                if (this.props.currentUser) {
+                    this.props.history.push("/question-sets");
+                }
+            });
         }
     }
 
@@ -48,8 +56,9 @@ class SessionForm extends React.Component {
     }
 
     render () {
+
         let {username, email, password, password2} = this.state;
-        const {formType, headerText, buttonText, altLink} = this.props;
+        const {formType, headerText, buttonText, altLink, errors} = this.props;
 
         // differentiating login from signup
         let formUsernameInput, passwordExtra, demoUserOption;
@@ -89,11 +98,20 @@ class SessionForm extends React.Component {
             );
         }
 
+        // Error messages
+        let errorMsg;
+        if (Object.values(errors).length > 0) {
+            errorMsg = Object.values(errors).map((error, i) => (
+                <p key={`err${i}`} className="errortxt">{error}</p>
+            ))
+        }
+
         return (
         <main className="splash-page__main">
             <div className="session-form-background">
                 <div className="session-form-content">
                     <h1 className={formType === "signup" ? "orange" : "red"}>{headerText}</h1>
+                    {errorMsg}
                     <form className="session-form">
                         <div>
                             <input type="text"

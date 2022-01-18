@@ -1,6 +1,6 @@
 import {RECEIVE_USER_ERRORS, CLEAR_USER_ERRORS, RECEIVE_USER} from "../actions/user_actions";
 
-const defaultState = [];
+const defaultState = {};
 
 const UserErrorsReducer = (state = defaultState, action) => {
     Object.freeze(state);
