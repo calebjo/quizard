@@ -54,7 +54,6 @@ class EditUserForm extends React.Component {
     }
 
     render () {
-
         const {email, username, password} = this.state;
 
         const iconLetter = username ? username[0].toUpperCase() : "?";

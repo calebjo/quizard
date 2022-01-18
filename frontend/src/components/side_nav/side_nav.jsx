@@ -57,9 +57,15 @@ class SideNav extends React.Component {
                     </NavLink>
                 </div>
                 
-                <button 
-                    className="styled-button red-bg"
-                    onClick={this.handleLogout}>Log out</button>
+                <div className="nav-flex">
+                    {/* SKELETON: must add link to join game */}
+                    <button 
+                        className="styled-button orange-bg">
+                            Join Game</button>
+                    <button 
+                        className="styled-button red-bg"
+                        onClick={this.handleLogout}>Log Out</button>
+                </div>
             </aside>
         );
     }
