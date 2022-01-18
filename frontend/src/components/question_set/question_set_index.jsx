@@ -67,7 +67,7 @@ class QuestionSetIndex extends React.Component {
                     <div className="question-set-index__filters">
                         <div className="question-set-index__categories">
                             <select onChange={() => this.update('category')}>
-                                <option disabled value="0">Choose a Category</option>
+                                <option value="0">Choose a Category</option>
                                 <option value="1">INSERT CATEGORY HERE</option>
                                 <option value="1">INSERT CATEGORY HERE</option>
                                 <option value="1">INSERT CATEGORY HERE</option>
