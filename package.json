@@ -38,6 +38,7 @@
     "websocket": "^1.0.34"
   },
   "devDependencies": {
+    "mini-css-extract-plugin": "2.4.5",
     "nodemon": "^2.0.15",
     "sass": "^1.48.0"
   }
