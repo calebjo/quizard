@@ -5,7 +5,6 @@ import "./session_form.scss";
 // still need to add:
 //   - error handling
 //   - form submission
-//   - window resizing
 
 class SessionForm extends React.Component {
     constructor (props) {
@@ -35,11 +34,11 @@ class SessionForm extends React.Component {
         const user = Object.assign({}, this.state);
         if (this.props.formType === "signup") {
             this.props.signup(user).then(() =>
-                this.props.history.push("/"));
+                this.props.history.push("/quiz-sets"));
         } else { // login
             this.props.login(user).then(() =>
-                this.props.history.push("/"));
-        } // SKELETON -- Change "/" to user profile address after they login/sign up
+                this.props.history.push("/quiz-sets"));
+        } // VK: Changed these to redirect to the quiz set index per discord convo
         
         console.log("form submitted!");
     }
@@ -74,6 +73,7 @@ class SessionForm extends React.Component {
                 <br />
             </>
         ) : null;
+
         return (
         <main className="splash-page__main">
             <div className="session-form-background">
