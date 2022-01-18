@@ -1,5 +1,5 @@
 .user-show {
-    margin: 5vh 2vw 0 22vw;
+    margin: 5vh 60px 0 22vw;
 
     .flexed {
         display: flex;
@@ -9,6 +9,18 @@
         color: white;
         font-family: 'Fredoka One', cursive;
         font-weight: lighter;
+    }
+
+    .back-arrow {
+        position: absolute;
+        top: 60px;
+        left: 30vw;
+        color: gray;
+        cursor: pointer;
+    }
+
+    .back-arrow:hover {
+        color: white;
     }
 }
 

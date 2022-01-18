@@ -1,7 +1,7 @@
 import React from "react";
 import "./user.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 class EditUserForm extends React.Component {
 
@@ -14,7 +14,7 @@ class EditUserForm extends React.Component {
         //     password: ""
         // };
 
-        //TEMP CODE:
+        //TEMP CODE FOR TESTING PURPOSES:
         this.state = {
             email: "fake@gmail.com",
             username: "test_user",
@@ -61,6 +61,10 @@ class EditUserForm extends React.Component {
 
         return (
         <main className="user-show">
+            <div className="back-arrow" onClick={() => this.props.history.goBack()}>
+                <FontAwesomeIcon icon={faArrowLeft} size="3x" />
+            </div>
+
             <form className="edit-user-form">
                 <h1>Update your information</h1>
 
