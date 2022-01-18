@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { login, clearErrors } from "../../actions/session_actions"
 
 const mSTP = state => ({
+    currentUser: state.session.user,
     formType: "login",
     headerText: "Log in to Quizard",
     buttonText: "Let's go!",

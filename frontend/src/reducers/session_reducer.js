@@ -6,7 +6,7 @@ import { REMOVE_USER, UPDATE_CURRENT_USER } from "../actions/user_actions";
 
 const initialState = {
     isAuthenticated: false,
-    user: {}
+    user: undefined
 };
 
 export default function(state = initialState, action) {

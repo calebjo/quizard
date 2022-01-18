@@ -190,3 +190,16 @@
       transform: translateY(0);
    }
 } 
+
+input.errored {
+  border: 1px solid #FB3754;
+  color: #FB3754;
+}
+
+input.errored:focus {
+  box-shadow: 0 0 10px #FB3754;
+}
+
+p.errortxt {
+  color: #FB3754;
+}
