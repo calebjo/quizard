@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 module.exports = function validateQuestionSet(data) {
     let errors = {};
 
-    const categories = ["Food and Drink", "Geography", "General Knowledge", "History", "Art and Literature", "Movies", "Music", "Science", "Society and Culture", "Sport and Leisure", "Mixed"];
+    const categories = ["Food and Drink", "Geography", "General Knowledge", "History", "Art and Literature", "Movies", "Music", "Science", "Society and Culture", "Sport and Leisure", "Mixed", "Film and TV"];
 
     if (!mongoose.isValidObjectId(data.set_id)) {
         errors.creator_id = 'Invalid ID'

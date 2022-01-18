@@ -32,9 +32,9 @@ module.exports = function validateQuestion(data) {
         errors.category = 'Correct answer is required'
     }
 
-    if (data.incorrectAnswers.length < 1) {
-        errors.incorrectAnswers = 'Incorrect answers are required'
-    }
+    // if (data.incorrectAnswers.length < 1) {
+    //     errors.incorrectAnswers = 'Incorrect answers are required'
+    // }
 
     if (!types.includes(data.type)) {
         errors.type = 'Invalid question type'

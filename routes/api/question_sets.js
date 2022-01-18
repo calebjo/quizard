@@ -4,12 +4,16 @@ const validateQuestionSet = require('../../validation/question_sets');
 
 const QuestionSet = require('../../models/QuestionSet');
 
+// All qSets
+router.get('/', (req, res) => {
+    QuestionSet.find().then(qSet => res.json(qSet))
+})
 
 // Index route for a particular user's QSets
 router.get('/users/:user_id', (req, res) => {
     const filter = { creator_id: req.params.user_id }
     QuestionSet.find(filter)
-        .then(questions => res.json(questions))
+        .then(qSet => res.json(qSet))
         .catch(err => res.status(404).json({ noSetFound: "No set found " }))
 })
 
@@ -18,9 +22,9 @@ router.get('/:id', (req, res) => {
     const filter = { _id: req.params.id };
 
     QuestionSet.findOne(filter)
-        .then(question => {
-            if (question) {
-                return res.json(question)
+        .then(qSet => {
+            if (qSet) {
+                return res.json(qSet)
             } else {
                 return res.json({ error: "Question Set not found" }).status(404)
             }
@@ -50,7 +54,7 @@ router.post('/', (req, res) => {
     });
 
     newSet.save()
-        .then(q_set =>res.json(q_set).status(200))
+        .then(qSet => res.json(qSet).status(200))
         .catch(err => res.json(err).status(404))
 });
 
@@ -79,7 +83,7 @@ router.patch('/:id', (req, res) => {
     }
 
     QuestionSet.findOneAndUpdate(filter, update, { new: true })
-        .then(question => res.json(question).status(200))
+        .then(qSet => res.json(qSet).status(200))
         .catch(() => res.json({ error: "Question Set not found" }).status(404))
 });
 
@@ -89,7 +93,7 @@ router.delete('/:id', (req, res) => {
     const qSetFilter = { _id: req.params.id };
     // deletes Question Set
     QuestionSet.findOneAndRemove(qSetFilter)
-        .then(q_set => res.status(200).json(q_set))
+        .then(qSet => res.status(200).json(qSet))
         .catch(() => res.status(404).json({ error: "Question Set not found" })
     )
 });
