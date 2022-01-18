@@ -20,13 +20,8 @@ const App = () => (
         <Route path="/question-sets" component={SideNavContainer} />
 
         <Switch>
-<<<<<<< HEAD
             <Route exact path="/question-sets" component={QuestionSetIndexContainer} />
             <Route exact path="/edit-profile" component={EditUserFormContainer} />
-=======
-            <Route exact path="/quiz-sets" component={QuestionSetIndexContainer} />
-            <Route exact path="/users/:id/edit" component={EditUserFormContainer} />
->>>>>>> fa7c3bd (Adjust styling, components)
             <Route exact path="/users/:id" component={UserShowContainer} />
             <Route exact path="/login" component={LoginFormContainer} />
             <Route exact path="/signup" component={SignupFormContainer} />
