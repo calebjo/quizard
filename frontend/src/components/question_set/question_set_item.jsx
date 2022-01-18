@@ -5,10 +5,30 @@ class QuestionSetItem extends React.Component {
         super(props)
     }
 
+    startGame() {
+        // SKELETON -- change to start a game when built
+        console.log(`Starting a game from a ${this.props.category} set!`)
+    }
+
     render(){
         return(
             <div className="question-set-item">
-                I AM AN ITEM
+                <div className="question-set-item__container">
+                    <div className="question-set-item__title">
+                        {this.props.questionSet.title}
+                    </div>
+                    <div className="question-set-item__question-number">
+                        Questions: {this.props.questions.length}
+                    </div>
+                    <div className="question-set-item__category">
+                        {this.props.questionSet.category}
+                    </div>
+                    <button 
+                        className="question-set-item__start"
+                        onClick={this.startGame}>
+                        Start a Game
+                    </button>
+                </div>
             </div>
         )
     }
