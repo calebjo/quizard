@@ -2,5 +2,116 @@
 .question-set-index {
     width: 100%;
     height: 100%;
-    background: red;
+    background: #0E273C;
+    padding-left: 20vw;
+}
+
+.question-set-index__top-nav {
+    position: absolute;
+    top: 0;
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #113757;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.9);
+}
+
+.question-set-index__filters {
+    display: flex;
+    height: 4rem;
+    color: #ffbc42;
+    font-family: 'Roboto', sans-serif;
+
+    select, form {
+        height: 65%;
+    }
+
+    form {
+        display: flex;
+        input {
+            width: 100%;
+            height: 100%;
+            background: #032f44;
+            &::placeholder {
+                color: #ffbc42;
+            }
+        }
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+    }
+}
+
+.question-set-index__filters > div {
+    margin: 0 2rem;
+}
+
+.question-set-index__categories, .question-set-index__search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.question-set-index__items {
+    margin: 2rem;
+    margin-top: 5rem;
+    padding-bottom: 0.5rem;
+}
+
+.question-set-item {
+    background: #003E5B;
+    border: 4px outset #ffbc42;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.question-set-item__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    font-family: "Roboto", sans-serif;
+
+    .question-set-item__details-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 55%;
+        height: 100%;
+    }
+
+    .question-set-item__details-container > div, button {
+        width: 20%;
+        margin: 0 2rem;
+    }
+
+    .question-set-item__question_number {
+        width: 8rem;
+    }
+
+    .question-set-item__start {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 2.5rem;
+        border-radius: 4px;
+        background: #FB3754;
+        color: black;
+        font-weight: 600;
+        padding: 0 1rem;
+        width: 9rem;
+    }
+}
+
+.question-set-item__title {
+    color: #ffbc42;
+    font-family: "Podkova", serif;
+    font-size: 1.75rem;
+    text-decoration: underline;
 }

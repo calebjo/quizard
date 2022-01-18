@@ -1,5 +1,5 @@
 
-import { RECEIVE_QUESTION_SETS, 
+import { RECEIVE_ALL_QUESTION_SETS, 
     RECEIVE_QUESTION_SET, 
     REMOVE_QUESTION_SET
 } from "../actions/question_set_actions";
@@ -9,7 +9,7 @@ const questionSetsReducer = (state = {}, action) => {
     const nextState = Object.assign({}, state);
 
     switch(action.type){
-        case RECEIVE_QUESTION_SETS:
+        case RECEIVE_ALL_QUESTION_SETS:
             return action.questionSets.data
         case RECEIVE_QUESTION_SET:
             let index = nextState.findIndex(questionSet => questionSet._id == action.questionSet.data._id)

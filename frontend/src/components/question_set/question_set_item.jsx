@@ -17,17 +17,19 @@ class QuestionSetItem extends React.Component {
                     <div className="question-set-item__title">
                         {this.props.questionSet.title}
                     </div>
-                    <div className="question-set-item__question-number">
-                        Questions: {this.props.questions.length}
+                    <div className="question-set-item__details-container">
+                        <div className="question-set-item__question-number">
+                            {this.props.questions.length} questions
+                        </div>
+                        <div className="question-set-item__category">
+                            {this.props.questionSet.category}
+                        </div>
+                        <button 
+                            className="question-set-item__start"
+                            onClick={this.startGame}>
+                            Start a Game
+                        </button>
                     </div>
-                    <div className="question-set-item__category">
-                        {this.props.questionSet.category}
-                    </div>
-                    <button 
-                        className="question-set-item__start"
-                        onClick={this.startGame}>
-                        Start a Game
-                    </button>
                 </div>
             </div>
         )
