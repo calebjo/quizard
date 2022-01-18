@@ -47,7 +47,7 @@ class SideNav extends React.Component {
                             <FontAwesomeIcon 
                                 icon={faList}
                                 size="3x" />
-                            <label>Quiz Sets</label>
+                            <label>Question Sets</label>
                         </div>
                     </NavLink>
                     
@@ -58,7 +58,7 @@ class SideNav extends React.Component {
                                 <FontAwesomeIcon 
                                     icon={faPlus}
                                     size="3x" />
-                                <label>Create a New Quiz Set</label>
+                                <label>Create a New Question Set</label>
                             </div>
                         </NavLink>
                     ) : null }

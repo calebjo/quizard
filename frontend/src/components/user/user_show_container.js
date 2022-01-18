@@ -1,16 +1,15 @@
 import { connect } from "react-redux";
+import { fetchUser } from "../../actions/user_actions";
 import UserShow from "./user_show";
 
-// current user
-// viewed user
 const mSTP = (state, ownProps) => ({
-
+    currentUser: state.session.user,
+    viewedUser: state.entities.users[ownProps.match.params.id],
 });
 
-// fetch other user info
-// fetch quiz sets
+// VK: add fetch quiz sets action when CJ is done
 const mDTP = dispatch => ({
-
+    fetchUser: (userId) => dispatch(fetchUser(userId))
 });
 
 export default connect(mSTP, mDTP)(UserShow);

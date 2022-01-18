@@ -24,7 +24,8 @@ const usersReducer = (state = {}, action) => {
         case RECEIVE_USER_LOGOUT:
             return _nullSession;
         case RECEIVE_USER:
-            return Object.assign(nextState, { [action.user.data._id]: action.user.data });
+            const otherUser = {[action.user.data._id]: action.user.data};
+            return Object.assign(nextState, otherUser);
         case REMOVE_USER:
             delete nextState[action.userId];
             return nextState;
