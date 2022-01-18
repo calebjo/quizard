@@ -19,6 +19,7 @@ const App = () => (
         <Route path="/edit-profile" component={SideNavContainer}/>
 
         <Switch>
+            <Route exact path="/question-sets" component={QuestionSetIndexContainer} />
             <Route exact path="/edit-profile" component={EditUserFormContainer} />
             <Route exact path="/users/:id" component={UserShowContainer} />
             <Route exact path="/login" component={LoginFormContainer} />

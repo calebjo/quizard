@@ -55,7 +55,7 @@ class QuestionSetIndex extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchQuestionSet(1);
+        this.props.fetchAllQuestionSets();
         console.log(this.props)
     }
 
@@ -71,6 +71,20 @@ class QuestionSetIndex extends React.Component {
     }
 
     render(){
+        console.log(this.props.state.entities.questionSets.length)
+        const indexItems = this.props.state.entities.questionSets.length ? (
+            this.props.state.entities.questionSets.map((questionSet, idx) => {
+                return (
+                    <QuestionSetItem 
+                        questionSet={questionSet}
+                        questions={this.questions}
+                        key={idx}/>
+                )
+            })
+        ) : (
+            null
+        )
+
         return(
             // SKELETON -- needs categories to choose from, as well as question set seeds to map
             <div className="question-set-index">
@@ -79,7 +93,10 @@ class QuestionSetIndex extends React.Component {
                     <div className="question-set-index__filters">
                         <div className="question-set-index__categories">
                             <select onChange={() => this.update('category')}>
-                                <option value="0">INSERT CATEGORY HERE</option>
+                                <option disabled value="0">Choose a Category</option>
+                                <option value="1">INSERT CATEGORY HERE</option>
+                                <option value="1">INSERT CATEGORY HERE</option>
+                                <option value="1">INSERT CATEGORY HERE</option>
                                 <option value="1">INSERT CATEGORY HERE</option>
                             </select>
                         </div>
@@ -101,17 +118,7 @@ class QuestionSetIndex extends React.Component {
                     </div>
                 </div>
                 <div className="question-set-index__items">
-                    {/* SKELETON -- For all question sets, show an item  */}
-                    {/* SKELETON -- For each set, find and pass down its questions */}
-                    <QuestionSetItem 
-                        questionSet={this.questionSets[0]}
-                        questions={this.questions}/>
-                    <QuestionSetItem 
-                        questionSet={this.questionSets[1]}
-                        questions={this.questions}/>
-                    <QuestionSetItem 
-                        questionSet={this.questionSets[2]}
-                        questions={this.questions}/>
+                    { indexItems }
                 </div>
             </div>
         )
