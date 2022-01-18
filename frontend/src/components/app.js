@@ -16,6 +16,7 @@ const App = () => (
         {/* <SideNavContainer /> */}
         <Route path="/users/:id" component={SideNavContainer}/> {/* VK: temp code for styling purposes */}
         <Route path="/edit-profile" component={SideNavContainer}/>
+        <Route path="/question-sets" component={SideNavContainer} />
 
         <Switch>
             <Route exact path="/edit-profile" component={EditUserFormContainer} />
