@@ -34,10 +34,10 @@ export const fetchUser = userId => dispatch => (
     UserUtil.fetchUser(userId).then((user) => dispatch(receiveUser(user)))
 );
 
-export const updateUser = user => dispatch => (
-    UserUtil.updateUser(user).then(
-        (user) => dispatch(updateCurrentUser(user)),
-        (errors) => dispatch(receiveUserErrors(errors.response.data)))
+export const updateUser = userData => dispatch => (
+    UserUtil.updateUser(userData)
+        .then((user) => dispatch(updateCurrentUser(user)))
+        .catch((errors) => dispatch(receiveUserErrors(errors.response.data)))
 );
 
 export const deleteUser = userId => dispatch => (

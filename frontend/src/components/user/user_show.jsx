@@ -19,8 +19,6 @@ class UserShow extends React.Component {
             .then(({user}) => {
                 console.log(user.data);
                 this.getBadges(user.data);});
-
-        console.log(this.props.viewedUser);
     }
 
     getBadges (user) {

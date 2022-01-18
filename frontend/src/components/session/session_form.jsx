@@ -52,7 +52,6 @@ class SessionForm extends React.Component {
         const {formType, headerText, buttonText, altLink} = this.props;
 
         // differentiating login from signup
-        // NOTE TO PR REVIEWER: restructured this to have login/signup exclusive components under a simple conditional
         let formUsernameInput, passwordExtra, demoUserOption;
         // Signup specific components
         if (formType === 'signup') {

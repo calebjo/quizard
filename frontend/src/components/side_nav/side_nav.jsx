@@ -31,7 +31,7 @@ class SideNav extends React.Component {
                     <img className="logo--nav" src={QuizardLogo} alt="logo" />
 
                     {/* Link to current user profile- only rendered when logged in */}
-                    { currentUser.id ? (
+                    { currentUser ? (
                         <NavLink to={`/users/${currentUser.id}`} activeClassName="selected"> 
                         <div className="sidebar-nav__icons">
                             <FontAwesomeIcon 
@@ -53,7 +53,7 @@ class SideNav extends React.Component {
                     </NavLink>
                     
                     {/* Link to quiz set creator page- only rendered when logged in */}
-                    { currentUser.id ? (
+                    { currentUser ? (
                         <NavLink to="/quiz-creator" activeClassName="selected"> 
                             <div className="sidebar-nav__icons">
                                 <FontAwesomeIcon 
@@ -73,7 +73,7 @@ class SideNav extends React.Component {
                             Join Game</button>
 
                     {/* Log out button- only rendered when logged in */}
-                    { currentUser.id ? (
+                    { currentUser ? (
                         <button 
                             className="styled-button red-bg"
                             onClick={this.handleLogout}>Log Out</button>

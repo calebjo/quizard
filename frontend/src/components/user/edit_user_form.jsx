@@ -8,18 +8,10 @@ class EditUserForm extends React.Component {
     constructor(props) {
         super(props);
         const {currentUser} = this.props;
-        // this.state = {
-        //     email: currentUser.email,
-        //     username: currentUser.username,
-        //     password: "",
-        //     password2: "",
-        //     oldpassword: ""
-        // };
-
-        //TEMP CODE FOR TESTING PURPOSES:
         this.state = {
-            email: "fake@gmail.com",
-            username: "test_user",
+            id: currentUser.id,
+            email: currentUser.email,
+            username: currentUser.username,
             password: "",
             password2: "",
             oldpassword: ""
@@ -33,7 +25,7 @@ class EditUserForm extends React.Component {
     }
 
     componentDidMount () {
-        // clear errors
+        this.props.clearUserErrors();
     }
 
     toggleModal(e) {
@@ -61,17 +53,22 @@ class EditUserForm extends React.Component {
 
     handleUpdate(e) {
         e.preventDefault();
-        // update current user and redirect to show page
+        console.log(this.state);
+        this.props.updateUser(this.state)
+            .then(() => this.props.history.push(`/users/${this.props.currentUser.id}`))
+            .catch(() => {return;});
     }
 
     handleDelete(e) {
         e.preventDefault();
-        // delete user, log out, redirect to splash
+        this.props.deleteUser(this.props.currentUser.id);
     }
 
     render () {
-        const {email, username, password, password2, oldpassword} = this.state;
+        if (!this.props.currentUser) return null;
 
+        const {email, username, password, password2, oldpassword} = this.state;
+        const {errors} = this.props;
         const iconLetter = username ? username[0].toUpperCase() : "?";
 
         return (
@@ -123,7 +120,7 @@ class EditUserForm extends React.Component {
                 </div>
 
                 <br/>
-                <button className="styled-button red-bg">Save changes</button>
+                <button className="styled-button red-bg" onClick={this.handleUpdate}>Save changes</button>
                 <br/>
                 <button className="styled-button greyed" onClick={this.toggleModal}>Delete account</button>
             </form>
