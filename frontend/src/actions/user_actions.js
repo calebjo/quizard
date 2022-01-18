@@ -26,7 +26,7 @@ export const clearUserErrors = () => ({
 })
 
 export const fetchUser = userId => dispatch => (
-    UserUtil.fetchUser(userId).then((user) => dispatch(receiveUser))
+    UserUtil.fetchUser(userId).then((user) => dispatch(receiveUser(user)))
 );
 
 // No backend routes for these dudes yet

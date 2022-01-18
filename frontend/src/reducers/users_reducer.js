@@ -4,6 +4,8 @@ import { RECEIVE_CURRENT_USER,
     RECEIVE_USER_SIGN_IN
     } from "../actions/session_actions";
 
+import { RECEIVE_USER, REMOVE_USER } from "../actions/user_actions";
+
 const _nullSession = {
     id: null
 };
@@ -14,13 +16,18 @@ const usersReducer = (state = {}, action) => {
 
     switch(action.type){
         case RECEIVE_USER_SIGN_IN:
-            nextState[action.user.data._id] = action.user.data
+            nextState[action.user.data._id] = action.user.data;
             return nextState;
         case RECEIVE_CURRENT_USER:
-            nextState[action.currentUser.id] = action.currentUser
+            nextState[action.currentUser.data._id] = action.currentUser.data;
             return nextState;
         case RECEIVE_USER_LOGOUT:
             return _nullSession;
+        case RECEIVE_USER:
+            return Object.assign(nextState, { [action.user.data._id]: action.user.data });
+        case REMOVE_USER:
+            delete nextState[action.userId];
+            return nextState;
         default:
             return state;
     }
