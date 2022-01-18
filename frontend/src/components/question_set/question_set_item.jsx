@@ -1,4 +1,8 @@
 import React from 'react'
+// nanoid package for generating lobby id
+import {nanoid} from 'nanoid';
+
+import GameLobbyContainer from '../game/game_lobby_container'
 
 class QuestionSetItem extends React.Component {
     constructor(props) {
@@ -18,13 +22,17 @@ class QuestionSetItem extends React.Component {
     }
 
     startGame() {
-        // SKELETON -- change to start a game when built
+        // SKELETON -- start a game with a random url string
         console.log(`Starting a game from a ${this.props.questionSet.category} set!`)
-    }
 
-    startGame() {
-        // SKELETON -- change to start a game when built
-        console.log(`Starting a game from a ${this.props.questionSet.category} set!`)
+        const lobbyId = nanoid(5)
+        // return (
+        //     <GameLobbyContainer
+        //         questionSet={this.props.questionSet}
+        //         questions={this.state.questions}
+        //         lobbyId={"A9ME8B"}
+        //     />
+        // )
     }
 
     render(){
