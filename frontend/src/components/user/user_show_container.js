@@ -8,6 +8,7 @@ const mSTP = (state, ownProps) => ({
 });
 
 // fetch other user info
+// fetch quiz sets
 const mDTP = dispatch => ({
 
 });

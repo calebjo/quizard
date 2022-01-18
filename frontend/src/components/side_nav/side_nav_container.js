@@ -1,9 +1,8 @@
 import { connect } from "react-redux";
 import SideNav from "./side_nav";
 
-// current user
-const mSTP = (state, ownProps) => ({
-
+const mSTP = (state) => ({
+    currentUser: state.session.user
 });
 
 // logout

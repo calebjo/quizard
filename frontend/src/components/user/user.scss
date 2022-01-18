@@ -1,3 +1,216 @@
 .user-show {
-    margin-left: 20vw;
+    margin: 5vh 60px 0 22vw;
+
+    .flexed {
+        display: flex;
+    }
+
+    h1 {
+        color: white;
+        font-family: 'Fredoka One', cursive;
+        font-weight: lighter;
+    }
+
+    .back-arrow {
+        position: absolute;
+        top: 60px;
+        left: 30vw;
+        color: gray;
+        cursor: pointer;
+    }
+
+    .back-arrow:hover {
+        color: white;
+    }
+}
+
+.user-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-bottom: 20px;
+
+    h1 {
+        font-size: 48px;
+        padding: 0 20px;
+    }
+}
+
+.user-header div:first-child {
+    float: left;
+    display: flex;
+    align-items: center;
+}
+.user-header div:last-child {
+    float: right;
+}
+
+.user-show-case {
+    background-color: #003e5b;
+    padding: 10px;
+    border-radius: 8px;
+    border: 4px outset #ffbc42;
+    color: white;
+
+    h4 {
+        color: #ffbc42;
+        font-family: "Podkova", serif;
+        font-size: 22px;
+        text-decoration: underline;
+        margin: 5px 0;
+    }
+
+    p {
+        margin: 10px;
+    }
+}
+
+
+.badges-case {
+    width: 165px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .badge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 5px;
+    }
+
+    .badges-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        float: left;
+    }
+}
+
+.created-sets-container {
+    margin-left: 20px;
+    height: fit-content;
+    width: 66vw;
+}
+
+// Edit user form
+.edit-user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
+
+    h1 {
+        font-size: 44px;
+        padding: 20px;
+    }
+
+    .edit-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    label, input {
+        font-size: 18px;
+    }
+
+    label {
+        font-family: 'Fredoka One', cursive;
+        width: 8vw;
+    }
+
+    input {
+        text-align: left;
+        padding: 1.2em;
+        margin-top: 0.5em;
+        border: 1px solid white;
+        font-family: "Roboto", sans-serif;
+        border-radius: 18px;
+        font-size: 0.95em;
+        width: 24vw;
+        color: white;
+    }
+
+    input:focus {
+        outline: none;
+        box-shadow: 0 0 10px white;
+    }
+
+    .red-bg {
+        color: black;
+    }
+    .red-bg:hover {
+        color: white;
+    }
+}
+
+.greyed {
+    background-color: darkgray;
+    color: gray;
+    width: 12rem;
+}
+
+.delete-modal {
+  z-index: 998;
+  position: fixed;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  background: rgba(0, 0, 0, .3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-modal-content {
+  z-index: 999;
+  position: relative;
+  border-radius: 32px;
+  height: 300px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background-color: #003e5b;
+  width: 33vw;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.685);
+
+  h1 {
+      font-size: 30px;
+      padding-bottom: 1em;
+  }
+
+  p {
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    margin-bottom: 3em;
+  }
+
+  .delete-buttons {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+  }
+}
+
+.hidden {
+    display: none;
 }
