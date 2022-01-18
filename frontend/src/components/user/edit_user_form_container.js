@@ -1,18 +1,17 @@
 import { connect } from "react-redux";
+import { clearUserErrors } from "../../actions/user_actions";
 import EditUserForm from "./edit_user_form";
 
-// current user info
-// errors
-const mSTP = (state, ownProps) => ({
-
+const mSTP = state => ({
+    currentUser: state.session.user,
+    errors: state.errors.user
 });
 
 
-// clear errors action
 // edit user action
 // delete user action (and possibly logout action?)
 const mDTP = dispatch => ({
-
+    clearUserErrors: () => dispatch(clearUserErrors()),
 });
 
 export default connect(mSTP, mDTP)(EditUserForm);

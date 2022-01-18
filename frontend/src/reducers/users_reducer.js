@@ -4,7 +4,7 @@ import { RECEIVE_CURRENT_USER,
     RECEIVE_USER_SIGN_IN
     } from "../actions/session_actions";
 
-import { RECEIVE_USER, REMOVE_USER } from "../actions/user_actions";
+import { RECEIVE_USER, REMOVE_USER, UPDATE_CURRENT_USER } from "../actions/user_actions";
 
 const _nullSession = {
     id: null
@@ -26,6 +26,9 @@ const usersReducer = (state = {}, action) => {
         case RECEIVE_USER:
             const otherUser = {[action.user.data._id]: action.user.data};
             return Object.assign(nextState, otherUser);
+        case UPDATE_CURRENT_USER: 
+            const currUser = {[action.user.data._id]: action.user.data};
+            return Object.assign(nextState, currUser);
         case REMOVE_USER:
             delete nextState[action.userId];
             return nextState;

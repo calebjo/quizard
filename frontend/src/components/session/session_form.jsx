@@ -4,7 +4,6 @@ import "./session_form.scss";
 
 // still need to add:
 //   - error handling
-//   - form submission
 
 class SessionForm extends React.Component {
     constructor (props) {
@@ -24,7 +23,6 @@ class SessionForm extends React.Component {
 
     update(field) {
         return (e) => {
-            // console.log(e.currentTarget);
             this.setState({[field]: e.currentTarget.value});
         }
     }
