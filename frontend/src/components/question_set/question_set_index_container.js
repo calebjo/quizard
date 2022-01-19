@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import QuestionSetIndex from './question_set_index'
 
 import { fetchAllQuestionSets, fetchQuestionSet } from "../../actions/question_set_actions";
@@ -14,4 +15,4 @@ const mDTP = dispatch => ({
     fetchSetQuestions: (setId) => dispatch(fetchSetQuestions(setId))
 });
 
-export default connect(mSTP, mDTP)(QuestionSetIndex);
+export default withRouter(connect(mSTP, mDTP)(QuestionSetIndex));
