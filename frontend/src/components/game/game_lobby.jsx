@@ -20,6 +20,7 @@ class GameLobby extends React.Component {
             creator: this.props.currentUser,
             playing: false
         }
+        this.startGame = this.startGame.bind(this)
     }
 
     componentDidMount() {
@@ -46,6 +47,7 @@ class GameLobby extends React.Component {
     }
 
     startGame() {
+        debugger
         this.setState({
             playing: true
         })
@@ -71,10 +73,6 @@ class GameLobby extends React.Component {
                 questions={this.state.questions}
             />
         ) : (
-            null
-        )
-
-        return(
             <div className="lobby__container">
                 <div className="lobby__quit">
                 </div>
@@ -88,15 +86,21 @@ class GameLobby extends React.Component {
                         </div>
                         <button 
                             className="lobby__start"
-                            onClick={() => this.startGame.bind(this)}>
+                            onClick={this.startGame}>
                             Start Game
                         </button>
                     </div>
                     <div className="lobby__players-large">
                     </div>
                 </div>
+            </div>
+        )
+
+        return(
+            <div>
                 <GameChatContainer 
                     socket={socket}/>
+                {gameOrLobby}
             </div>
         )
     }
