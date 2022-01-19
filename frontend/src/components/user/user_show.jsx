@@ -17,7 +17,6 @@ class UserShow extends React.Component {
     componentDidMount () {
         this.props.fetchUser(this.props.match.params.id)
             .then(({user}) => {
-                console.log(user.data);
                 this.getBadges(user.data);});
     }
 
@@ -59,7 +58,7 @@ class UserShow extends React.Component {
         const {username} = viewedUser;
 
         return (
-        <main className="user-show">
+        <main className="user-show with-nav">
             {/* HEADER */}
             <div className="user-header">
                 <div>
@@ -73,7 +72,7 @@ class UserShow extends React.Component {
                 </div>
 
                 <div>
-                    {currentUser.id === viewedUser._id ? (
+                    {currentUser && currentUser.id === viewedUser._id ? (
                         <button className="styled-button orange-bg" onClick={this.handleEdit}>Edit Profile</button>
                     ) : null}
                 </div>

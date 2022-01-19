@@ -1,0 +1,43 @@
+.qset-show {
+    padding: 12px 20px;
+
+    h1 {
+        font-size: 56px;
+        color: #ffbc42;
+        font-family: "Podkova", serif;
+    }
+
+    p {
+        color: white;
+        font-family: 'Fredoka One', cursive;
+        font-weight: lighter;
+        font-size: 24px;
+        padding: 0.5em 0;
+    }
+
+    h5 {
+        color: white;
+        font-family: "Podkova", serif;
+        font-size: 18px;
+        font-weight: 700;
+        padding: 6px;
+        margin-top: 0.5em;
+    }
+
+    .qset-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        h5:first-child {
+            margin-right: 20px;
+        }
+    }
+}
+
+.raised {
+    background-color: #003e5b;
+    border-radius: 8px;
+    border: 4px outset #ffbc42;
+}
