@@ -1,13 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+
+import { Link, withRouter, Redirect } from 'react-router-dom';
+import {nanoid} from 'nanoid'; // generates a random id
+
+// import GameLobbyContainer from '../game/game_lobby_container'
+
 
 class QuestionSetItem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            questions: []
+            questions: [],
+            redirect: false
         }
-        this.startGame = this.startGame.bind(this)
+        this.startLobby = this.startLobby.bind(this)
     }
 
     componentDidMount() {
@@ -18,17 +24,30 @@ class QuestionSetItem extends React.Component {
         })
     }
 
-    startGame() {
-        // SKELETON -- change to start a game when built
-        console.log(`Starting a game from a ${this.props.questionSet.category} set!`)
-    }
-
-    startGame() {
-        // SKELETON -- change to start a game when built
-        console.log(`Starting a game from a ${this.props.questionSet.category} set!`)
+    startLobby() {
+        // SKELETON -- start a game with a random url string
+        console.log(`Creating a lobby from a ${this.props.questionSet.category} set!`)
+        this.setState({
+            redirect: true
+        })
     }
 
     render(){
+        const lobbyId = nanoid(5)
+        const redirect = this.state.redirect ? (
+            <Redirect to={{
+                pathname: `/play/${lobbyId}`,
+                state: { 
+                    questionSet: this.props.questionSet,
+                    questions: this.state.questions,
+                    lobbyId: lobbyId,
+                    creator: this.props.currentUser
+                    }
+                }}
+            />
+        ) : (
+            <></>
+        )
         // Pluralize question number text
         const questionNumText = this.state.questions.length > 1 || this.state.questions.length === 0 ? (
             this.state.questions.length.toString() + " questions"
@@ -37,6 +56,7 @@ class QuestionSetItem extends React.Component {
         )
         return(
             <div className="question-set-item">
+                {redirect}
                 <div className="question-set-item__container">
                     <div className="question-set-item__title">
                         <Link to={`/question-sets/${this.props.questionSet._id}`}>{this.props.questionSet.title}</Link>
@@ -50,7 +70,7 @@ class QuestionSetItem extends React.Component {
                         </div>
                         <button 
                             className="question-set-item__start"
-                            onClick={this.startGame}>
+                            onClick={this.startLobby}>
                             Start a Game
                         </button>
                     </div>
@@ -60,4 +80,4 @@ class QuestionSetItem extends React.Component {
     }
 }
 
-export default QuestionSetItem;
+export default withRouter(QuestionSetItem);

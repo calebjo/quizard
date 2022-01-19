@@ -1,6 +1,6 @@
-const { response, response } = require("express");
+// const { response, response } = require("express");
 
-class Game {
+export default class Game {
     constructor(questions, players) {
         // questions should be an array of question objects
         // players should ONE OBJECT { _id: username, _id: username, _id: username }
@@ -10,6 +10,7 @@ class Game {
         this.activePlayers = players;
         this.inactivePlayers = {};
         this.incorrectAnswersHelper = this.incorrectAnswersHelper.bind(this);
+        this.normalizeQuestions = this.normalizeQuestions.bind(this);
         this.playRound = this.playRound.bind(this);
         this.gameOver = this.gameOver.bind(this);
     }
@@ -23,7 +24,7 @@ class Game {
             if (question.incorrectAnswers.length < 4) {
                 _normalizedQuestion['incorrectAnswers'] = question.incorrectAnswers;
             } else {
-                _normalizedQuestion['incorrectAnswers'] = incorrectAnswersHelper(question.incorrectAnswers)
+                _normalizedQuestion['incorrectAnswers'] = this.incorrectAnswersHelper(question.incorrectAnswers)
             }
             normalizedQuestions.push(_normalizedQuestion);
         })
@@ -70,7 +71,7 @@ class Game {
             })
         }
 
-        round++;
+        this.round++;
         return true;
     }
 
