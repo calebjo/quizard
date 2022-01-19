@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.use("/api/users/", users);
 app.use("/api/question_sets/", questionSets);
 app.use("/api/questions/", questions);
-app.use("/api/lobby", lobby);
+app.use("/api/lobby/", lobby);
 app.use("/api/game_records/", gameRecords);
 
 const port = process.env.PORT || 4000;

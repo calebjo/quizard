@@ -13,12 +13,6 @@ const removeLobby = id => ({
     id
 })
 
-export const fetchLobbyQuestion = id => dispatch => (
-    APIUtil.fetchLobbyQuestion(id).then(lobby => (
-        dispatch(receiveLobby(lobby))
-    ))
-);
-
 export const fetchLobby = id => dispatch => (
     APIUtil.fetchLobby(id).then(lobby => (
         dispatch(receiveLobby(lobby))

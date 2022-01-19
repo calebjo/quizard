@@ -53,8 +53,9 @@ class QuestionSetIndex extends React.Component {
                     <QuestionSetItem 
                         questionSet={questionSet}
                         fetchSetQuestions={this.props.fetchSetQuestions}
-                        location={this.props.location}
-                        currentUser={this.props.state.session.user.id}
+                        createLobby={this.props.createLobby}
+                        history={this.props.history}
+                        currentUser={this.props.state.session.user}
                         key={idx}/>
                 )
             })

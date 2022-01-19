@@ -1,3 +1,8 @@
+const express = require("express");
+const router = express.Router();
+const Lobby = require("../../models/Lobby");
+const validateLobby = require("../../validation/lobby")
+
 // Grabs a particular room id 
 router.get('/:id', (req, res) => {
     const filter = { room_id: req.params.id };
@@ -45,3 +50,5 @@ router.delete('/:id', (req, res) => {
         .then(lobby => res.json(lobby).status(200))
         .catch(() => res.json({ error: "Lobby not found "}).status(404))
 });
+
+module.exports = router;
