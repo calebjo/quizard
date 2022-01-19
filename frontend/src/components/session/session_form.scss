@@ -65,10 +65,6 @@
     caret-color: transparent;
   }
 
-  .styled-button {
-      margin: 0.5em;
-  }
-
   .red {
     color: #FB3754;
   }
@@ -130,6 +126,7 @@
     font-weight: 900;
     cursor: pointer;
     text-align: center;
+    margin: 0.5em;
 }
 
 .styled-button:hover {

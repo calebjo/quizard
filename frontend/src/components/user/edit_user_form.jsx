@@ -83,7 +83,7 @@ class EditUserForm extends React.Component {
         }
 
         return (
-        <main className="user-show">
+        <main className="user-show with-nav">
             <div className="back-arrow" onClick={() => this.props.history.goBack()}>
                 <FontAwesomeIcon icon={faArrowLeft} size="3x" />
             </div>

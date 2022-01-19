@@ -28,7 +28,7 @@ class SideNav extends React.Component {
         return (
             <aside className="sidebar-nav">
                 <div className="nav-flex">
-                    <img className="logo--nav" src={QuizardLogo} alt="logo" />
+                    <img className="logo--nav" src={QuizardLogo} alt="logo" onClick={() => this.props.history.push('/')}/>
 
                     {/* Link to current user profile- only rendered when logged in */}
                     { currentUser ? (
