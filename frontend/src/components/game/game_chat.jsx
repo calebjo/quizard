@@ -59,7 +59,7 @@ class GameChat extends React.Component {
             this.state.messages.map((message, idx) => {
                 return (
                     <div className="chat__message" key={idx}>
-                        { message.user.username }: { message.text }
+                        <p>{ message.user.username }: { message.text }</p>
                     </div>
                 )
             })
@@ -85,6 +85,7 @@ class GameChat extends React.Component {
                         <input 
                             className="chat__submit"
                             type="submit"
+                            value=""
                         />
                     </form>
                 </div>
