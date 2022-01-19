@@ -37,15 +37,15 @@ app.use("/api/lobby/", lobby);
 app.use("/api/game_records/", gameRecords);
 
 const port = process.env.PORT || 4000;
-// const server = app.listen(port, () => console.log(`Server is running on port ${port}`))
+const server = app.listen(port, () => console.log(`Server is running on port ${port}`))
 
 // WebSocket setup and events ----------------------------
-const http = require('http')
-const wsServer = http.createServer(app)
-wsServer.listen(port)
+// const http = require('http')
+// const wsServer = http.createServer(app)
+// wsServer.listen(port)
 const socket = require('socket.io');
 
-io = socket(wsServer, {
+io = socket(server, {
     cors: {
         origin: ["http://localhost:3000", "https://quizard-aa.herokuapp.com/"],
         transports: ["websocket", "polling"]
