@@ -1,4 +1,5 @@
 import React from "react";
+import "./new_question_set_form.scss";
 
 class NewQuestionSetForm extends React.Component {
 
@@ -7,7 +8,13 @@ class NewQuestionSetForm extends React.Component {
     }
 
     render () {
-        return (<p>New QSet form yay!!!</p>);
+        return (
+            <div className="with-nav new-qset-form-bg">
+                <div className="new-qset-form">
+                    <p>hi!!!</p>
+                </div>
+            </div>
+        );
     }
 }
 
