@@ -102,7 +102,7 @@ class UserShow extends React.Component {
                     <h4>Created Question Sets</h4>
                     {
                         questionSets.length > 0 ? (
-                            questionSets.map((qset) => <UserShowQsetItem qset={qset} />)
+                            questionSets.map((qset, i) => <UserShowQsetItem key={`qs${i}`} qset={qset} />)
                         ) : (
                             <p>None yet!</p>
                         )
