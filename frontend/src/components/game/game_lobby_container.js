@@ -7,6 +7,7 @@ import { fetchLobby } from "../../actions/lobby_actions";
 
 
 const mSTP = (state) => ({
+    currentUser: state.session.user,
     state
 });
 

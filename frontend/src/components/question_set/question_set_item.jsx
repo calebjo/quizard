@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, withRouter} from 'react-router-dom';
 import {nanoid} from 'nanoid'; // generates a random id
 
 // import GameLobbyContainer from '../game/game_lobby_container'
@@ -24,15 +24,17 @@ class QuestionSetItem extends React.Component {
         })
     }
 
-    startLobby() {
+    startLobby(e) {
+        e.preventDefault()
         console.log(`Creating a lobby from a ${this.props.questionSet.category} set!`)
 
-        // this.props.currentUser
-        // this.props.questionSet._id
-        
+        const creator_id = this.props.currentUser.id
+        const set_id = this.props.questionSet._id
+        const room_id = nanoid(5)
 
-        const lobbyId = nanoid(5)
-        this.props.history.push(`/play/${lobbyId}`)
+        this.props.createLobby({ creator_id, set_id, room_id })
+
+        this.props.history.push(`/play/${room_id}`)
     }
 
     render(){
@@ -44,7 +46,6 @@ class QuestionSetItem extends React.Component {
         )
         return(
             <div className="question-set-item">
-                {redirect}
                 <div className="question-set-item__container">
                     <div className="question-set-item__title">
                         <Link to={`/question-sets/${this.props.questionSet._id}`}>{this.props.questionSet.title}</Link>

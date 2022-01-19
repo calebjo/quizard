@@ -9,14 +9,17 @@ class GameLobby extends React.Component {
     constructor (props) {
         super(props);
         
+        // this.state = {
+        //     creator: this.props.location.state.creator,
+        //     questionSet: this.props.location.state.questionSet,
+        //     questions: this.props.location.state.questions,
+        //     playing: false,
+        //     players: players
+        // }
         this.state = {
-            creator: this.props.location.state.creator,
-            questionSet: this.props.location.state.questionSet,
-            questions: this.props.location.state.questions,
-            playing: false,
-            players: players
+            creator: this.props.currentUser
         }
-        
+
         // on a new client connection, give them the game state data
         socket.emit('joinRoom', this.props.lobbyId, this.state)
 
