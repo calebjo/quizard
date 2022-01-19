@@ -12,6 +12,7 @@ import UserShowContainer from './user/user_show_container';
 import EditUserFormContainer from './user/edit_user_form_container';
 import QuestionSetIndexContainer from './question_set/question_set_index_container';
 import QuestionSetShowContainer from './question_set/question_set_show_container';
+import NewQuestionSetFormContainer from './question_set/new_question_set_form_container';
 
 const App = () => (
     <div className="app">
@@ -19,8 +20,10 @@ const App = () => (
         <Route path="/users/:id" component={SideNavContainer}/> {/* VK: temp code for styling purposes */}
         <Route path="/edit-profile" component={SideNavContainer}/>
         <Route path="/question-sets" component={SideNavContainer} />
+        <Route path="/quiz-creator" component={SideNavContainer} />
 
         <Switch>
+            <Route exact path="/quiz-creator" component={NewQuestionSetFormContainer} />
             <Route exact path="/question-sets/:id" component={QuestionSetShowContainer} />
             <Route exact path="/question-sets" component={QuestionSetIndexContainer} />
             <Route exact path="/edit-profile" component={EditUserFormContainer} />
