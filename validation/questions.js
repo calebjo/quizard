@@ -25,11 +25,11 @@ module.exports = function validateQuestion(data) {
     }
 
     if (Validator.isEmpty(data.question)) {
-        errors.category = 'Question is required'
+        errors.question = 'Question is required'
     }
 
     if (Validator.isEmpty(data.correctAnswer)) {
-        errors.category = 'Correct answer is required'
+        errors.correctAnswer = 'Correct answer is required'
     }
 
     if (data.incorrectAnswers.length < 1) {
