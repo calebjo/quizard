@@ -1,11 +1,34 @@
 const express = require("express");
 const app = express();
-const path = require('path'); // heroku push
 
 const mongoose = require("mongoose");
 const db = require("./config/keys").mongoURI;
 const bodyParser = require('body-parser');
 const passport = require('passport');
+
+const http = require('http');
+const webSocketServer = require('websocket').server;
+const server = http.createServer();
+server.listen(80)
+const wsServer = new webSocketServer({
+    httpServer: server
+})
+
+const clients = {};
+
+wsServer.on('request', function(request) {
+    const userId = 1;
+    console.log((new Date()) + ' Received connection from origin ' + request.origin + '.')
+
+    const connection = request.accept(null, request.origin);
+    clients[userId] = connection;
+
+    connection.on('message', function(message) {
+        console.log('true')
+    })
+})
+
+
 
 const users = require("./routes/api/users");
 const questionSets = require("./routes/api/question_sets");
