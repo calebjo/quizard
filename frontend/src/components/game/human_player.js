@@ -6,7 +6,7 @@ export default class HumanPlayer {
         this.username = username;
     }
 
-    giveResponse(_question, _responseString) {
+    giveResponse(_question, responseString) {
         // null can be passed in for the question, this will only be necessary for the computer player;
         return { id: responseString };
     }
