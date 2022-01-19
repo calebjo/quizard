@@ -24,7 +24,8 @@ class QuestionSetShow extends React.Component {
 
         // Edit button for if set belongs to current user
         const editButton = (currentUser && currentUser.id === questionSet.creator_id) ? (
-            <button className="styled-button orange-bg">Edit Set</button>
+            <button className="styled-button orange-bg" 
+                onClick={() => this.props.history.push(`/question-sets/${questionSet._id}/edit`)}>Edit Set</button>
         ) : null;
 
         return (

@@ -171,7 +171,6 @@
     background-color: darkgray;
     color: gray;
     width: 12rem;
-    margin-bottom: 20px;
 }
 
 .delete-modal {
@@ -221,6 +220,11 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+
+      button:last-child {
+          margin-bottom: 20px;
+      }
   }
 
   .close-button {

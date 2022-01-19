@@ -50,7 +50,7 @@ export const createQuestionSet = questionSet => dispatch => (
 
 export const updateQuestionSet = (questionSet) => dispatch => (
     APIUtil.updateQuestionSet(questionSet).then( questionSet => (
-        dispatch (receiveQuestionSet(questionSet))))
+        dispatch (receiveQuestionSet(questionSet)))).catch((errors) => dispatch(receiveQsetErrors(errors.response.data)))
 );
 
 export const deleteQuestionSet = (id) => dispatch => (

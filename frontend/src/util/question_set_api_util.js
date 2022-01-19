@@ -25,9 +25,9 @@ export const createQuestionSet = (questionSetData) => {
     );
 };
   
-export const updateQuestionSet = (id, questionSetData) => {
+export const updateQuestionSet = (questionSetData) => {
     return axios.patch(
-        `/api/question_sets/${id}`,
+        `/api/question_sets/${questionSetData.id}`,
         questionSetData
     );
 };

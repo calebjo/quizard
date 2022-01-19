@@ -13,6 +13,7 @@ import EditUserFormContainer from './user/edit_user_form_container';
 import QuestionSetIndexContainer from './question_set/question_set_index_container';
 import QuestionSetShowContainer from './question_set/question_set_show_container';
 import NewQuestionSetFormContainer from './question_set/new_question_set_form_container';
+import QuestionEditFormContainer from './question/question_edit_form_container';
 
 const App = () => (
     <div className="app">
@@ -24,6 +25,7 @@ const App = () => (
 
         <Switch>
             <Route exact path="/quiz-creator" component={NewQuestionSetFormContainer} />
+            <Route exact path="/question-sets/:id/edit" component={QuestionEditFormContainer} />
             <Route exact path="/question-sets/:id" component={QuestionSetShowContainer} />
             <Route exact path="/question-sets" component={QuestionSetIndexContainer} />
             <ProtectedRoute exact path="/edit-profile" component={EditUserFormContainer} />

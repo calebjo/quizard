@@ -22,6 +22,7 @@ module.exports = function validateQuestionSet(data) {
     }
 
     // Added by VK
+    data.title = validText(data.title) ? data.title : '';
     if (Validator.isEmpty(data.title)) {
         errors.title = 'Title is required';
     }
