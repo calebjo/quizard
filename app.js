@@ -40,16 +40,17 @@ const port = process.env.PORT || 4000;
 const server = app.listen(port, () => console.log(`Server is running on port ${port}`))
 
 // WebSocket setup and events ----------------------------
-const http = require('http')
-const wsServer = http.createServer(app)
-wsServer.listen(port)
-const socket = require('socket.io');
+// const http = require('http')
+// const wsServer = http.createServer(app)
+// wsServer.listen(port)
+// const socket = require('socket.io');
 
-io = socket(wsServer, {
+const io = require('socket.io')(server, {
     cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"],
-        credentials: true
+        origin: ["http://localhost:3000", "https://quizard-aa.herokuapp.com/"],
+        transports: ["websocket", "polling"]
+        // methods: ["GET", "POST"],
+        // credentials: true
     }
 })
 
