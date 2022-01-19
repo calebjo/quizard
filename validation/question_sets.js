@@ -21,6 +21,12 @@ module.exports = function validateQuestionSet(data) {
         errors.category = 'Category is required'
     }
 
+    // Added by VK
+    data.title = validText(data.title) ? data.title : '';
+    if (Validator.isEmpty(data.title)) {
+        errors.title = 'Title is required';
+    }
+
     return {
         errors,
         isValid: Object.keys(errors).length === 0

@@ -53,7 +53,6 @@ class EditUserForm extends React.Component {
 
     handleUpdate(e) {
         e.preventDefault();
-        console.log(this.state);
         this.props.updateUser(this.state)
             .then(() => {
                 if (Object.values(this.props.errors).length === 0) {

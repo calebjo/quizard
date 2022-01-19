@@ -1,8 +1,10 @@
 
 import React from 'react';
+
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
+
 import io from "socket.io-client";
 
-// import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import './app.scss';
 import { Switch, Route } from 'react-router-dom';
 import SplashPage from './splash/splash_page'
@@ -17,24 +19,26 @@ import QuestionSetIndexContainer from './question_set/question_set_index_contain
 import GameLobbyContainer from './game/game_lobby_container'; {/* DEBUG -- REMOVE OR CONFLICT*/}
 import QuestionSetShowContainer from './question_set/question_set_show_container';
 import NewQuestionSetFormContainer from './question_set/new_question_set_form_container';
+import QuestionEditFormContainer from './question/question_edit_form_container';
 
 const App = () => (
     <div className="app">
         {/* <SideNavContainer /> */}
-        <Route path="/users/:id" component={SideNavContainer}/> {/* VK: temp code for styling purposes */}
-        <Route path="/edit-profile" component={SideNavContainer}/>
+        <Route path="/users/:id" component={SideNavContainer}/>
+        <ProtectedRoute path="/edit-profile" component={SideNavContainer}/>
         <Route path="/question-sets" component={SideNavContainer} />
         <Route path="/play" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
         <Route path="/quiz-creator" component={SideNavContainer} />
         <Switch>
             <Route exact path="/quiz-creator" component={NewQuestionSetFormContainer} />
+            <Route exact path="/question-sets/:id/edit" component={QuestionEditFormContainer} />
             <Route exact path="/question-sets/:id" component={QuestionSetShowContainer} />
             <Route exact path="/question-sets" component={QuestionSetIndexContainer} />
-            <Route exact path="/edit-profile" component={EditUserFormContainer} />
+            <ProtectedRoute exact path="/edit-profile" component={EditUserFormContainer} />
             <Route exact path="/users/:id" component={UserShowContainer} />
-            <Route exact path="/login" component={LoginFormContainer} />
-            <Route exact path="/signup" component={SignupFormContainer} />
-            <Route exact path="/" component={SplashPage} />
+            <AuthRoute exact path="/login" component={LoginFormContainer} />
+            <AuthRoute exact path="/signup" component={SignupFormContainer} />
+            <AuthRoute exact path="/" component={SplashPage} />
         </Switch>
     </div>
 );

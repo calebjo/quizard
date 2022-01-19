@@ -1,9 +1,10 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import {nanoid} from 'nanoid'; // generates a random id
 
 // import GameLobbyContainer from '../game/game_lobby_container'
-import { Redirect } from 'react-router-dom';
+
 
 class QuestionSetItem extends React.Component {
     constructor(props) {
@@ -58,7 +59,7 @@ class QuestionSetItem extends React.Component {
                 {redirect}
                 <div className="question-set-item__container">
                     <div className="question-set-item__title">
-                        {this.props.questionSet.title}
+                        <Link to={`/question-sets/${this.props.questionSet._id}`}>{this.props.questionSet.title}</Link>
                     </div>
                     <div className="question-set-item__details-container">
                         <div className="question-set-item__question-number">
