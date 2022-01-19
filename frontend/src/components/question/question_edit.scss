@@ -1,0 +1,126 @@
+.question-edit {
+    color: white;
+    margin-left: 20vw;
+}
+
+.question-edit-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 5px 20px 8px 8px;
+    background: #113757;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.9);
+    font-family: "Fredoka One", cursive;
+
+    h1 {
+        font-size: 36px;
+        text-indent: 1em;
+
+        span {
+            border-radius: 50%;
+            color: gray;
+            padding: 0 0.1em;
+            cursor: pointer;
+        }
+        span:hover {
+            background-color: steelblue;
+            color: white;
+        }
+    }
+
+    h6 {
+        color: #ffbc42;
+    }
+}
+
+.edit-modal {
+  z-index: 998;
+  position: fixed;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  background: rgba(0, 0, 0, .3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-modal-content {
+  z-index: 999;
+  position: relative;
+  border-radius: 32px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #003e5b;
+  width: 40vw;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.685);
+  font-size: 18px;
+  animation: bounceInDown 700ms;
+
+  > form {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  h1 {
+      font-size: 30px;
+      padding-bottom: 1em;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+  }
+
+  .red {
+    color: #FB3754;
+    font-weight: 700;
+  }
+
+  label {
+    width: 9vw;
+  }
+
+  input, select, textarea {
+    width: 22vw;
+  }
+
+  select, textarea {
+    border: 1px solid white;
+    font-family: "Roboto", sans-serif;
+    border-radius: 18px;
+    padding: 1.2em;
+    margin-top: 0.5em;
+  }
+
+  select {
+    text-align: left;
+    font-size: 0.95em;
+    color: white;
+  }
+  
+  textarea {
+    text-align: left;
+  }
+
+  textarea:focus, select:focus {
+    box-shadow: 0 0 10px white;
+    outline: none;
+  }
+}
+
+.hidden {
+    display: none;
+}

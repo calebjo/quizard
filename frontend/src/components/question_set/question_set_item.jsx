@@ -1,16 +1,17 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+
+import { Link, withRouter} from 'react-router-dom';
 import {nanoid} from 'nanoid'; // generates a random id
 
 // import GameLobbyContainer from '../game/game_lobby_container'
-import { Redirect } from 'react-router-dom';
+
 
 class QuestionSetItem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             questions: [],
-            redirect: false
+            redirect: false,
         }
         this.startLobby = this.startLobby.bind(this)
     }
@@ -23,30 +24,20 @@ class QuestionSetItem extends React.Component {
         })
     }
 
-    startLobby() {
-        // SKELETON -- start a game with a random url string
+    startLobby(e) {
+        e.preventDefault()
         console.log(`Creating a lobby from a ${this.props.questionSet.category} set!`)
-        this.setState({
-            redirect: true
+
+        const creator_id = this.props.currentUser.id
+        const set_id = this.props.questionSet._id
+        const room_id = nanoid(5)
+
+        this.props.createLobby({ creator_id, set_id, room_id }).then(() => {
+            this.props.history.push(`/play/${room_id}`)
         })
     }
 
     render(){
-        const lobbyId = nanoid(5)
-        const redirect = this.state.redirect ? (
-            <Redirect to={{
-                pathname: `/play/${lobbyId}`,
-                state: { 
-                    questionSet: this.props.questionSet,
-                    questions: this.state.questions,
-                    lobbyId: lobbyId,
-                    creator: this.props.currentUser
-                    }
-                }}
-            />
-        ) : (
-            <></>
-        )
         // Pluralize question number text
         const questionNumText = this.state.questions.length > 1 || this.state.questions.length === 0 ? (
             this.state.questions.length.toString() + " questions"
@@ -55,10 +46,9 @@ class QuestionSetItem extends React.Component {
         )
         return(
             <div className="question-set-item">
-                {redirect}
                 <div className="question-set-item__container">
                     <div className="question-set-item__title">
-                        {this.props.questionSet.title}
+                        <Link to={`/question-sets/${this.props.questionSet._id}`}>{this.props.questionSet.title}</Link>
                     </div>
                     <div className="question-set-item__details-container">
                         <div className="question-set-item__question-number">

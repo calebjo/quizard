@@ -3,7 +3,8 @@ import { createQuestionSet, clearQsetErrors } from "../../actions/question_set_a
 import NewQuestionSetForm from "./new_question_set_form";
 
 const mSTP = state => ({
-    currentUser: state.session.user
+    currentUser: state.session.user,
+    errors: state.errors.questionSet
 });
 
 const mDTP = dispatch => ({
