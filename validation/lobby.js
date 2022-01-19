@@ -9,11 +9,11 @@ module.exports = function validateLobby(data) {
     data.room_id = validText(data.room_id) ? data.room_id : '';
 
     if (Validator.isEmpty(data.creator_id)) {
-        errors.creator_id = 'Category is required'
+        errors.creator_id = 'Creator ID is required'
     }
 
     if (Validator.isEmpty(data.room_id)) {
-        errors.room_id = 'Question is required'
+        errors.room_id = 'Room ID is required'
     }
 
     if (!mongoose.isValidObjectId(data.set_id)) {
