@@ -9,30 +9,14 @@ class GameLobby extends React.Component {
     constructor (props) {
         super(props);
         
-        // const debugPlayers = [
-        //     {username: "ASD1i"},
-        //     {username: "Quizard1530"},
-        //     {username: "SPONGEBOBSQUAREPANTS"},
-        //     {username: "quizlord02"}
-        // ]
-        
-        // SKELETON -- debugPlayers needs to be replaced with actual players
-        if (this.props.location.state) {
-            const players = [
-                {username: this.props.location.state.creator.username}
-            ]
-            this.state = {
-                creator: this.props.location.state.creator,
-                questionSet: this.props.location.state.questionSet,
-                questions: this.props.location.state.questions,
-                playing: false,
-                players: players
-            }
-        } else {
-            this.state = {
-                playing: false
-            }
+        this.state = {
+            creator: this.props.location.state.creator,
+            questionSet: this.props.location.state.questionSet,
+            questions: this.props.location.state.questions,
+            playing: false,
+            players: players
         }
+        
         // on a new client connection, give them the game state data
         socket.emit('joinRoom', this.props.lobbyId, this.state)
 
@@ -51,6 +35,7 @@ class GameLobby extends React.Component {
         window.onbeforeunload = function() {
             return "Data will be lost if you leave the page, are you sure?";
         };
+        this.props.fetchLobby()
     }
 
     startGame() {

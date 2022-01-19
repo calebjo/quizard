@@ -11,7 +11,7 @@ class QuestionSetItem extends React.Component {
         super(props)
         this.state = {
             questions: [],
-            redirect: false
+            redirect: false,
         }
         this.startLobby = this.startLobby.bind(this)
     }
@@ -25,29 +25,17 @@ class QuestionSetItem extends React.Component {
     }
 
     startLobby() {
-        // SKELETON -- start a game with a random url string
         console.log(`Creating a lobby from a ${this.props.questionSet.category} set!`)
-        this.setState({
-            redirect: true
-        })
+
+        // this.props.currentUser
+        // this.props.questionSet._id
+        
+
+        const lobbyId = nanoid(5)
+        this.props.history.push(`/play/${lobbyId}`)
     }
 
     render(){
-        const lobbyId = nanoid(5)
-        const redirect = this.state.redirect ? (
-            <Redirect to={{
-                pathname: `/play/${lobbyId}`,
-                state: { 
-                    questionSet: this.props.questionSet,
-                    questions: this.state.questions,
-                    lobbyId: lobbyId,
-                    creator: this.props.currentUser
-                    }
-                }}
-            />
-        ) : (
-            <></>
-        )
         // Pluralize question number text
         const questionNumText = this.state.questions.length > 1 || this.state.questions.length === 0 ? (
             this.state.questions.length.toString() + " questions"

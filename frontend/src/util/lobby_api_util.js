@@ -6,16 +6,16 @@ export const fetchLobby = id => {
     );
 };
 
-export const createLobby = (id, lobbyData) => {
+export const createLobby = (lobbyData) => {
     return axios.post(
-        `/api/lobby/${id}`, 
+        `/api/lobby/`, 
         lobbyData
     );
 };
   
-export const updateLobby = (id, lobbyData) => {
+export const updateLobby = (lobbyData) => {
     return axios.patch(
-        `/api/lobby/${id}`,
+        `/api/lobby/${lobbyData.id}`,
         lobbyData
     );
 };
