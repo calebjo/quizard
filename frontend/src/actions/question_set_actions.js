@@ -46,3 +46,9 @@ export const deleteQuestionSet = (id) => dispatch => (
     APIUtil.deleteQuestionSet(id).then( () => (
         dispatch (removeQuestionSet(id))))
 );
+
+export const fetchUserQuestionSets = userId => dispatch => (
+    APIUtil.fetchUserQuestionSets(userId).then(questionSets => (
+        dispatch(receiveAllQuestionSets(questionSets))
+    ))
+);

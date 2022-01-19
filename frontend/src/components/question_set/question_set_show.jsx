@@ -39,7 +39,7 @@ class QuestionSetShow extends React.Component {
                         <div className="qset-flex">
                             <h5 className="raised">Category: {questionSet.category}</h5>
                             <Link to={`/users/${creator._id}`}>
-                                <h5 className="raised">Creator: {creator.username}</h5>
+                                <h5 className="raised creator">Creator: {creator.username}</h5>
                             </Link>
                         </div>
                     </div>

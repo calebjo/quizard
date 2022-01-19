@@ -1,5 +1,6 @@
 import React from "react";
 import "./user.scss";
+import UserShowQsetItem from "./user_show_qset_item";
 
 class UserShow extends React.Component {
 
@@ -15,6 +16,7 @@ class UserShow extends React.Component {
     }
 
     componentDidMount () {
+        this.props.fetchUserQuestionSets(this.props.match.params.id);
         this.props.fetchUser(this.props.match.params.id)
             .then(({user}) => {
                 this.getBadges(user.data);});
@@ -51,7 +53,7 @@ class UserShow extends React.Component {
     }
 
     render () {
-        const {viewedUser, currentUser} = this.props;
+        const {viewedUser, currentUser, questionSets} = this.props;
 
         if (!viewedUser) return null;
 
@@ -98,10 +100,13 @@ class UserShow extends React.Component {
 
                 <div className="created-sets-container user-show-case">
                     <h4>Created Question Sets</h4>
-                    {/* Get question sets at CDM */}
-                    {/* If none belong to user, render... */}
-                    <p>None yet!</p>
-                    {/* Else render array of index items */}
+                    {
+                        questionSets.length > 0 ? (
+                            questionSets.map((qset) => <UserShowQsetItem qset={qset} />)
+                        ) : (
+                            <p>None yet!</p>
+                        )
+                    }
                 </div>
             </div>
         </main>
