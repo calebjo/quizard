@@ -1,11 +1,10 @@
 import React from "react";
-
+import {socket} from "../app"
 // GETs questions from database based on this.props.questionSet
 // Establishes webSocket conneciton to every joining player
 class GameLobby extends React.Component {
     constructor (props) {
         super(props);
-
         this.state = {
             creator: null,
             players: []
@@ -15,6 +14,9 @@ class GameLobby extends React.Component {
     componentDidMount() {
         // First player to join becomes the creator
         // debugger
+        socket.on('message', message => {
+            console.log(message)
+        })
         if (!this.state.creator) {
             this.setState({
                 // creator: this.props.state.session
@@ -23,12 +25,13 @@ class GameLobby extends React.Component {
     }
     
     render() {
+        const lobbyPlayers = null;
         return(
             <div className="lobby__container">
                 <div className="lobby__quit">
                 </div>
                 <div className="lobby__body">
-                    <div className="lobby__settings">
+                    <div className="lobby__top-bar">
                         <div className="lobby__invite">
                             {/* Pops out lobby invite modal, generating 5 digit code */}
                         </div>

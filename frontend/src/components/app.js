@@ -1,5 +1,7 @@
 
 import React from 'react';
+import io from "socket.io-client";
+
 // import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import './app.scss';
 import { Switch, Route } from 'react-router-dom';
@@ -19,7 +21,7 @@ const App = () => (
         <Route path="/users/:id" component={SideNavContainer}/> {/* VK: temp code for styling purposes */}
         <Route path="/edit-profile" component={SideNavContainer}/>
         <Route path="/question-sets" component={SideNavContainer} />
-        <Route path="/create-game" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
+        <Route path="/play" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
         <Switch>
             <Route exact path="/question-sets" component={QuestionSetIndexContainer} />
             <Route exact path="/edit-profile" component={EditUserFormContainer} />
@@ -32,3 +34,4 @@ const App = () => (
 );
 
 export default App;
+export const socket = io();

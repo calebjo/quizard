@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const path = require('path'); // heroku push
+const path = require('path');
 
 const mongoose = require("mongoose");
 const db = require("./config/keys").mongoURI;
@@ -34,6 +34,25 @@ app.use("/api/question_sets/", questionSets);
 app.use("/api/questions/", questions);
 app.use("/api/game_records/", gameRecords);
 
-
 const port = process.env.PORT || 4000;
-app.listen(port, () => console.log(`Server is running on port ${port}`))
+const server = app.listen(port, () => console.log(`Server is running on port ${port}`))
+
+// WebSocket setup and events ----------------------------
+
+const socket = require('socket.io')
+
+io = socket(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+        credentials: true
+    }
+})
+
+io.on('connection', socket => {
+    socket.emit('message', 'Welcome to Quizard, new user!')
+})
+
+io.on('disconnect', () => {
+    console.log("A user disconnected.")
+})
