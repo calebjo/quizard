@@ -24,7 +24,7 @@ class GameChat extends React.Component {
 
     addMessage(message, user) {
         const newMessages = this.state.messages
-        newMessages.push({
+        newMessages.unshift({
             user: user,
             text: message
         })
@@ -41,14 +41,16 @@ class GameChat extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        socket.emit('chatMessage', this.state.message, this.state.user, this.state.roomId)
-        this.state.messages.push({
-            user: this.state.user,
-            text: this.state.message
-        })
-        this.setState({
-            message: ""
-        })
+        if (this.state.message.length > 0) {
+            socket.emit('chatMessage', this.state.message, this.state.user, this.state.roomId)
+            this.state.messages.unshift({
+                user: this.state.user,
+                text: this.state.message
+            })
+            this.setState({
+                message: ""
+            })
+        }
     }
     
     render() {
