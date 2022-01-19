@@ -1,5 +1,5 @@
 import React from "react";
-import {socket} from "../app"
+import socket from "../../util/socket_util"
 import "./game.scss"
 import GameChatContainer from "./game_chat_container";
 import GameView from "./game_view";
@@ -17,9 +17,12 @@ class GameLobby extends React.Component {
         //     players: players
         // }
         this.state = {
-            creator: this.props.currentUser,
-            playing: false
+            creator: this.props.lobby.creator_id,
+            playing: false,
+            players: {[this.props.currentUser.id]: ['human', this.props.currentUser.username]}
         }
+        this.players = {[this.props.currentUser.id]: ['human', this.props.currentUser.username]}
+        socket.emit('joinRoom', this.props.lobby.room_id, this.state)
         this.startGame = this.startGame.bind(this)
     }
 
@@ -32,7 +35,6 @@ class GameLobby extends React.Component {
             this.props.fetchSetQuestions(lobby.data.set_id)
 
             // on a new client connection, give them the game state data
-            socket.emit('joinRoom', this.props.lobby.room_id, this.state)
 
             socket.on('playerJoined', (startGameState) => {
                 console.log("Player has joined the lobby!")
