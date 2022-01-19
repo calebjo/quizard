@@ -47,9 +47,10 @@ const socket = require('socket.io');
 
 io = socket(wsServer, {
     cors: {
-        origins: ["http://localhost:3000", "wss://quizard-aa.herokuapp.com/", "https://quizard-aa.herokuapp.com/"],
-        methods: ["GET", "POST"],
-        credentials: true
+        origins: ["http://localhost:3000", "https://quizard-aa.herokuapp.com/"],
+        transports: ["websocket", "polling"]
+        // methods: ["GET", "POST"],
+        // credentials: true
     }
 })
 
