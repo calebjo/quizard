@@ -40,7 +40,7 @@ const port = process.env.PORT || 4000;
 const server = app.listen(port, () => console.log(`Server is running on port ${port}`))
 
 // WebSocket setup and events ----------------------------
-const wsServer = app.listen(443)
+const wsServer = app.listen(80)
 const socket = require('socket.io');
 
 io = socket(wsServer, {
