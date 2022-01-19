@@ -17,9 +17,11 @@ class GameLobby extends React.Component {
         //     players: players
         // }
         this.state = {
-            creator: this.props.currentUser,
-            playing: false
+            creator: null,
+            playing: false,
+            players: {[this.props.currentUser.id]: ['human', this.props.currentUser.username]}
         }
+        this.players = {[this.props.currentUser.id]: ['human', this.props.currentUser.username]}
         this.startGame = this.startGame.bind(this)
     }
 
@@ -31,9 +33,13 @@ class GameLobby extends React.Component {
             this.props.fetchQuestionSet(lobby.data.set_id)
             this.props.fetchSetQuestions(lobby.data.set_id)
 
-            // on a new client connection, give them the game state data
+            this.setState({
+                creator: lobby.data.creator_id
+            })
+
             socket.emit('joinRoom', this.props.lobby.room_id, this.state)
 
+            // on a new client connection, give them the game state data
             socket.on('playerJoined', (startGameState) => {
                 console.log("Player has joined the lobby!")
                 this.setState(startGameState)

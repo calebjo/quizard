@@ -43,9 +43,9 @@ const server = app.listen(port, () => console.log(`Server is running on port ${p
 // const http = require('http')
 // const wsServer = http.createServer(app)
 // wsServer.listen(port)
-const socket = require('socket.io');
+// const socket = require('socket.io');
 
-io = socket(server, {
+const io = require('socket.io')(server, {
     cors: {
         origin: ["http://localhost:3000", "https://quizard-aa.herokuapp.com/"],
         transports: ["websocket", "polling"]

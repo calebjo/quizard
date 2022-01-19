@@ -11,10 +11,13 @@ export default class ComputerPlayer {
         switch(mode) {
             case ('hard'):
                 coefficiant = 3;
+                break;
             case('medium'):
                 coefficiant = 2;
+                break;
             case('easy'):
                 coefficiant = 1;
+                break;
         }
         // a quizCoefficiant of:
         // 3 (hard) guarantees that the computer will select the correct answer 75% of the time
