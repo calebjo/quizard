@@ -59,6 +59,10 @@ class QuestionSetIndex extends React.Component {
             null
         )
 
+        // Added by VK
+         const categories = ["Art and Literature", "Film and TV", "Food and Drink", "General Knowledge", "Geography", "History", "Mixed", "Movies", "Music", "Science", "Society and Culture", "Sport and Leisure"];
+
+
         return(
             // SKELETON -- needs categories to choose from, as well as question set seeds to map
             <div className="question-set-index">
@@ -68,10 +72,10 @@ class QuestionSetIndex extends React.Component {
                         <div className="question-set-index__categories">
                             <select onChange={() => this.update('category')}>
                                 <option value="0">Choose a Category</option>
-                                <option value="1">INSERT CATEGORY HERE</option>
-                                <option value="1">INSERT CATEGORY HERE</option>
-                                <option value="1">INSERT CATEGORY HERE</option>
-                                <option value="1">INSERT CATEGORY HERE</option>
+                                {/* Added by VK */}
+                                {categories.map((cat) => (
+                                    <option value={cat}>{cat}</option>
+                                ))}
                             </select>
                         </div>
                         <div className="question-set-index__search">
