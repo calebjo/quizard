@@ -84,7 +84,7 @@ class GameLobby extends React.Component {
                             Invite Players{/* generates link to url */}
                         </button>
                         <div className="lobby__quiz-title">
-                            Lobby : <span>{questionSet ? (questionSet.title):("ERROR NO TITLE")}</span>
+                            Lobby : <span>{questionSet ? (questionSet.title):("")}</span>
                         </div>
                         <button 
                             className="lobby__start"
