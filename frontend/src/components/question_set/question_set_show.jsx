@@ -13,7 +13,7 @@ class QuestionSetShow extends React.Component {
     }
 
     render () {
-        const {questionSet, users, questions} = this.props;
+        const {questionSet, users, questions, currentUser} = this.props;
         if (!questionSet) return null;
 
         console.log(questionSet);
@@ -22,6 +22,10 @@ class QuestionSetShow extends React.Component {
         const creator = users[questionSet.creator_id] || {username: "", _id: 0};
         const questionCount = questions.filter((question) => question.set_id === questionSet._id).length;
 
+        // Edit button for if set belongs to current user
+        const editButton = (currentUser && currentUser.id === questionSet.creator_id) ? (
+            <button className="styled-button yellow-bg">Edit Set</button>
+        ) : null;
 
         return (
             <main className="with-nav qset-show raised">
@@ -32,7 +36,6 @@ class QuestionSetShow extends React.Component {
                         <p>Description: {questionSet.description || "(none)"}</p>
                         <p>{questionCount} questions</p>
 
-
                         <div className="qset-flex">
                             <h5 className="raised">Category: {questionSet.category}</h5>
                             <Link to={`/users/${creator._id}`}>
@@ -41,7 +44,10 @@ class QuestionSetShow extends React.Component {
                         </div>
                     </div>
 
-                    <button className="styled-button red-bg">Start Game</button>
+                    <div className="button-holder">
+                        <button className="styled-button red-bg">Start Game</button>
+                        {editButton}
+                    </div>
 
                 </div>
             </main>
