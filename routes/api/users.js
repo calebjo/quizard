@@ -120,6 +120,7 @@ router.patch('/:id', (req, res) => {
                         bcrypt.hash(req.body.password, salt, (err, hash) => { 
                             if (err) throw err;
 
+                            // in order to have access to the hash, update the users info within the callback function
                             const updateParams = {
                                 username,
                                 email,
@@ -135,6 +136,7 @@ router.patch('/:id', (req, res) => {
                     return res.status(404).json({ password: "Incorrect password" })
                 }})})
     } else {
+        // if the user is not updating their password, ignore password in update query
         const updateParams = {
             username,
             email
