@@ -1,0 +1,15 @@
+
+.chat__container {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 18rem;
+    height: 28rem;
+    background: rgb(24, 57, 83);
+    color: white;
+    border-radius: 12px;
+
+    input {
+        background: rgb(7, 25, 41);
+    }
+}

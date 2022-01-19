@@ -39,7 +39,7 @@ const server = app.listen(port, () => console.log(`Server is running on port ${p
 
 // WebSocket setup and events ----------------------------
 
-const socket = require('socket.io')
+const socket = require('socket.io');
 
 io = socket(server, {
     cors: {
@@ -50,9 +50,21 @@ io = socket(server, {
 })
 
 io.on('connection', socket => {
-    socket.emit('message', 'Welcome to Quizard, new user!')
-})
+    // to the connecting client
+    // socket.emit('message', 'Welcome to Quizard, new user!')
 
-io.on('disconnect', () => {
-    console.log("A user disconnected.")
+    // to all BUT the connecting client
+    // socket.broadcast.emit('message', 'A new user has connected')
+
+    // to ALL clients
+    // io.emit()
+
+    socket.on('disconnect', () => {
+        io.emit('message', 'A user has disconnected.')
+    })
+
+    // chat messages
+    socket.on('chatMessage', (message, user, roomId) => {
+        socket.broadcast.emit('message', message, user, roomId)
+    })
 })

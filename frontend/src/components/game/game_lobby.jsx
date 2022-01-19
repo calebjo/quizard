@@ -1,5 +1,7 @@
 import React from "react";
 import {socket} from "../app"
+
+import GameChatContainer from "./game_chat_container";
 // GETs questions from database based on this.props.questionSet
 // Establishes webSocket conneciton to every joining player
 class GameLobby extends React.Component {
@@ -45,6 +47,7 @@ class GameLobby extends React.Component {
                     <div className="lobby__players-large">
                     </div>
                 </div>
+                <GameChatContainer />
             </div>
         )
     }
