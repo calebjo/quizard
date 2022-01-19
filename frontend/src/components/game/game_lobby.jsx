@@ -1,54 +1,79 @@
 import React from "react";
 import {socket} from "../app"
-
+import "./game.scss"
 import GameChatContainer from "./game_chat_container";
-// GETs questions from database based on this.props.questionSet
+import GameView from "./game_view";
+
 // Establishes webSocket conneciton to every joining player
 class GameLobby extends React.Component {
     constructor (props) {
         super(props);
+        
+        const debugPlayers = {
+            _id: "ASD1i",
+            _id: "Quizard1530",
+            _id: "SPONGEBOBSQUAREPANTS",
+            _id: "quizlord02"
+        }
+        // SKELETON -- debugPlayers needs to be replaced with actual players
         this.state = {
             creator: null,
-            players: []
+            questionSet: this.props.location.state.questionSet,
+            questions: this.props.location.state.questions,
+            playing: false,
+            players: debugPlayers
         }
+        this.startGame = this.startGame.bind(this)
     }
 
     componentDidMount() {
-        // First player to join becomes the creator
-        // debugger
-        socket.on('message', message => {
-            console.log(message)
+        window.onbeforeunload = function() {
+            return "Data will be lost if you leave the page, are you sure?";
+        };
+    }
+
+    startGame() {
+        this.setState({
+            playing: true
         })
-        if (!this.state.creator) {
-            this.setState({
-                // creator: this.props.state.session
-            })
-        }
     }
     
     render() {
-        const lobbyPlayers = null;
-        return(
+
+        const gameOrLobby = this.state.playing ? (
+            <GameView
+                socket={socket}
+                players={this.state.players}
+                questions={this.state.questions}
+            />
+        ) : (
             <div className="lobby__container">
                 <div className="lobby__quit">
                 </div>
                 <div className="lobby__body">
                     <div className="lobby__top-bar">
-                        <div className="lobby__invite">
-                            {/* Pops out lobby invite modal, generating 5 digit code */}
-                        </div>
+                        <button className="lobby__invite">
+                            Invite Players{/* generates link to url */}
+                        </button>
                         <div className="lobby__quiz-title">
-                            Testing title!
-                            {/* Lobby for: <span>{this.props.questionSet.title}</span> */}
+                            Lobby : <span>{this.state.questionSet.title}</span>
                         </div>
-                        <div className="lobby__start">
-                        </div>
+                        <button 
+                            className="lobby__start"
+                            onClick={this.startGame}>
+                            Start Game
+                        </button>
                     </div>
                     <div className="lobby__players-large">
                     </div>
                 </div>
-                <GameChatContainer />
+                <GameChatContainer 
+                    socket={socket}/>
             </div>
+        )
+
+        return(
+            gameOrLobby
         )
     }
 }

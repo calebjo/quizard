@@ -1,5 +1,4 @@
 import React from "react";
-import {socket} from "../app"
 import "./game_chat.scss"
 // Displays messages that users have written in chat via webSocket connection
 class GameChat extends React.Component {
@@ -15,7 +14,7 @@ class GameChat extends React.Component {
         this.update = this.update.bind(this)
         this.addMessage = this.addMessage.bind(this)
 
-        socket.on('message', (message, user, roomId) => {
+        this.props.socket.on('message', (message, user, roomId) => {
             if (roomId === this.state.roomId) {
                 this.addMessage(message, user)
             }
@@ -42,7 +41,7 @@ class GameChat extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         if (this.state.message.length > 0) {
-            socket.emit('chatMessage', this.state.message, this.state.user, this.state.roomId)
+            this.props.socket.emit('chatMessage', this.state.message, this.state.user, this.state.roomId)
             this.state.messages.unshift({
                 user: this.state.user,
                 text: this.state.message

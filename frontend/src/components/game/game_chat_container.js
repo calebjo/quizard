@@ -2,7 +2,8 @@ import { connect } from "react-redux";
 import GameChat from "./game_chat"
 import { withRouter } from "react-router-dom";
 
-const mSTP = state => ({
+const mSTP = (state, ownProps) => ({
+    socket: ownProps.socket,
     state
 });
 

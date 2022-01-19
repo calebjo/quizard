@@ -57,7 +57,7 @@ io.on('connection', socket => {
     // socket.broadcast.emit('message', 'A new user has connected')
 
     // to ALL clients
-    // io.emit()
+    // io.emit('message', 'Hi!')
 
     socket.on('disconnect', () => {
         io.emit('message', 'A user has disconnected.')
@@ -66,5 +66,9 @@ io.on('connection', socket => {
     // chat messages
     socket.on('chatMessage', (message, user, roomId) => {
         socket.broadcast.emit('message', message, user, roomId)
+    })
+
+    socket.on('gameStateUpdate', (roomId, newGameState) => {
+        
     })
 })
