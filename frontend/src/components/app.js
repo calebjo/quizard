@@ -14,6 +14,7 @@ import GameLobbyContainer from './game/game_lobby_container';
 import QuestionSetShowContainer from './question_set/question_set_show_container';
 import NewQuestionSetFormContainer from './question_set/new_question_set_form_container';
 import QuestionEditFormContainer from './question/question_edit_form_container';
+import GameLobbyContainer from './game/game_lobby_container'; {/* DEBUG -- REMOVE OR CONFLICT*/}
 
 
 const App = () => (
@@ -22,7 +23,7 @@ const App = () => (
         <Route path="/users/:id" component={SideNavContainer}/>
         <ProtectedRoute path="/edit-profile" component={SideNavContainer}/>
         <Route path="/question-sets" component={SideNavContainer} />
-        <Route path="/play" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
+        <Route path="/play/:id" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
         <Route path="/quiz-creator" component={SideNavContainer} />
         <Switch>
             <Route exact path="/quiz-creator" component={NewQuestionSetFormContainer} />

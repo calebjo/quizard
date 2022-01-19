@@ -37,7 +37,8 @@
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1",
     "validator": "^13.7.0",
-    "websocket": "^1.0.34"
+    "websocket": "^1.0.34",
+    "ws": "^8.4.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
