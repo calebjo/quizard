@@ -17,41 +17,64 @@ class GameLobby extends React.Component {
         //     players: players
         // }
         this.state = {
-            creator: this.props.currentUser
+            creator: this.props.currentUser,
+            playing: false
         }
-
-        // on a new client connection, give them the game state data
-        socket.emit('joinRoom', this.props.lobbyId, this.state)
-
-        socket.on('playerJoined', (startGameState) => {
-            console.log("Player has joined the lobby!")
-            this.setState(startGameState)
-        })
-
-        // update state whenever the lobby's state updates
-        socket.on('sendUpdatedState', (newGameState) => {
-            this.setState(newGameState)
-        })
     }
 
     componentDidMount() {
         window.onbeforeunload = function() {
             return "Data will be lost if you leave the page, are you sure?";
         };
-        this.props.fetchLobby()
+        this.props.fetchLobby(this.props.match.params.id).then(({lobby}) => {
+            this.props.fetchQuestionSet(lobby.data.set_id)
+            this.props.fetchSetQuestions(lobby.data.set_id)
+
+            // on a new client connection, give them the game state data
+            socket.emit('joinRoom', this.props.lobby.room_id, this.state)
+
+            socket.on('playerJoined', (startGameState) => {
+                console.log("Player has joined the lobby!")
+                this.setState(startGameState)
+            })
+
+            // update state whenever the lobby's state updates
+            socket.on('sendUpdatedState', (newGameState) => {
+                this.setState(newGameState)
+            })
+        })
     }
 
     startGame() {
-        if (this.props.location.state) {
-            this.setState({
-                playing: true
-            })
-        }
+        this.setState({
+            playing: true
+        })
     }
     
     render() {
-        socket.emit('gameStateUpdate', this.props.lobbyId, this.state)
-        const lobby = this.props.location.state ? (
+        // socket.emit('gameStateUpdate', this.props.lobbyId, this.state)
+
+        if (!this.props.lobby) {
+            return (
+                <div className="lobby__error">
+                    Sorry, your lobby was not found.
+                </div>
+            )
+        }
+
+        const questionSet = this.props.questionSets[this.props.lobby.set_id]
+        
+        const gameOrLobby = this.state.playing ? (
+            <GameView
+                socket={socket}
+                players={this.state.players}
+                questions={this.state.questions}
+            />
+        ) : (
+            null
+        )
+
+        return(
             <div className="lobby__container">
                 <div className="lobby__quit">
                 </div>
@@ -61,7 +84,7 @@ class GameLobby extends React.Component {
                             Invite Players{/* generates link to url */}
                         </button>
                         <div className="lobby__quiz-title">
-                            Lobby : <span>{this.state.questionSet.title}</span>
+                            Lobby : <span>{questionSet ? (questionSet.title):("ERROR NO TITLE")}</span>
                         </div>
                         <button 
                             className="lobby__start"
@@ -75,23 +98,6 @@ class GameLobby extends React.Component {
                 <GameChatContainer 
                     socket={socket}/>
             </div>
-        ) : (
-            <div className="lobby__error">
-                Sorry, your lobby was not found.
-            </div>
-        )
-        const gameOrLobby = this.state.playing ? (
-            <GameView
-                socket={socket}
-                players={this.state.players}
-                questions={this.state.questions}
-            />
-        ) : (
-            lobby
-        )
-
-        return(
-            gameOrLobby
         )
     }
 }

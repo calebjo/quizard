@@ -26,7 +26,7 @@ const App = () => (
         <Route path="/users/:id" component={SideNavContainer}/>
         <ProtectedRoute path="/edit-profile" component={SideNavContainer}/>
         <Route path="/question-sets" component={SideNavContainer} />
-        <Route path="/play" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
+        <Route path="/play/:id" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
         <Route path="/quiz-creator" component={SideNavContainer} />
         <Switch>
             <Route exact path="/quiz-creator" component={NewQuestionSetFormContainer} />

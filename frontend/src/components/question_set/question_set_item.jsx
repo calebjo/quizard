@@ -32,9 +32,9 @@ class QuestionSetItem extends React.Component {
         const set_id = this.props.questionSet._id
         const room_id = nanoid(5)
 
-        this.props.createLobby({ creator_id, set_id, room_id })
-
-        this.props.history.push(`/play/${room_id}`)
+        this.props.createLobby({ creator_id, set_id, room_id }).then(() => {
+            this.props.history.push(`/play/${room_id}`)
+        })
     }
 
     render(){
