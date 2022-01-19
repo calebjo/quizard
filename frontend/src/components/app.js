@@ -14,7 +14,6 @@ import GameLobbyContainer from './game/game_lobby_container';
 import QuestionSetShowContainer from './question_set/question_set_show_container';
 import NewQuestionSetFormContainer from './question_set/new_question_set_form_container';
 import QuestionEditFormContainer from './question/question_edit_form_container';
-import GameLobbyContainer from './game/game_lobby_container'; {/* DEBUG -- REMOVE OR CONFLICT*/}
 
 
 const App = () => (
