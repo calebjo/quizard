@@ -10,7 +10,8 @@ const passport = require('passport');
 const users = require("./routes/api/users");
 const questionSets = require("./routes/api/question_sets");
 const questions = require("./routes/api/questions");
-const gameRecords = require("./routes/api/game_records")
+const lobby = require('./routes/api/lobby');
+const gameRecords = require("./routes/api/game_records");
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('frontend/build'));
@@ -32,6 +33,7 @@ app.use(bodyParser.json());
 app.use("/api/users/", users);
 app.use("/api/question_sets/", questionSets);
 app.use("/api/questions/", questions);
+app.use("/api/lobby", lobby);
 app.use("/api/game_records/", gameRecords);
 
 const port = process.env.PORT || 4000;
