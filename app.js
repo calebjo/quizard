@@ -37,7 +37,7 @@ app.use("/api/lobby/", lobby);
 app.use("/api/game_records/", gameRecords);
 
 const port = process.env.PORT || 4000;
-const server = app.listen(port, () => console.log(`Server is running on port ${port}`))
+// const server = app.listen(port, () => console.log(`Server is running on port ${port}`))
 
 // WebSocket setup and events ----------------------------
 const http = require('http')
