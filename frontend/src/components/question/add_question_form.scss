@@ -1,0 +1,63 @@
+.add-question-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
+
+    h1 {
+        font-size: 44px;
+        padding: 20px;
+    }
+
+    h4 {
+        font-family: "Fredoka One", cursive;
+        margin-right: 5px;
+    }
+
+    .edit-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    label, input, h4 {
+        font-size: 18px;
+    }
+
+    label {
+        font-family: 'Fredoka One', cursive;
+        width: 8vw;
+        margin: 15px;
+        text-align: right;
+    }
+
+    input {
+        text-align: left;
+        padding: 1.2em;
+        margin-top: 0.5em;
+        border: 1px solid white;
+        font-family: "Roboto", sans-serif;
+        border-radius: 18px;
+        font-size: 0.95em;
+        width: 24vw;
+        color: white;
+    }
+
+    input:focus {
+        outline: none;
+        box-shadow: 0 0 10px white;
+    }
+
+    .red-bg {
+        color: black;
+    }
+    .red-bg:hover {
+        color: white;
+    }
+
+    .errormsg {
+        font-family: "Fredoka One", cursive;
+    }
+}

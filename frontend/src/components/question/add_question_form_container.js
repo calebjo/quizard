@@ -1,23 +1,15 @@
 import { connect } from 'react-redux';
 import { createQuestion, clearQuestionErrors } from '../../actions/question_actions';
-import QuestionForm from "./question_form";
+import AddQuestionForm from "./add_question_form";
 
 const mSTP = (state, ownProps) => ({
-    formType: "new",
-    question: {
-        set_id: ownProps.match.params.id, 
-        category: "", // set this in component did mount
-        question: "",
-        correctAnswer: "",
-        incorrectAnswers: [],
-        type: "Multiple Choice"
-        },
+    questionSet: ownProps.questionSet,
     errors: state.errors.question
 });
 
 const mDTP = dispatch => ({
-    submitAction: (questionData) => dispatch(createQuestion(questionData)),
+    createQuestion: (questionData) => dispatch(createQuestion(questionData)),
     clearQuestionErrors: () => dispatch(clearQuestionErrors())
 });
 
-export default connect(mSTP, mDTP)(QuestionForm);
+export default connect(mSTP, mDTP)(AddQuestionForm);

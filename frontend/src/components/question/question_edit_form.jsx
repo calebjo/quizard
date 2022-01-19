@@ -1,8 +1,7 @@
 import React from "react";
 import "./question_edit.scss";
 import EditQuestionSetFormContainer from "../question_set/edit_question_set_form_container";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import AddQuestionFormContainer from "./add_question_form_container";
 
 class QuestionEditForm extends React.Component {
     constructor(props) {
@@ -54,9 +53,7 @@ class QuestionEditForm extends React.Component {
                         ))
                     )}
                     {/* New Question button */}
-                    <button className="styled-button orange-bg">
-                        <FontAwesomeIcon icon={faPlus} /> Add a question
-                    </button>
+                    <AddQuestionFormContainer />
                 </div>
             </div>
         );
