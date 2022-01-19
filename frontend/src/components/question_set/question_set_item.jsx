@@ -39,7 +39,8 @@ class QuestionSetItem extends React.Component {
                 state: { 
                     questionSet: this.props.questionSet,
                     questions: this.state.questions,
-                    lobbyId: lobbyId
+                    lobbyId: lobbyId,
+                    creator: this.props.currentUser
                     }
                 }}
             />

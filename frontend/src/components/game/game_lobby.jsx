@@ -9,21 +9,42 @@ class GameLobby extends React.Component {
     constructor (props) {
         super(props);
         
-        const debugPlayers = {
-            _id: "ASD1i",
-            _id: "Quizard1530",
-            _id: "SPONGEBOBSQUAREPANTS",
-            _id: "quizlord02"
-        }
+        // const debugPlayers = [
+        //     {username: "ASD1i"},
+        //     {username: "Quizard1530"},
+        //     {username: "SPONGEBOBSQUAREPANTS"},
+        //     {username: "quizlord02"}
+        // ]
+        
         // SKELETON -- debugPlayers needs to be replaced with actual players
-        this.state = {
-            creator: null,
-            questionSet: this.props.location.state.questionSet,
-            questions: this.props.location.state.questions,
-            playing: false,
-            players: debugPlayers
+        if (this.props.location.state) {
+            const players = [
+                {username: this.props.location.state.creator.username}
+            ]
+            this.state = {
+                creator: this.props.location.state.creator,
+                questionSet: this.props.location.state.questionSet,
+                questions: this.props.location.state.questions,
+                playing: false,
+                players: players
+            }
+        } else {
+            this.state = {
+                playing: false
+            }
         }
-        this.startGame = this.startGame.bind(this)
+        // on a new client connection, give them the game state data
+        socket.emit('joinRoom', this.props.lobbyId, this.state)
+
+        socket.on('playerJoined', (startGameState) => {
+            console.log("Player has joined the lobby!")
+            this.setState(startGameState)
+        })
+
+        // update state whenever the lobby's state updates
+        socket.on('sendUpdatedState', (newGameState) => {
+            this.setState(newGameState)
+        })
     }
 
     componentDidMount() {
@@ -33,20 +54,16 @@ class GameLobby extends React.Component {
     }
 
     startGame() {
-        this.setState({
-            playing: true
-        })
+        if (this.props.location.state) {
+            this.setState({
+                playing: true
+            })
+        }
     }
     
     render() {
-
-        const gameOrLobby = this.state.playing ? (
-            <GameView
-                socket={socket}
-                players={this.state.players}
-                questions={this.state.questions}
-            />
-        ) : (
+        socket.emit('gameStateUpdate', this.props.lobbyId, this.state)
+        const lobby = this.props.location.state ? (
             <div className="lobby__container">
                 <div className="lobby__quit">
                 </div>
@@ -60,7 +77,7 @@ class GameLobby extends React.Component {
                         </div>
                         <button 
                             className="lobby__start"
-                            onClick={this.startGame}>
+                            onClick={() => this.startGame.bind(this)}>
                             Start Game
                         </button>
                     </div>
@@ -70,6 +87,19 @@ class GameLobby extends React.Component {
                 <GameChatContainer 
                     socket={socket}/>
             </div>
+        ) : (
+            <div className="lobby__error">
+                Sorry, your lobby was not found.
+            </div>
+        )
+        const gameOrLobby = this.state.playing ? (
+            <GameView
+                socket={socket}
+                players={this.state.players}
+                questions={this.state.questions}
+            />
+        ) : (
+            lobby
         )
 
         return(

@@ -50,6 +50,7 @@ io = socket(server, {
 })
 
 io.on('connection', socket => {
+    // REFERENCE FOR FUTURE
     // to the connecting client
     // socket.emit('message', 'Welcome to Quizard, new user!')
 
@@ -59,16 +60,24 @@ io.on('connection', socket => {
     // to ALL clients
     // io.emit('message', 'Hi!')
 
-    socket.on('disconnect', () => {
-        io.emit('message', 'A user has disconnected.')
-    })
+    // socket.on('disconnect', () => {
+    //     io.emit('message', 'A user has disconnected.')
+    // })
 
     // chat messages
     socket.on('chatMessage', (message, user, roomId) => {
         socket.broadcast.emit('message', message, user, roomId)
+        // socket.to(roomId).broadcast.emit('message', message, user, roomId)
     })
 
+    // joining a game room
+    socket.on('joinRoom', (roomId, startGameState) => {
+        socket.join(roomId)
+        socket.to(roomId).emit('playerJoined', startGameState)
+    })
+
+    // updating a room's game state
     socket.on('gameStateUpdate', (roomId, newGameState) => {
-        
+        socket.to(roomId).emit('sendUpdatedState', newGameState)
     })
 })

@@ -4,6 +4,19 @@
     background: #0E273C;
 }
 
+.lobby__error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: #091a29;
+    color: white;
+    font-size: 3rem;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: underline;
+}
+
 .lobby__body {
     display: flex;
     flex-direction: column;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { fetchSetQuestions } from "../../actions/question_actions";
 
-const mSTP = state => ({
+const mSTP = (state) => ({
     state
 });
 
