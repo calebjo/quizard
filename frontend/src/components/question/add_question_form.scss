@@ -1,9 +1,23 @@
 .add-question-form {
+    z-index: 999;
+    position: relative;
+    border-radius: 32px;
+    margin: 0 auto;
+    text-align: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
     color: white;
+    padding: 30px;
+    background-color: #003e5b;
+    height: fit-content;
+    width: 50vw;
+
+    > form {
+        display: flex;
+        flex-direction: column;
+    }
 
     h1 {
         font-size: 44px;
@@ -28,20 +42,17 @@
 
     label {
         font-family: 'Fredoka One', cursive;
-        width: 8vw;
         margin: 15px;
-        text-align: right;
+        text-align: left;
     }
 
     input {
         text-align: left;
         padding: 1.2em;
-        margin-top: 0.5em;
         border: 1px solid white;
         font-family: "Roboto", sans-serif;
         border-radius: 18px;
         font-size: 0.95em;
-        width: 24vw;
         color: white;
     }
 
@@ -59,5 +70,27 @@
 
     .errormsg {
         font-family: "Fredoka One", cursive;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        cursor: pointer;
+    }
+
+    .edit-buttons {
+        display: block;
+        margin: 0 auto;
+    }
+
+    label.green {
+        color: springgreen;
+    }
+    label.red {
+        color: #FB3754;
+    }
+    input.correct {
+        width: 33%;
     }
 }

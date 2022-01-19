@@ -45,6 +45,7 @@ class AddQuestionForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+
         // put incorrect answers into array
         const incorrectAnswers = [this.state.incorrect1, this.state.incorrect2, this.state.incorrect3];
         // pull other fields from state
@@ -103,10 +104,11 @@ class AddQuestionForm extends React.Component {
                             <input type="text" value={question} onChange={this.update("question")} />
 
                         
-                            <label>Correct answer:</label>
-                            <input type="text" value={correctAnswer} onChange={this.update("correctAnswer")} />
+                            <label className="green">Correct answer:</label>
+                            <input type="text" value={correctAnswer} onChange={this.update("correctAnswer")}
+                                className="correct" />
 
-                            <label>Incorrect answers:</label>
+                            <label className="red">Incorrect answers:</label>
                             <div className="edit-flex">
                                 <input type="text" value={incorrect1} onChange={this.update("incorrect1")} />
                                 <input type="text" value={incorrect2} onChange={this.update("incorrect2")} />
