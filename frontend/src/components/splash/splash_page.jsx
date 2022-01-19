@@ -35,12 +35,12 @@ class SplashPage extends React.Component {
         if ( this.state.screenWidth >= 770) {
             this.setState({
                 joinButtonText: "Join Game",
-                createButtonText: "Create Quiz"
+                createButtonText: "Choose Quiz"
             })
         } else {
             this.setState({
                 joinButtonText: "Join",
-                createButtonText: "Create"
+                createButtonText: "Choose"
             })
         }
     }
@@ -97,7 +97,8 @@ class SplashPage extends React.Component {
                                     { this.state.joinButtonText }
                                 </button>
                                 <button
-                                    className="splash-page__center-button">
+                                    className="splash-page__center-button"
+                                    onClick={(e) => {e.preventDefault(); this.props.history.push("/question-sets")}}>
                                     { this.state.createButtonText }
                                 </button>
                             </div>

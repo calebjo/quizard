@@ -1,6 +1,8 @@
-.user-show {
+.with-nav {
     margin: 5vh 60px 0 22vw;
+}
 
+.user-show {
     .flexed {
         display: flex;
     }
@@ -62,7 +64,7 @@
         font-family: "Podkova", serif;
         font-size: 22px;
         text-decoration: underline;
-        margin: 5px 0;
+        margin: 8px 0;
     }
 
     p {
@@ -242,6 +244,42 @@
     cursor: pointer;
 }
 
+.user-qset-index {
+    background-color: #003e5b;
+    border-radius: 8px;
+    border: 2px outset #ffbc42;
+    // font-family: "Fredoka One", cursive;
+    margin: 8px 0;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > a {
+        color: #ffbc42;
+    }
+
+    > div {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.small-button {
+    font-family: "Podkova", serif;
+    font-weight: 900;
+    cursor: pointer;
+    text-align: center;
+    margin: 0.5em;
+    border: 2px outset #FB3754;
+    padding: 0.1em;
+    border-radius: 6px;
+}
+
+.small-button:hover {
+    border: 2px solid white;
+    color: white;
+}
 
 @keyframes zoominandshake {
     0% {

@@ -1,5 +1,6 @@
 import React from "react";
 import "./user.scss";
+import UserShowQsetItem from "./user_show_qset_item";
 
 class UserShow extends React.Component {
 
@@ -15,9 +16,9 @@ class UserShow extends React.Component {
     }
 
     componentDidMount () {
+        this.props.fetchUserQuestionSets(this.props.match.params.id);
         this.props.fetchUser(this.props.match.params.id)
             .then(({user}) => {
-                console.log(user.data);
                 this.getBadges(user.data);});
     }
 
@@ -52,14 +53,14 @@ class UserShow extends React.Component {
     }
 
     render () {
-        const {viewedUser, currentUser} = this.props;
+        const {viewedUser, currentUser, questionSets} = this.props;
 
         if (!viewedUser) return null;
 
         const {username} = viewedUser;
 
         return (
-        <main className="user-show">
+        <main className="user-show with-nav">
             {/* HEADER */}
             <div className="user-header">
                 <div>
@@ -73,7 +74,7 @@ class UserShow extends React.Component {
                 </div>
 
                 <div>
-                    {currentUser.id === viewedUser._id ? (
+                    {currentUser && currentUser.id === viewedUser._id ? (
                         <button className="styled-button orange-bg" onClick={this.handleEdit}>Edit Profile</button>
                     ) : null}
                 </div>
@@ -99,10 +100,13 @@ class UserShow extends React.Component {
 
                 <div className="created-sets-container user-show-case">
                     <h4>Created Question Sets</h4>
-                    {/* Get question sets at CDM */}
-                    {/* If none belong to user, render... */}
-                    <p>None yet!</p>
-                    {/* Else render array of index items */}
+                    {
+                        questionSets.length > 0 ? (
+                            questionSets.map((qset, i) => <UserShowQsetItem key={`qs${i}`} qset={qset} />)
+                        ) : (
+                            <p>None yet!</p>
+                        )
+                    }
                 </div>
             </div>
         </main>

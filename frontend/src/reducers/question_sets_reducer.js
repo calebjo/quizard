@@ -12,13 +12,8 @@ const questionSetsReducer = (state = {}, action) => {
         case RECEIVE_ALL_QUESTION_SETS:
             return action.questionSets.data
         case RECEIVE_QUESTION_SET:
-            let index = nextState.findIndex(questionSet => questionSet._id == action.questionSet.data._id)
-            if(index >= 0) {
-                nextState[index] = action.questionSet.data
-            } else {
-                nextState.push(action.questionSet.data)
-            }
-            return nextState;
+            const qSet = {[action.questionSet.data._id]: action.questionSet.data};
+            return Object.assign(nextState, qSet);
         case REMOVE_QUESTION_SET:
             return nextState;
         default:
