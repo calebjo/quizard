@@ -1,6 +1,6 @@
 
 import React from 'react';
-// import { AuthRoute, ProtectedRoute } from '../util/route_util';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import './app.scss';
 import { Switch, Route } from 'react-router-dom';
 import SplashPage from './splash/splash_page'
@@ -17,8 +17,8 @@ import NewQuestionSetFormContainer from './question_set/new_question_set_form_co
 const App = () => (
     <div className="app">
         {/* <SideNavContainer /> */}
-        <Route path="/users/:id" component={SideNavContainer}/> {/* VK: temp code for styling purposes */}
-        <Route path="/edit-profile" component={SideNavContainer}/>
+        <Route path="/users/:id" component={SideNavContainer}/>
+        <ProtectedRoute path="/edit-profile" component={SideNavContainer}/>
         <Route path="/question-sets" component={SideNavContainer} />
         <Route path="/quiz-creator" component={SideNavContainer} />
 
@@ -26,11 +26,11 @@ const App = () => (
             <Route exact path="/quiz-creator" component={NewQuestionSetFormContainer} />
             <Route exact path="/question-sets/:id" component={QuestionSetShowContainer} />
             <Route exact path="/question-sets" component={QuestionSetIndexContainer} />
-            <Route exact path="/edit-profile" component={EditUserFormContainer} />
+            <ProtectedRoute exact path="/edit-profile" component={EditUserFormContainer} />
             <Route exact path="/users/:id" component={UserShowContainer} />
-            <Route exact path="/login" component={LoginFormContainer} />
-            <Route exact path="/signup" component={SignupFormContainer} />
-            <Route exact path="/" component={SplashPage} />
+            <AuthRoute exact path="/login" component={LoginFormContainer} />
+            <AuthRoute exact path="/signup" component={SignupFormContainer} />
+            <AuthRoute exact path="/" component={SplashPage} />
         </Switch>
     </div>
 );
