@@ -18,16 +18,16 @@ export const fetchQuestion = id => {
     );
 };
 
-export const createQuestion = (id, questionData) => {
+export const createQuestion = (questionData) => {
     return axios.post(
-        `/api/questions/${id}`, 
+        `/api/questions/`, 
         questionData
     );
 };
   
-export const updateQuestion = (id, questionData) => {
+export const updateQuestion = (questionData) => {
     return axios.patch(
-        `/api/questions/${id}`,
+        `/api/questions/${questionData.id}`,
         questionData
     );
 };

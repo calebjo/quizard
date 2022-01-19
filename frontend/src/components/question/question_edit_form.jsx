@@ -1,6 +1,8 @@
 import React from "react";
 import "./question_edit.scss";
 import EditQuestionSetFormContainer from "../question_set/edit_question_set_form_container";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 class QuestionEditForm extends React.Component {
     constructor(props) {
@@ -38,9 +40,24 @@ class QuestionEditForm extends React.Component {
                 <div className="question-edit-header">
                     <h6>Now editing:</h6>
                     <h1>{questionSet.title} &nbsp;<EditQuestionSetFormContainer /></h1>
+                    <p>Description: {questionSet.description || "(none)"}</p>
                 </div>
 
                 {/* Individual questions */}
+                <div className="question-edit-index">
+                    {/* Questions that have already been made */}
+                    {formQuestions.length === 0 ? (
+                        <h5 className="no-questions">No questions yet!</h5>
+                    ) : (
+                        formQuestions.map((formQ, i) => (
+                            <h5 key={`fq${i}`}>{formQ.question}</h5>
+                        ))
+                    )}
+                    {/* New Question button */}
+                    <button className="styled-button orange-bg">
+                        <FontAwesomeIcon icon={faPlus} /> Add a question
+                    </button>
+                </div>
             </div>
         );
     }
