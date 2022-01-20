@@ -13,6 +13,8 @@ const questions = require("./routes/api/questions");
 const lobby = require('./routes/api/lobby');
 const gameRecords = require("./routes/api/game_records");
 
+const { uniqueNamesGenerator, adjectives, colors, animals, names } = require('unique-names-generator');
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('frontend/build'));
     app.get('/', (req, res) => {
@@ -82,7 +84,11 @@ io.on('connection', socket => {
         if (user) {
             user = { [id]: ['human', user.username, user.id] }
         } else {
-            user = { [id]: ['human', `Guest${numClients}`, id]}
+            const randomName = uniqueNamesGenerator({ 
+                dictionaries: [adjectives, colors, animals, names],
+                length: 2
+            })
+            user = { [id]: ['human', `${randomName}`, id]}
         }
         if (Array.isArray(clients[roomId])) {
             clients[roomId].push(user)
