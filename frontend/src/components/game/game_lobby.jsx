@@ -66,10 +66,9 @@ class GameLobby extends React.Component {
     }
 
     startGame() {
-
-        // this.setState({
-        //     playing: true
-        // })
+        this.setState({
+            playing: true
+        })
     }
     
     render() {
