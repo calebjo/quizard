@@ -7,8 +7,7 @@ class GameView extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            // SKELETON -- instantialize actual game instance with players in lobby
-            // game: new Game()
+            game: new Game(props.questions, props.players),
             roundActive: false,
         }
         this.handleGuess = this.handleGuess.bind(this)
@@ -112,8 +111,6 @@ class GameView extends React.Component {
                     {/* roundEnd */}
                     {/* gameEnd */}
                 </div>
-                <GameChatContainer
-                    socket={this.props.socket}/>
             </div>
         )
     }

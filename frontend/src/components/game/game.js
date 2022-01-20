@@ -5,20 +5,21 @@ export default class Game {
     constructor(questions, players) {
         // questions should be an array of question objects
         // players should ONE object { computerId: ['computer', 'username'], socketId: ['human', 'username', db_id (if they have one], socketId: ['human', 'username'] }
+        debugger
         this.totalRounds = questions.length;
         this.round = 0;
         this.questions = Game.normalizeQuestions(questions);
         this.players = Game.createPlayers(players);
         this.activePlayers = this.players;
         this.inactivePlayers = {};
-        this.incorrectAnswersHelper = this.incorrectAnswersHelper.bind(this);
-        this.normalizeQuestions = this.normalizeQuestions.bind(this);
-        this.playRound = this.playRound.bind(this);
-        this.gameOver = this.gameOver.bind(this);
+        // this.incorrectAnswersHelper = this.incorrectAnswersHelper.bind(this);
+        // this.normalizeQuestions = this.normalizeQuestions.bind(this);
+        // this.playRound = this.playRound.bind(this);
+        // this.gameOver = this.gameOver.bind(this);
     }
 
     static normalizeQuestions(questions) {
-        // Each question object should contain { question, incorrectAnswers, correctAnswer, category, type }
+        // Each question object should contain { question, incorrectAnswers, correctAnswer, category, type }        
         let normalizedQuestions = [];
         questions.forEach(question => {
             let _normalizedQuestion = {};

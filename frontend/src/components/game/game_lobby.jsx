@@ -14,14 +14,17 @@ class GameLobby extends React.Component {
             players: null,
         }
         
+        // this.getData = this.getData.bind(this);
         this.startGame = this.startGame.bind(this)
     }
 
     componentDidMount() {
-        window.onbeforeunload = function() {
-            socket.emit('disconnect')
+        
+          window.onbeforeunload = function () {
+            //   socket.emit('disconnect')
             return "Data will be lost if you leave the page, are you sure?";
         };
+     
         this.props.fetchLobby(this.props.match.params.id).then(({lobby}) => {
             this.props.fetchQuestionSet(lobby.data.set_id)
             this.props.fetchSetQuestions(lobby.data.set_id)
@@ -61,9 +64,9 @@ class GameLobby extends React.Component {
         })
     }
 
-    componentWillUnmount() {
-        socket.emit('disconnect')
-    }
+    // componentWillUnmount() {
+    //     socket.emit('disconnect')
+    // }
 
     startGame() {
         this.setState({
@@ -122,6 +125,7 @@ class GameLobby extends React.Component {
                 socket={socket}
                 players={this.state.players}
                 questions={this.props.questions}
+                sendData={this.getData}
             />
         ) : (
             <div className="lobby__container">
@@ -138,9 +142,9 @@ class GameLobby extends React.Component {
 
         return(
             <div>
-                <GameChatContainer 
-                    socket={socket}/>
                 {gameOrLobby}
+                <GameChatContainer
+                    socket={socket} />
             </div>
         )
     }
