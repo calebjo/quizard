@@ -2,6 +2,7 @@ import React from 'react'
 import './splash_page.scss'
 import caleb from "../../assets/images/photo-caleb.png"
 import virginia from "../../assets/images/photo-virginia.png"
+import julio from "../../assets/images/photo-julio.png"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
@@ -96,10 +97,10 @@ class SplashPage extends React.Component {
                             </div>
                         </div>
                         <div className="splash-page__title">
-                            <div className="splash-page__buttons"
-                                onClick={(e) => {e.preventDefault(); this.props.history.push("/join-game")}}>
+                            <div className="splash-page__buttons">
                                 <button
-                                    className="splash-page__center-button">
+                                    className="splash-page__center-button"
+                                    onClick={(e) => {e.preventDefault(); this.props.history.push("/join-game")}}>
                                     { this.state.joinButtonText }
                                 </button>
                                 <button
@@ -127,6 +128,61 @@ class SplashPage extends React.Component {
                         <div className="splash__swipe swipe-red" />
                         <div className="splash__swipe swipe-yellow" />
                         <div className="splash__swipe swipe-blue" />
+                        <div className="technologies__footer">
+                            <div className="technologies__footer-title">
+                                Technologies
+                            </div>
+                            <div className="technologies__footer-list">
+                                <div className="technologies__footer-item">
+                                    <div className="footer-item-image">
+                                        <img src={require("../../assets/images/mongo.png")} />
+                                    </div>
+                                    <div className="footer-item-text">
+                                        MongoDB
+                                    </div>
+                                </div>
+                                <div className="technologies__footer-item">
+                                    <div className="footer-item-image">
+                                        <img src={require("../../assets/images/express.png")} />
+                                    </div>
+                                    <div className="footer-item-text">
+                                        Express
+                                    </div>
+                                </div>
+                                <div className="technologies__footer-item">
+                                    <div className="footer-item-image">
+                                        <img src={require("../../assets/images/react.png")} />
+                                    </div>
+                                    <div className="footer-item-text">
+                                        React
+                                    </div>
+                                </div>
+                                <div className="technologies__footer-item">
+                                    <div className="footer-item-image">
+                                        <img src={require("../../assets/images/redux.png")} />
+                                    </div>
+                                    <div className="footer-item-text">
+                                        Redux
+                                    </div>
+                                </div>
+                                <div className="technologies__footer-item">
+                                    <div className="footer-item-image">
+                                        <img src={require("../../assets/images/node.png")} />
+                                    </div>
+                                    <div className="footer-item-text">
+                                        Node
+                                    </div>
+                                </div>
+                                <div className="technologies__footer-item">
+                                    <div className="footer-item-image">
+                                        <img src={require("../../assets/images/socket.png")} />
+                                    </div>
+                                    <div className="footer-item-text">
+                                        Socket.io
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="splash-page__links-container">
                             <div className="splash-page__links-header">
                                 What is Quizard?
@@ -169,12 +225,12 @@ class SplashPage extends React.Component {
                                 </div>
                                 <div className="splash-page__profile">
                                 <div className="profile-name">Julio Tavarez</div>
-                                    <img src={virginia} alt=""/>
+                                    <img src={julio} alt=""/>
                                     <div className="profile__line" />
                                     <div className="profile__social-links">
-                                        {/* <a href="">
+                                        <a href="https://www.linkedin.com/in/julio-tavarez-2404a118b/">
                                             <FontAwesomeIcon icon={faLinkedin} />
-                                        </a> */}
+                                        </a>
                                         <a href="https://github.com/jdtavarez">
                                             <FontAwesomeIcon icon={faGithubAlt} />
                                         </a>
@@ -185,17 +241,17 @@ class SplashPage extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="splash-page__continue">
+                        {/* <div className="splash-page__continue">
                             <div className="splash-page__continue-text">
                                 Quizard's ingredients
                             </div>
                             <FontAwesomeIcon 
                                 icon={faChevronDown} 
                                 size="2x" />
-                        </div>
+                        </div> */}
                     </div>
-                    <div className="splash-page__technologies">
-                    </div>
+                    {/* <div className="splash-page__technologies">
+                    </div> */}
                 </div>
             </div>
         )
