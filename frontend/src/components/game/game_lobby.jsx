@@ -53,7 +53,6 @@ class GameLobby extends React.Component {
     }
 
     startGame() {
-        debugger
         this.setState({
             playing: true
         })
