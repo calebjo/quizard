@@ -37,22 +37,16 @@ app.use("/api/lobby/", lobby);
 app.use("/api/game_records/", gameRecords);
 
 const port = process.env.PORT || 4000;
-const server = app.listen(port, () => console.log(`Server is running on port ${port}`))
-
-// WebSocket setup and events ----------------------------
-// const http = require('http')
-// const wsServer = http.createServer(app)
-// wsServer.listen(port)
-// const socket = require('socket.io');
-
-const io = require('socket.io')(server, {
+const wsServer = require('http').createServer(app)
+const socket = require('socket.io');
+const io = socket(wsServer, {
     cors: {
         origin: ["http://localhost:3000", "https://quizard-aa.herokuapp.com/"],
         transports: ["websocket", "polling"]
         // methods: ["GET", "POST"],
         // credentials: true
     }
-})
+});
 
 io.on('connection', socket => {
     // REFERENCE FOR FUTURE
@@ -76,13 +70,21 @@ io.on('connection', socket => {
     })
 
     // joining a game room
-    socket.on('joinRoom', (roomId, startGameState) => {
+    socket.on('joinRoom', (roomId, user, state) => {
         socket.join(roomId)
-        socket.to(roomId).emit('playerJoined', startGameState)
+        const id = socket.client.id;
+        socket.to(roomId).emit('playerJoined', id, user, state)
     })
 
-    // updating a room's game state
-    socket.on('gameStateUpdate', (roomId, newGameState) => {
-        socket.to(roomId).emit('sendUpdatedState', newGameState)
+    socket.on('disconnect', (roomId, user) => {
+        const id = socket.client.id;
+        socket.to(roomId).emit('playerDisconnect', id, user)
     })
-})
+
+    // // updating a room's game state
+    // socket.on('gameStateUpdate', (roomId, newGameState) => {
+    //     socket.to(roomId).emit('sendUpdatedState', newGameState)
+    // })
+});
+
+wsServer.listen(port)

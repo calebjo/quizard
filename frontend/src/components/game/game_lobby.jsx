@@ -1,5 +1,5 @@
 import React from "react";
-import {socket} from "../app"
+import {socket} from "../../util/socket_util"
 import "./game.scss"
 import GameChatContainer from "./game_chat_container";
 import GameView from "./game_view";
@@ -19,9 +19,9 @@ class GameLobby extends React.Component {
         this.state = {
             creator: null,
             playing: false,
-            players: {[this.props.currentUser.id]: ['human', this.props.currentUser.username]}
+            players: null,
         }
-        this.players = {[this.props.currentUser.id]: ['human', this.props.currentUser.username]}
+        this.players = {};
         this.startGame = this.startGame.bind(this)
     }
 
@@ -36,26 +36,39 @@ class GameLobby extends React.Component {
             this.setState({
                 creator: lobby.data.creator_id
             })
-
-            socket.emit('joinRoom', this.props.lobby.room_id, this.state)
+            this.players[this.props.currentUser.id] = this.props.currentUser;
+            socket.emit('joinRoom', this.props.lobby.room_id, this.props.currentUser, this.state)
 
             // on a new client connection, give them the game state data
-            socket.on('playerJoined', (startGameState) => {
-                console.log("Player has joined the lobby!")
-                this.setState(startGameState)
+            socket.on('playerJoined', (id, user, state) => {
+                user.id ? 
+                this.players[id] = ['human', user.username, user.id] : 
+                this.players[id] = [ 'human', "adventurous aardvark" ]
+                this.setState(state);
+                this.setState({players: this.players});
+            })
+
+            socket.on('playerDisconnect', (id) => {
+                delete this.players[id];
+                console.log('are the disconnects registering?')
+                this.setState({players: this.players})
             })
 
             // update state whenever the lobby's state updates
-            socket.on('sendUpdatedState', (newGameState) => {
-                this.setState(newGameState)
+            socket.on('sendUpdatedState', () => {
             })
         })
     }
 
+    componentWillUnmount() {
+        socket.emit('disconnect', this.props.room_id, this.props.currentUser)
+    }
+
     startGame() {
-        this.setState({
-            playing: true
-        })
+
+        // this.setState({
+        //     playing: true
+        // })
     }
     
     render() {
@@ -70,32 +83,53 @@ class GameLobby extends React.Component {
         }
 
         const questionSet = this.props.questionSets[this.props.lobby.set_id]
+
+        const lobbyNav = this.props.currentUser 
+        && this.props.currentUser.id === this.state.creator ? 
+        (<div className="lobby__top-bar">
+            <button className="lobby__invite">
+                Invite Players{/* generates link to url */}
+            </button>
+            <div className="lobby__quiz-title">
+                Lobby : <span>{questionSet ? (questionSet.title) : ("")}</span>
+            </div>
+            <button
+                className="lobby__start"
+                onClick={this.startGame}>
+                Start Game
+            </button>
+        </div>) : 
+        (<div className="lobby__top-bar">
+            <div className="lobby__quiz-title">
+                Lobby : <span>{questionSet ? (questionSet.title) : ("")}</span>
+            </div>
+        </div>)
+
+        // Creates a list of the players currently in the lobby
+        let lobbyPlayers;
+         if (this.state.players) {
+            const ids = Object.keys(this.state.players);
+            lobbyPlayers = Object.values(this.state.players).map((playerDataArray, idx) => {
+                return <li key={ids[idx]}>{playerDataArray[1]}</li>
+            })
+        } else {
+            lobbyPlayers = '';
+        }
         
         const gameOrLobby = this.state.playing ? (
             <GameView
                 socket={socket}
                 players={this.state.players}
-                questions={this.state.questions}
+                questions={this.props.questions}
             />
         ) : (
             <div className="lobby__container">
                 <div className="lobby__quit">
                 </div>
                 <div className="lobby__body">
-                    <div className="lobby__top-bar">
-                        <button className="lobby__invite">
-                            Invite Players{/* generates link to url */}
-                        </button>
-                        <div className="lobby__quiz-title">
-                            Lobby : <span>{questionSet ? (questionSet.title):("")}</span>
-                        </div>
-                        <button 
-                            className="lobby__start"
-                            onClick={this.startGame}>
-                            Start Game
-                        </button>
-                    </div>
+                    {lobbyNav}
                     <div className="lobby__players-large">
+                        {lobbyPlayers}
                     </div>
                 </div>
             </div>

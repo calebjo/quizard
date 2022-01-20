@@ -11,7 +11,6 @@ import { fetchAllQuestionSets } from './actions/question_set_actions'; // DEBUG
 document.addEventListener('DOMContentLoaded', () => {
     
     let store;
-
     if (localStorage.jwtToken) {
         setAuthToken(localStorage.jwtToken);
 
