@@ -2,6 +2,10 @@
     margin: 5vh 60px 0 22vw;
 }
 
+.with-nav2 {
+    margin-left: 20vw;
+}
+
 .user-show {
     .flexed {
         display: flex;
@@ -84,7 +88,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 5px;
+        margin: 8px 5px;
+        position: relative;
     }
 
     .badges-container {
@@ -94,6 +99,27 @@
         justify-content: flex-start;
         float: left;
     }
+}
+
+
+.badge .hovertext {
+    visibility: hidden;
+    width: 150px;
+    background-color: #003e5b;
+    color: white;
+    font-family: "Podkova", serif;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px outset #FB3754;
+    position: absolute;
+    z-index: 1;
+    left: 105%;
+    top: 5px;
+}
+
+.badge:hover .hovertext {
+    visibility: visible;
 }
 
 .created-sets-container {
@@ -269,6 +295,10 @@
     }
 }
 
+.user-qset-index:hover {
+    -webkit-filter: brightness(90%);
+}
+
 .small-button {
     font-family: "Podkova", serif;
     font-weight: 900;
@@ -299,4 +329,11 @@
     50%,  90% {
         transform: rotate(-2deg)
     }
+}
+
+.join-game-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }

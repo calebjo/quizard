@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import "./question_set_show.scss";
+import {nanoid} from 'nanoid'; // generates a random id
 
 class QuestionSetShow extends React.Component {
+    constructor(props) {
+        super(props);
+        this.startLobby = this.startLobby.bind(this);
+    }
 
     componentDidMount () {
         this.props.fetchQuestionSet(this.props.match.params.id)
@@ -10,6 +15,19 @@ class QuestionSetShow extends React.Component {
                 this.props.fetchUser(questionSet.data.creator_id);
                 this.props.fetchSetQuestions(questionSet.data._id);
             });
+    }
+
+    startLobby(e) {
+        e.preventDefault();
+        console.log(`Creating a lobby from a ${this.props.questionSet.category} set!`);
+
+        const creator_id = this.props.currentUser.id;
+        const set_id = this.props.questionSet._id;
+        const room_id = nanoid(5);
+
+        this.props.createLobby({ creator_id, set_id, room_id }).then(() => {
+            this.props.history.push(`/play/${room_id}`)
+        })
     }
 
     render () {
@@ -49,7 +67,7 @@ class QuestionSetShow extends React.Component {
                     </div>
 
                     <div className="button-holder">
-                        <button className="styled-button red-bg">Start Game</button>
+                        <button className="styled-button red-bg" onClick={this.startLobby}>Start Game</button>
                         {editButton}
                     </div>
 
