@@ -58,8 +58,10 @@ export default class Game {
             switch(players[id][0]) {
                 case ('human'): 
                     playersObject[id] = new HumanPlayer({id: id, username: players[id][1]})
+                    break;
                 case ('computer'): 
                     playersObject[id] = new ComputerPlayer({ id: id, username: players[id][1] })
+                    break;
             }
         })
         return playersObject
