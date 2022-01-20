@@ -1,0 +1,97 @@
+.add-question-form {
+    z-index: 999;
+    position: relative;
+    border-radius: 32px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 30px;
+    background-color: #003e5b;
+    height: fit-content;
+    width: 50vw;
+    animation: bounceInDown 700ms;
+
+    > form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 44px;
+        padding: 20px;
+    }
+
+    h4 {
+        font-family: "Fredoka One", cursive;
+        margin-right: 5px;
+    }
+
+    .edit-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    label, input, h4 {
+        font-size: 18px;
+    }
+
+    label {
+        font-family: 'Fredoka One', cursive;
+        margin: 15px;
+        text-align: left;
+    }
+
+    input {
+        text-align: left;
+        padding: 1.2em;
+        border: 1px solid white;
+        font-family: "Roboto", sans-serif;
+        border-radius: 18px;
+        font-size: 0.95em;
+        color: white;
+    }
+
+    input:focus {
+        outline: none;
+        box-shadow: 0 0 10px white;
+    }
+
+    .red-bg {
+        color: black;
+    }
+    .red-bg:hover {
+        color: white;
+    }
+
+    .errormsg {
+        font-family: "Fredoka One", cursive;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        cursor: pointer;
+    }
+
+    .edit-buttons {
+        display: block;
+        margin: 0 auto;
+    }
+
+    label.green {
+        color: springgreen;
+    }
+    label.red {
+        color: #FB3754;
+    }
+    input.correct {
+        width: 33%;
+    }
+}

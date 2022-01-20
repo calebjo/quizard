@@ -4,7 +4,8 @@ import NewQuestionSetForm from "./new_question_set_form";
 
 const mSTP = state => ({
     currentUser: state.session.user,
-    errors: state.errors.questionSet
+    errors: state.errors.questionSet,
+    qSetId: state.ui.lastQuestionSet
 });
 
 const mDTP = dispatch => ({

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 module.exports = function validateQuestion(data) {
     let errors = {};
-    const categories = ["Food and Drink", "Geography", "General Knowledge", "History", "Art and Literature", "Movies", "Music", "Science", "Society and Culture", "Sport and Leisure"];
+    const categories = ["Food and Drink", "Geography", "General Knowledge", "History", "Art and Literature", "Movies", "Music", "Science", "Society and Culture", "Sport and Leisure", "Mixed", "Film and TV"];
     const types = ["Multiple Choice", "True or False"];
      
     data.category = validText(data.category) ? data.category : '';
