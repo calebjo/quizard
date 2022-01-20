@@ -1,6 +1,16 @@
 import React from "react";
 import "./user.scss";
 import UserShowQsetItem from "./user_show_qset_item";
+import badgeBookBronze from "../../assets/images/badge-book-bronze.png"
+import badgeBookSilver from "../../assets/images/badge-book-silver.png"
+import badgeBookGold from "../../assets/images/badge-book-gold.png"
+import badgeSwordBronze from "../../assets/images/badge-sword-bronze.png"
+import badgeSwordSilver from "../../assets/images/badge-sword-silver.png"
+import badgeSwordGold from "../../assets/images/badge-sword-gold.png"
+import badgeHatBronze from "../../assets/images/badge-hat-bronze.png"
+import badgeHatSilver from "../../assets/images/badge-hat-silver.png"
+import badgeHatGold from "../../assets/images/badge-hat-gold.png"
+import badgeHatRed from "../../assets/images/badge-hat-red.png"
 
 class UserShow extends React.Component {
 
@@ -29,31 +39,31 @@ class UserShow extends React.Component {
 
         // badge depending on num of games played
         if (games_played > 100) {
-            badges.push({badgeTitle: "Quizard", badgeDesc: "Quiz master! Played more than 100 games"});
+            badges.push({badgeTitle: "Quizard", badgeDesc: "Quiz master! Played more than 100 games", src: badgeHatRed});
         } else if (games_played > 50) {
-            badges.push({badgeTitle: "Elder", badgeDesc: "Played more than 50 games"});
+            badges.push({badgeTitle: "Elder", badgeDesc: "Played more than 50 games", src: badgeHatGold});
         } else if (games_played > 10) {
-            badges.push({badgeTitle: "Master", badgeDesc: "Played more than 10 games"});
+            badges.push({badgeTitle: "Master", badgeDesc: "Played more than 10 games", src: badgeHatSilver});
         } else {
-            badges.push({badgeTitle: "Novice", badgeDesc: "Newbie alert! Played fewer than 10 games"});
+            badges.push({badgeTitle: "Novice", badgeDesc: "Newbie alert! Played fewer than 10 games", src: badgeHatBronze});
         }
 
         // badge depending on wins/losses
         if (games_won === 0 /*&& games_played > 1*/) {
-            badges.push({badgeTitle: "Sore Loser", badgeDesc: "Oof... Hasn't won a game yet"});
+            badges.push({badgeTitle: "Sore Loser", badgeDesc: "Oof... Hasn't won a game yet", src: badgeSwordBronze});
         } else if ( games_won / games_played > 0.5) {
-            badges.push({badgeTitle: "Formidable Opponent", badgeDesc: "Whoa! Won more than half of the games played"});
+            badges.push({badgeTitle: "Formidable Opponent", badgeDesc: "Whoa! Won more than half of the games played", src: badgeSwordGold});
         } else if (games_won / games_played > 0.333 ) {
-            badges.push({badgeTitle: "Tough to Beat", badgeDesc: "Nice going! Won more than a third of the games played"});
+            badges.push({badgeTitle: "Tough to Beat", badgeDesc: "Nice going! Won more than a third of the games played", src: badgeSwordSilver});
         }
 
         // badge depending on number of question sets created
         if (questionSets.length >= 10) {
-            badges.push({badgeTitle: "Prolific Scholar", badgeDesc: "Created 10 or more question sets"});
+            badges.push({badgeTitle: "Prolific Scholar", badgeDesc: "Created 10 or more question sets", src: badgeBookGold});
         } else if (questionSets.length) {
-            badges.push({badgeTitle: "Scholar", badgeDesc: "Created one or more question sets"});
+            badges.push({badgeTitle: "Scholar", badgeDesc: "Created one or more question sets", src: badgeBookSilver});
         } else {
-            badges.push({badgeTitle: "Provincial", badgeDesc: "Has not created any question sets"});
+            badges.push({badgeTitle: "Provincial", badgeDesc: "Has not created any question sets", src: badgeBookBronze});
         }
 
         this.setState({badges: badges});
@@ -100,10 +110,7 @@ class UserShow extends React.Component {
                     <div className="badges-container">
                         {this.state.badges.map((badge, i) => (
                             <div key={`bdg${i}`} className="badge">
-                                <svg height="55" width="55">
-                                    <circle cx="50%" cy="50%" r="25" fill="#FB3754" />
-                                    <text x="50%" y="60%" textAnchor="middle" fill="white" fontSize="18px">{badge.badgeTitle[0].toUpperCase()}</text>
-                                </svg>
+                                <img src={badge.src} cx="50%" cy="50%" r="25" height="80" width="80"/>
                                 <label>{badge.badgeTitle}</label>
                                 <span className="hovertext">{badge.badgeDesc}</span>
                             </div>
