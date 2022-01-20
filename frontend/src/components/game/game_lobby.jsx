@@ -8,25 +8,18 @@ import GameView from "./game_view";
 class GameLobby extends React.Component {
     constructor (props) {
         super(props);
-        
-        // this.state = {
-        //     creator: this.props.location.state.creator,
-        //     questionSet: this.props.location.state.questionSet,
-        //     questions: this.props.location.state.questions,
-        //     playing: false,
-        //     players: players
-        // }
         this.state = {
             creator: null,
             playing: false,
             players: null,
         }
-        this.players = {};
+        
         this.startGame = this.startGame.bind(this)
     }
 
     componentDidMount() {
         window.onbeforeunload = function() {
+            socket.emit('disconnect')
             return "Data will be lost if you leave the page, are you sure?";
         };
         this.props.fetchLobby(this.props.match.params.id).then(({lobby}) => {
@@ -36,22 +29,30 @@ class GameLobby extends React.Component {
             this.setState({
                 creator: lobby.data.creator_id
             })
-            this.players[this.props.currentUser.id] = this.props.currentUser;
-            socket.emit('joinRoom', this.props.lobby.room_id, this.props.currentUser, this.state)
+
+            socket.emit('joinRoom', this.props.lobby.room_id, this.props.currentUser)
 
             // on a new client connection, give them the game state data
-            socket.on('playerJoined', (id, user, state) => {
-                user.id ? 
-                this.players[id] = ['human', user.username, user.id] : 
-                this.players[id] = [ 'human', "adventurous aardvark" ]
-                this.setState(state);
-                this.setState({players: this.players});
+            socket.on('playerJoined', (localClients) => {
+                let players = Object.assign(...localClients);
+                this.setState({ players })
+                socket.emit('secondRound', this.props.lobby.room_id)
             })
 
-            socket.on('playerDisconnect', (id) => {
-                delete this.players[id];
-                console.log('are the disconnects registering?')
-                this.setState({players: this.players})
+            socket.on('sendToRecentClient', (localClients) => {
+                let players = Object.assign(...localClients);
+                this.setState({ players })
+            })
+
+            socket.on('playerDisconnect', (localClients) => {
+                let players = Object.assign(...localClients);
+                this.setState({ players })
+                socket.emit('secondRoundDisconnect', this.props.lobby.room_id)
+            })
+
+            socket.on('sendToOldClients', (localClients) => {
+                let players = Object.assign(...localClients);
+                this.setState({ players })
             })
 
             // update state whenever the lobby's state updates
@@ -61,7 +62,7 @@ class GameLobby extends React.Component {
     }
 
     componentWillUnmount() {
-        socket.emit('disconnect', this.props.room_id, this.props.currentUser)
+        socket.emit('disconnect')
     }
 
     startGame() {
@@ -106,6 +107,7 @@ class GameLobby extends React.Component {
         </div>)
 
         // Creates a list of the players currently in the lobby
+        // { SOCKET OR DB id: ['human', 'username', DB id if they have one]}
         let lobbyPlayers;
          if (this.state.players) {
             const ids = Object.keys(this.state.players);

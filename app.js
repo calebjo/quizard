@@ -48,6 +48,9 @@ const io = socket(wsServer, {
     }
 });
 
+let clients = {};
+let numClients = 0;
+
 io.on('connection', socket => {
     // REFERENCE FOR FUTURE
     // to the connecting client
@@ -70,15 +73,60 @@ io.on('connection', socket => {
     })
 
     // joining a game room
-    socket.on('joinRoom', (roomId, user, state) => {
+    socket.on('joinRoom', (roomId, user) => {
+        // return info structure: [{id: [info]}, {id: [info]}]
+        numClients++
         socket.join(roomId)
         const id = socket.client.id;
-        socket.to(roomId).emit('playerJoined', id, user, state)
+
+        if (user) {
+            user = { [id]: ['human', user.username, user.id] }
+        } else {
+            user = { [id]: ['human', `Guest${numClients}`, id]}
+        }
+        if (Array.isArray(clients[roomId])) {
+            clients[roomId].push(user)
+        } else {
+            clients[roomId] = [user]
+        }
+
+        const localClients = clients[roomId];
+        socket.to(roomId).emit('playerJoined', localClients)
     })
 
-    socket.on('disconnect', (roomId, user) => {
+    socket.on('secondRound', (roomId) => {
+        const localClients = clients[roomId];
+        socket.to(roomId).emit('sendToRecentClient', localClients) 
+    })
+
+    socket.on('disconnect', () => {
         const id = socket.client.id;
-        socket.to(roomId).emit('playerDisconnect', id, user)
+        let rooms = Object.keys(clients);
+        let roomId;
+        let newRoom;
+        rooms.forEach(roomCode => {
+            let room = clients[roomCode];
+            let sliceIdx;
+            if (room) {
+                room.forEach((client, idx) => {
+                    if (id in client) {
+                        sliceIdx = idx;
+                        roomId = roomCode;
+                        const left = room.slice(0, sliceIdx);
+                        const right = room.slice(sliceIdx + 1)
+                        newRoom = [].concat(left).concat(right);
+                    }
+                })
+            }
+        })
+        clients[roomId] = newRoom;
+        localClients = clients[roomId]
+        socket.emit('playerDisconnect', localClients)
+    })
+
+    socket.on('secondRoundDisconnect', (roomId) => {
+        const localClients = clients[roomId];
+        socket.to(roomId).emit('sendToOldClients', localClients) 
     })
 
     // // updating a room's game state
