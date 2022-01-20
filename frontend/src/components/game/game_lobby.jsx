@@ -114,7 +114,11 @@ class GameLobby extends React.Component {
                 return <li key={ids[idx]}>{playerDataArray[1]}</li>
             })
         } else {
-            lobbyPlayers = '';
+            lobbyPlayers = (
+                <div className="lobby__empty">
+                    Waiting for more players to join...
+                </div>
+            )
         }
         
         const gameOrLobby = this.state.playing ? (
@@ -139,7 +143,8 @@ class GameLobby extends React.Component {
         return(
             <div>
                 <GameChatContainer 
-                    socket={socket}/>
+                    socket={socket}
+                />
                 {gameOrLobby}
             </div>
         )
