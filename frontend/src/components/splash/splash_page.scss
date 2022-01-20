@@ -245,6 +245,8 @@ body, html {
     padding: 0.25rem;
 }
 
+// PROFILE STYLING --------------------------------
+
 .splash-page__profile-list {
     display: flex;
     justify-content: center;
@@ -252,12 +254,89 @@ body, html {
 }
 
 .splash-page__profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 6rem;
     height: 6rem;
     border-radius: 6rem;
     margin: 2rem 0.5rem;
-    background: #fefefe;
+    img {
+        width: 6rem;
+        height: 6rem;
+        border-radius: 6rem;
+        transition: 0.5s all ease-out;
+    }
+    transition: 0.5s all ease-out;
 }
+
+.profile-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fefefe;
+    font-size: 1.25rem;
+    text-align: center;
+    border-radius: 8px;
+    padding: 4px 2px;
+    margin-bottom: 0.5rem;
+}
+
+.profile__social-links {
+    position: absolute;
+    bottom: -5rem;
+    display: none;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 8px;
+    svg {
+        transition: 0.3s all ease-out;
+    }
+}
+
+.splash-page__profile:hover {
+    position: relative;
+    transform: scale(1.35) rotate(3deg);
+    -webkit-transform: scale(1.35) rotate(3deg);
+    -moz-transform: scale(1.35) rotate(3deg);
+    -ms-transform: scale(1.35) rotate(3deg);
+    -o-transform: scale(1.35) rotate(3deg);
+    border-radius: 1rem;
+    img {
+        border-radius: 1rem;
+        transition: 0.3s all ease-out;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    }
+    .profile__line {
+        margin-top: 2rem;
+        transition: 0.3s all ease-out;
+    }
+    .profile__social-links {
+        display: flex;
+        transition: 0.3s all ease-out;
+        svg {
+            width: 2rem;
+            height: 2rem;
+            transition: 0.3s all ease-out;
+        }
+    }
+    .profile-name {
+        background: rgba(9, 19, 63, 0.5);
+        transition: 0.3s all ease-out;
+    }
+    transition: 0.3s all ease-out;
+}
+
+.profile__line {
+    margin-left: 25%;
+    width: 50%;
+    height: 4px;
+    margin-top: 1rem;
+    background: white;
+    transition: 0.3s all ease-out;
+}
+
+// ---------------------------------------------------
 
 .splash-page__continue {
     position: relative;
@@ -448,6 +527,11 @@ body, html {
         width: 9rem;
         height: 9rem;
         margin: 2rem 4rem;
+        img {
+            width: 9rem;
+            height: 9rem;
+            border-radius: 9rem;
+        }
     }
 
     .splash-page__continue {
