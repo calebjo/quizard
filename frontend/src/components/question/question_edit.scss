@@ -7,11 +7,22 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 15vh;
+    height: fit-content;
     padding: 5px 20px 8px 8px;
     background: #113757;
     box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.9);
     font-family: "Fredoka One", cursive;
+    display: flex;
+
+    .back-arrow {
+      margin-right: 20px;
+      color: gray;
+      cursor: pointer;
+    }
+
+    .back-arrow:hover {
+      color: white;
+    }
 
     h1 {
         font-size: 36px;
@@ -155,7 +166,75 @@
 }
 
 // Index of questions
+.question-index-container {
+  display: flex;
+  margin: 10px;
+
+  > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h6, button {
+    background-color: #113757;
+    height: fit-content;
+    padding: 1em;
+    margin-right: 10px;
+    font-family: "Fredoka One", cursive;
+    border-radius: 8px;
+    border: 2px outset #ffbc42;
+  }
+
+  button {
+    color: gray;
+    margin-top: 1em;
+  }
+  button:hover {
+    border-color: #FB3754;
+    color: #FB3754;
+  }
+}
+
 .question-index-item {
-  border: 1px solid red;
   background-color: #113757;
+  width: 50vw;
+  padding: 1em;
+  border-radius: 8px;
+  border: 2px outset #ffbc42;
+  font-family: "Roboto", sans-serif;
+
+  h5, p {
+    font-family: "Fredoka One", cursive;
+  }
+
+  h5 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  p.green {
+      color: springgreen;
+  }
+  p.red {
+      color: #FB3754;
+  }
+
+  ul {
+    list-style-type: disc;
+    list-style-position: inside;
+  }
+
+  .flex-this {
+    display: flex;
+    margin-top: 20px;
+    
+    div{
+      width: 50%;
+      text-align: left;
+    }
+  }
 }

@@ -61,7 +61,11 @@ class AddQuestionForm extends React.Component {
         this.props.createQuestion(newData)
             .then(() => {
                 if (Object.values(this.props.errors).length === 0) {
-                    this.setState({hidden: true});
+                    this.setState({
+                        hidden: true, 
+                        question: "",
+                        correctAnswer: "",
+                        incorrect1: "", incorrect2: "", incorrect3: ""});
                 }
             })
     }

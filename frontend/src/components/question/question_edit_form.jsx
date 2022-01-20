@@ -3,6 +3,9 @@ import "./question_edit.scss";
 import EditQuestionSetFormContainer from "../question_set/edit_question_set_form_container";
 import AddQuestionFormContainer from "./add_question_form_container";
 import QuestionEditIndexItem from "./question_edit_index_item";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 class QuestionEditForm extends React.Component {
     componentDidMount () {
@@ -24,10 +27,19 @@ class QuestionEditForm extends React.Component {
         return (
             <div className="with-nav question-edit">
                 {/* Header */}
-                <div className="question-edit-header">
-                    <h6>Now editing:</h6>
-                    <h1>{questionSet.title} &nbsp;<EditQuestionSetFormContainer /></h1>
-                    <p>Description: {questionSet.description || "(none)"}</p>
+                <div className="header-container">
+
+                    <div className="question-edit-header">
+                        <div className="back-arrow" onClick={() => this.props.history.push(`/question-sets/${questionSet._id}`)}>
+                            <FontAwesomeIcon icon={faArrowLeft} size="3x" />
+                        </div>
+
+                        <div>
+                            <h6>Now editing:</h6>
+                            <h1>{questionSet.title} &nbsp;<EditQuestionSetFormContainer /></h1>
+                            <p>Description: {questionSet.description || "(none)"}</p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Individual questions */}
