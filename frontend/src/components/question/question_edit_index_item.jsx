@@ -16,7 +16,8 @@ class QuestionEditIndexItem extends React.Component {
             incorrect3: question.incorrectAnswers[2],
             type: question.type,
             set_id: question.set_id,
-            category: question.category
+            category: question.category,
+            id: question._id
         }
 
         this.reveal = this.reveal.bind(this);
@@ -54,8 +55,8 @@ class QuestionEditIndexItem extends React.Component {
         // put incorrect answers into array
         const incorrectAnswers = [this.state.incorrect1, this.state.incorrect2, this.state.incorrect3];
         // pull other fields from state
-        const stateData = (({question, correctAnswer, type, set_id, category}) => 
-            ({question, correctAnswer, type, set_id, category}))(this.state);
+        const stateData = (({question, correctAnswer, type, set_id, category, id}) => 
+            ({question, correctAnswer, type, set_id, category, id}))(this.state);
         // combine fields to send to backend
         const updateData = Object.assign(stateData,  {incorrectAnswers}, {});
 
