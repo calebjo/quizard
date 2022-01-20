@@ -1,5 +1,8 @@
 import React from "react";
 import "./game_chat.scss"
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 // Displays messages that users have written in chat via webSocket connection
 class GameChat extends React.Component {
     constructor (props) {
@@ -64,6 +67,12 @@ class GameChat extends React.Component {
             })
         ) : (
             <div className="chat__no-messages">
+                <div className="chat__no-messages-inner">
+                    <FontAwesomeIcon icon={ faCommentAlt } size="6x" />
+                    <div className="no-messages__text">
+                        Say hello!
+                    </div>
+                </div>
             </div>
         )
         return(
