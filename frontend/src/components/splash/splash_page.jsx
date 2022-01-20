@@ -96,7 +96,8 @@ class SplashPage extends React.Component {
                             </div>
                         </div>
                         <div className="splash-page__title">
-                            <div className="splash-page__buttons">
+                            <div className="splash-page__buttons"
+                                onClick={(e) => {e.preventDefault(); this.props.history.push("/join-game")}}>
                                 <button
                                     className="splash-page__center-button">
                                     { this.state.joinButtonText }
