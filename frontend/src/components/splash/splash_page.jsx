@@ -1,5 +1,6 @@
 import React from 'react'
 import './splash_page.scss'
+
 import caleb from "../../assets/images/photo-caleb.png"
 import virginia from "../../assets/images/photo-virginia.png"
 import julio from "../../assets/images/photo-julio.png"
@@ -128,7 +129,7 @@ class SplashPage extends React.Component {
 
                     </div>
                 </div>
-                <div className="splash-page__bottom">
+                <div className="splash-page__bottom" id="splash-page__bottom">
                     <div className="splash-page__links">
                         <div className="splash__swipe swipe-red" />
                         <div className="splash__swipe swipe-yellow" />
@@ -140,7 +141,7 @@ class SplashPage extends React.Component {
                             <div className="technologies__footer-list">
                                 <div className="technologies__footer-item">
                                     <div className="footer-item-image">
-                                        <img src={require("../../assets/images/mongo.png")} />
+                                        <img src={require("../../assets/images/mongo.png")} alt="" />
                                     </div>
                                     <div className="footer-item-text">
                                         MongoDB
@@ -148,7 +149,7 @@ class SplashPage extends React.Component {
                                 </div>
                                 <div className="technologies__footer-item">
                                     <div className="footer-item-image">
-                                        <img src={require("../../assets/images/express.png")} />
+                                        <img src={require("../../assets/images/express.png")} alt="" />
                                     </div>
                                     <div className="footer-item-text">
                                         Express
@@ -156,7 +157,7 @@ class SplashPage extends React.Component {
                                 </div>
                                 <div className="technologies__footer-item">
                                     <div className="footer-item-image">
-                                        <img src={require("../../assets/images/react.png")} />
+                                        <img src={require("../../assets/images/react.png")} alt="" />
                                     </div>
                                     <div className="footer-item-text">
                                         React
@@ -164,7 +165,7 @@ class SplashPage extends React.Component {
                                 </div>
                                 <div className="technologies__footer-item">
                                     <div className="footer-item-image">
-                                        <img src={require("../../assets/images/redux.png")} />
+                                        <img src={require("../../assets/images/redux.png")} alt="" />
                                     </div>
                                     <div className="footer-item-text">
                                         Redux
@@ -172,7 +173,7 @@ class SplashPage extends React.Component {
                                 </div>
                                 <div className="technologies__footer-item">
                                     <div className="footer-item-image">
-                                        <img src={require("../../assets/images/node.png")} />
+                                        <img src={require("../../assets/images/node.png")} alt="" />
                                     </div>
                                     <div className="footer-item-text">
                                         Node
@@ -180,7 +181,7 @@ class SplashPage extends React.Component {
                                 </div>
                                 <div className="technologies__footer-item">
                                     <div className="footer-item-image">
-                                        <img src={require("../../assets/images/socket.png")} />
+                                        <img src={require("../../assets/images/socket.png")} alt="" />
                                     </div>
                                     <div className="footer-item-text">
                                         Socket.io
