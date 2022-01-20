@@ -2,6 +2,7 @@ import React from "react";
 import "./question_edit.scss";
 import EditQuestionSetFormContainer from "../question_set/edit_question_set_form_container";
 import AddQuestionFormContainer from "./add_question_form_container";
+import QuestionEditIndexItem from "./question_edit_index_item";
 
 class QuestionEditForm extends React.Component {
     componentDidMount () {
@@ -36,7 +37,8 @@ class QuestionEditForm extends React.Component {
                         <h5 className="no-questions">No questions yet!</h5>
                     ) : (
                         questions.map((formQ, i) => (
-                            <h5 key={`fq${i}`}>{formQ.question}</h5>
+                            <QuestionEditIndexItem key={`fq${i}`} question={formQ} index={i}
+                                deleteQuestion={this.props.deleteQuestion} />
                         ))
                     )}
                     {/* New Question button */}
