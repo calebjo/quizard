@@ -448,7 +448,12 @@ body, html {
     height: calc(200vh);
     width: 22rem;
     background: #ffbc42;
-    left: 75%;
+    left: 85%;
+}
+
+.swipe-technologies {
+    position: relative;
+    bottom: 0;
 }
 
 .swipe-yellow::after {
@@ -478,6 +483,41 @@ body, html {
     bottom: 0;
     left: 2.5rem;
     background: #013E5B;
+}
+
+// TECH FOOTER ---------------------------------------------------------
+
+.technologies__footer {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    position: absolute;
+    bottom: 23%;
+    transform: rotate(-45deg);
+    width: 100%;
+    left: 31%;
+    .technologies__footer-title {
+        font-size: 1.5rem;
+        margin: 1rem;
+        text-decoration: underline;
+        text-decoration-thickness: 4px;
+        text-underline-offset: 3px;
+    }
+    .technologies__footer-list {
+        display: flex;
+    }
+    .technologies__footer-item{ 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0.5rem;
+        img {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 1rem;
+            margin: 0 0.5rem;
+        }
+    }
 }
 
 // MEDIA QUERIES -------------------------------------------------------
