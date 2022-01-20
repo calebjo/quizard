@@ -13,6 +13,7 @@ class GameView extends React.Component {
             socket: this.props.socket
         }
 
+        // debugger
         this.handleGuess = this.handleGuess.bind(this)
         this.shuffleAnswers = this.shuffleAnswers.bind(this)
     }
@@ -30,8 +31,7 @@ class GameView extends React.Component {
         const question = this.state.question;
         answers.push(question.correctAnswer)
         question.incorrectAnswers.forEach(a => answers.push(a));
-        let shuffledAnswers = answers.map(a => ({ a, sortKey: Math.random() })).sort((x, y) => (x.sortKey - y.sortKey)).map(idObject => idObject.a)
-        debugger
+        let shuffledAnswers = answers.map(a => ({ a, sortKey: Math.random() })).sort((x, y) => (x.sortKey - y.sortKey)).map(idObject => idObject.a);
         return shuffledAnswers;
     }
 

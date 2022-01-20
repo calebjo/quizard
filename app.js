@@ -137,7 +137,7 @@ io.on('connection', socket => {
 
     socket.on('gameStarted', (roomId, stateObj) => {
         let roomInfo = roomId; 
-        let stateObject = stateObj
+        let stateObject = stateObj;
         socket.to(roomId).emit('clientGameStarted', roomInfo, stateObject)
     })
 

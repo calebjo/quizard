@@ -3,27 +3,32 @@ import {socket} from "../../util/socket_util"
 import "./game.scss"
 import GameChatContainer from "./game_chat_container";
 import GameView from "./game_view";
-import Game from "./game"
+import HumanPlayer from "./human_player";
+import ComputerPlayer from "./computer_player";
 
 // Establishes webSocket conneciton to every joining player
 class GameLobby extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
+            totalRounds: null,
             lobby: null,
             creator: null,
             playing: false,
             players: null,
             questions: null,
-            currentQuestion: null,
             currentRound: 0, 
             numPlayers: 0,
-            gameState: null,
-            game: null,
+            activePlayers: null,
+            inactivePlayers: null
         }
         
+        this.activePlayers = this.state.players;
+        this.inactivePlayers = {};
         this.responses = [];
-        this.startGame = this.startGame.bind(this)
+        this.startGame = this.startGame.bind(this);
+        this.normalizeQuestions = this.normalizeQuestions.bind(this);
+        this.playRound = this.playRound.bind(this);
     }
 
     componentDidMount() {
@@ -31,24 +36,13 @@ class GameLobby extends React.Component {
           window.onbeforeunload = function () {
             return "Data will be lost if you leave the page, are you sure?";
         };
-     
+
         this.props.fetchLobby(this.props.match.params.id).then(({lobby}) => {
+            let questions;
             this.props.fetchQuestionSet(lobby.data.set_id)
-            this.props.fetchSetQuestions(lobby.data.set_id)
-
-            let questions; 
-            this.props.questions.length > 10 ? questions = this.props.questions.slice(5, 15) : questions = this.props.questions;
-
-            this.setState({
-                creator: lobby.data.creator_id,
-                questions: questions,
-                lobby: this.props.lobby.room_id
+            this.props.fetchSetQuestions(lobby.data.set_id).then(fetchedQuestions => {
+                questions = fetchedQuestions;
             })
-
-            if (this.state.questions) {
-                const currentQuestion = this.state.questions[this.state.currentRound]
-                this.setState({ currentQuestion })
-            }
 
             socket.emit('joinRoom', this.props.lobby.room_id, this.props.currentUser)
 
@@ -89,10 +83,22 @@ class GameLobby extends React.Component {
 
                 if (this.responses.length === this.state.numPlayers) {
                     const game = this.state.game;
-                    game.playRound(this.state.currentQuestion, this.state.players)
+                    this.playRound(this.state.currentQuestion, this.state.players)
                     console.log(game.activePlayers)
                     console.log(game.inactivePlayers)
                 }
+            })
+
+            let normalizedQuestions = this.normalizeQuestions(Object.values(questions));
+
+            if (normalizedQuestions.length > 10) {
+                normalizedQuestions = normalizedQuestions.slice(10, 20);
+            }
+
+            this.setState({
+                creator: lobby.data.creator_id,
+                lobby: this.props.lobby.room_id,
+                questions: normalizedQuestions
             })
 
             // // update state whenever the lobby's state updates
@@ -109,12 +115,99 @@ class GameLobby extends React.Component {
         const numPlayers = Object.keys(this.state.players).length
         const stateObj = {
             playing: true,
-            game: new Game(this.state.questions, this.state.players),
             numPlayers
         }
         socket.emit('gameStarted', this.state.lobby, stateObj)
     }
     
+    normalizeQuestions(questions) {
+        // Each question object should contain { question, incorrectAnswers, correctAnswer, category, type } 
+        let normalizedQuestions = [];
+        questions.forEach(question => {
+            let _normalizedQuestion = {};
+            _normalizedQuestion['correctAnswer'] = question.correctAnswer;
+            _normalizedQuestion['question'] = question.question;
+            _normalizedQuestion['category'] = question.category;
+            _normalizedQuestion['type'] = question.type;
+            if (question.incorrectAnswers.length < 4) {
+                _normalizedQuestion['incorrectAnswers'] = question.incorrectAnswers;
+            } else {
+                _normalizedQuestion['incorrectAnswers'] = this.incorrectAnswersHelper(question.incorrectAnswers)
+            }
+            normalizedQuestions.push(_normalizedQuestion);
+        })
+        return normalizedQuestions
+    }
+
+    incorrectAnswersHelper(answersArray) {
+        // In the event a question has more than 3 incorrect answers this function randomly selects 3
+        let newAnswersArray = [];
+        let indexStore = [];
+        const totalOptions = answersArray.length;
+
+        for (let i = 0; i < 3; i++) {
+            let index = Math.floor(Math.random() * totalOptions);
+            while (indexStore.includes(index)) {
+                index = Math.floor(Math.random() * totalOptions);
+            }
+            indexStore.push(index);
+            newAnswersArray.push(answersArray[index]);
+        }
+
+        return newAnswersArray;
+    }
+
+    playRound(question, playerResponses) {
+        // question should be a singular question object
+        // responses should be an array of 'response objects'
+        // e.g. [{ playerId: response }, { playerId: response }, { playerId: response }]
+        const correctAnswer = question.correctAnswer;
+        let removals = [];
+
+        playerResponses.forEach(responseObj => {
+            const player = Object.keys(responseObj)[0];
+            const response = Object.values(responseObj)[0];
+            if (response !== correctAnswer) {
+                removals.push(player);
+            }
+        })
+
+        if (removals.length > 0) {
+            removals.forEach(player => {
+                this.inactivePlayers[player] = this.activePlayers[player];
+                delete this.activePlayers[player];
+            })
+        }
+
+        this.round++;
+        return true;
+    }
+
+    gameOver() {
+        let result;
+        this.round === this.totalRounds ? result = true : result = false;
+        return result;
+    }
+
+    static createPlayers(players) {
+        const playerIds = Object.keys(players)
+        const playersObject = {};
+        playerIds.forEach(id => {
+            switch (players[id][0]) {
+                case ('human'):
+                    playersObject[id] = new HumanPlayer({ id: id, username: players[id][1] })
+                    break;
+                case ('computer'):
+                    playersObject[id] = new ComputerPlayer({ id: id, username: players[id][1] })
+                    break;
+                default:
+                    playersObject[id] = new HumanPlayer({ id: id, username: players[id][1] })
+                    break;
+            }
+        })
+        return playersObject
+    }
+
     render() {
         // socket.emit('gameStateUpdate', this.props.lobbyId, this.state)
 
@@ -175,7 +268,7 @@ class GameLobby extends React.Component {
                 game={this.state.game}
                 numPlayers={this.state.numPlayers}
                 sendData={this.getData}
-                question={this.state.currentQuestion}/>) 
+                question={this.state.questions[this.state.currentRound]}/>) 
         : (<div className="lobby__container">
                 <div className="lobby__quit">
                 </div>
