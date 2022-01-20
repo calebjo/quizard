@@ -24,7 +24,7 @@ class JoinGame extends React.Component {
         const {lobbyId} = this.state;
 
         return (
-            <div className="with-nav new-qset-form-bg">
+            <div className="with-nav2 new-qset-form-bg splash-page__main">
                 <div className="new-qset-form edit-user-form">
                     <h2>Join a game!</h2>
 
