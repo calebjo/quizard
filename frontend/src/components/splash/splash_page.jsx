@@ -32,6 +32,11 @@ class SplashPage extends React.Component {
         window.addEventListener("resize", this.resize.bind(this));
         this.resize();
     }
+
+    componentWillUnmount () {
+        // this should get rid of the weird memory leak error
+        this.setState = () => { return; };
+    }
     
     resize() {
         this.setState({

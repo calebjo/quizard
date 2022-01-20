@@ -10,7 +10,14 @@ const questionsReducer = (state = {}, action) => {
 
     switch(action.type){
         case RECEIVE_ALL_QUESTIONS:
-            return action.questions.data
+            // When questions are received en masse from the DB, the keys do not align with the question IDs
+            // The following data manipulation attempts to fix that
+            const improvedState = {};
+            for (const key in action.questions.data) {
+                let questionId = action.questions.data[key]._id;
+                Object.assign(improvedState, {[questionId]: action.questions.data[key]})
+            }
+            return improvedState;
         case RECEIVE_QUESTION:
             const qSet = {[action.question.data._id]: action.question.data};
             return Object.assign(nextState, qSet);
