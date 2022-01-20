@@ -15,6 +15,7 @@ const questionSetsReducer = (state = {}, action) => {
             const qSet = {[action.questionSet.data._id]: action.questionSet.data};
             return Object.assign(nextState, qSet);
         case REMOVE_QUESTION_SET:
+            delete nextState[action.id];
             return nextState;
         default:
             return state;

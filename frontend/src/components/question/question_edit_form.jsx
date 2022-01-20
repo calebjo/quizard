@@ -1,16 +1,13 @@
 import React from "react";
 import "./question_edit.scss";
 import EditQuestionSetFormContainer from "../question_set/edit_question_set_form_container";
+import AddQuestionFormContainer from "./add_question_form_container";
+import QuestionEditIndexItem from "./question_edit_index_item";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 class QuestionEditForm extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            formQuestions: this.props.questions
-        }
-    }
-
     componentDidMount () {
         this.props.fetchQuestionSet(this.props.match.params.id)
             .then(({questionSet}) => {
@@ -23,24 +20,42 @@ class QuestionEditForm extends React.Component {
     }
 
     render () {
-        const {questionSet, currentUser} = this.props;
-        const {formQuestions} = this.state;
+        const {questionSet, currentUser, questions} = this.props;
 
         if (!questionSet || !currentUser || currentUser.id !== questionSet.creator_id) return null;
-
-        const {title, description} = this.props.questionSet;
-        const categories = ["Art and Literature", "Film and TV", "Food and Drink", "General Knowledge", "Geography", "History", "Mixed", "Movies", "Music", "Science", "Society and Culture", "Sport and Leisure"];
-
 
         return (
             <div className="with-nav question-edit">
                 {/* Header */}
-                <div className="question-edit-header">
-                    <h6>Now editing:</h6>
-                    <h1>{questionSet.title} &nbsp;<EditQuestionSetFormContainer /></h1>
+                <div className="header-container">
+
+                    <div className="question-edit-header">
+                        <div className="back-arrow" onClick={() => this.props.history.push(`/question-sets/${questionSet._id}`)}>
+                            <FontAwesomeIcon icon={faArrowLeft} size="3x" />
+                        </div>
+
+                        <div>
+                            <h6>Now editing:</h6>
+                            <h1>{questionSet.title} &nbsp;<EditQuestionSetFormContainer /></h1>
+                            <p>Description: {questionSet.description || "(none)"}</p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Individual questions */}
+                <div className="question-edit-index">
+                    {/* Questions that have already been made */}
+                    {questions.length === 0 ? (
+                        <h5 className="no-questions">No questions yet!</h5>
+                    ) : (
+                        questions.map((formQ, i) => (
+                            <QuestionEditIndexItem key={`fq${i}`} question={formQ} index={i}
+                                deleteQuestion={this.props.deleteQuestion} />
+                        ))
+                    )}
+                    {/* New Question button */}
+                    <AddQuestionFormContainer questionSet={questionSet} />
+                </div>
             </div>
         );
     }

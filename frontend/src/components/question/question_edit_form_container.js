@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { fetchQuestionSet } from "../../actions/question_set_actions";
-import { fetchSetQuestions } from "../../actions/question_actions";
+import { fetchSetQuestions, deleteQuestion } from "../../actions/question_actions";
 import QuestionEditForm from "./question_edit_form";
 
 const mSTP = (state, ownProps) => ({
@@ -11,7 +11,8 @@ const mSTP = (state, ownProps) => ({
 
 const mDTP = dispatch => ({
     fetchQuestionSet: (questionSet) => dispatch(fetchQuestionSet(questionSet)),
-    fetchSetQuestions: (setId) => dispatch(fetchSetQuestions(setId))
+    fetchSetQuestions: (setId) => dispatch(fetchSetQuestions(setId)),
+    deleteQuestion: (id) => dispatch(deleteQuestion(id))
 });
 
 export default connect(mSTP, mDTP)(QuestionEditForm);
