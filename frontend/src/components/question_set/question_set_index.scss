@@ -55,11 +55,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    select {
+        background: #032f44;
+        padding: 0.75rem;
+    }
+
     input {
         padding: 0.75rem;
     }
     button {
         margin-left: 0.5rem;
+    }
+    select:focus {
+        outline: none;
     }
 }
 
