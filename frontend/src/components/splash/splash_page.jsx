@@ -1,8 +1,13 @@
 import React from 'react'
 import './splash_page.scss'
+import caleb from "../../assets/images/photo-caleb.png"
+import virginia from "../../assets/images/photo-virginia.png"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faGithubAlt } from '@fortawesome/free-brands-svg-icons'
+import { faAngellist } from '@fortawesome/free-brands-svg-icons'
 
 // SKELETON -- To be replaced with TopNavContainer for login/signup
 import TopNav from '../top_nav/top_nav'
@@ -118,22 +123,64 @@ class SplashPage extends React.Component {
                 </div>
                 <div className="splash-page__bottom">
                     <div className="splash-page__links">
+                        <div className="splash__swipe swipe-red" />
+                        <div className="splash__swipe swipe-yellow" />
+                        <div className="splash__swipe swipe-blue" />
                         <div className="splash-page__links-container">
                             <div className="splash-page__links-header">
                                 What is Quizard?
                             </div>
                             <div className="splash-page__links-text">
-                                Quizard is a full stack quiz game built in 4 days by these fine folks:
+                                Quizard is a full stack quiz game built in <span>4 days</span> by these fine folks:
                             </div>
                             <div className="splash-page__profile-list">
                                 <div className="splash-page__profile">
-                                    {/* SKELETON -- FILL PROFILE WITH SOCIALS */}
+                                    <div className="profile-name">Caleb Jones</div>
+                                    <img src={caleb} alt=""/>
+                                    <div className="profile__line" />
+                                    <div className="profile__social-links">
+                                        <a href="https://www.linkedin.com/in/caleb-jones-928521126/">
+                                            <FontAwesomeIcon icon={faLinkedin} />
+                                        </a>
+                                        <a href="https://github.com/calebjo">
+                                            <FontAwesomeIcon icon={faGithubAlt} />
+                                        </a>
+                                        {/* <a href="">
+                                            <FontAwesomeIcon icon={faAngellist} />
+                                        </a> */}
+                                    </div>
                                 </div>
                                 <div className="splash-page__profile">
-                                    {/* SKELETON -- FILL PROFILE WITH SOCIALS */}
+                                <div className="profile-name">Virginia Knight</div>
+                                    <img src={virginia} alt=""/>
+                                    <div className="profile__line" />
+                                    <div className="profile__social-links">
+                                        <a href="https://www.linkedin.com/in/virginia-knight-2a75aaa6/">
+                                            <FontAwesomeIcon icon={faLinkedin} />
+                                        </a>
+                                        <a href="https://github.com/virgknight">
+                                            <FontAwesomeIcon icon={faGithubAlt} />
+                                        </a>
+                                        {/* <a href="">
+                                            <FontAwesomeIcon icon={faAngellist} />
+                                        </a> */}
+                                    </div>
                                 </div>
                                 <div className="splash-page__profile">
-                                    {/* SKELETON -- FILL PROFILE WITH SOCIALS */}
+                                <div className="profile-name">Julio Tavarez</div>
+                                    <img src={virginia} alt=""/>
+                                    <div className="profile__line" />
+                                    <div className="profile__social-links">
+                                        {/* <a href="">
+                                            <FontAwesomeIcon icon={faLinkedin} />
+                                        </a> */}
+                                        <a href="https://github.com/jdtavarez">
+                                            <FontAwesomeIcon icon={faGithubAlt} />
+                                        </a>
+                                        {/* <a href="">
+                                            <FontAwesomeIcon icon={faAngellist} />
+                                        </a> */}
+                                    </div>
                                 </div>
                             </div>
                         </div>
