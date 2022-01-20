@@ -30,7 +30,7 @@ class JoinGame extends React.Component {
 
                     <div className="edit-flex">
                         <label>Lobby ID:</label>
-                        <input type="text" value={lobbyId} onChange={this.update("lobbyId")} />
+                        <input type="text" value={lobbyId} onChange={this.update("lobbyId")} placeholder="Enter 5 digit lobby ID"/>
                     </div>
 
                     <div className="join-game-buttons">
