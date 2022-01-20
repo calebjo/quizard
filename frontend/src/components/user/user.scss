@@ -300,3 +300,10 @@
         transform: rotate(-2deg)
     }
 }
+
+.join-game-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}

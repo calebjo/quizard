@@ -66,9 +66,9 @@ class SideNav extends React.Component {
 
                 </div>
                 
+                {/* Button to join game in progress- always rendered */}
                 <div className="nav-flex">
-                    {/* SKELETON: must add link to join game!! */}
-                    <button 
+                    <button onClick={() => this.props.history.push("/join-game")}
                         className="styled-button orange-bg">
                             Join Game</button>
 

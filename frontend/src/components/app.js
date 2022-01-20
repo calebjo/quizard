@@ -14,19 +14,21 @@ import GameLobbyContainer from './game/game_lobby_container';
 import QuestionSetShowContainer from './question_set/question_set_show_container';
 import NewQuestionSetFormContainer from './question_set/new_question_set_form_container';
 import QuestionEditFormContainer from './question/question_edit_form_container';
+import JoinGame from "./game/join_game";
 
 
 const App = () => (
     <div className="app">
-        {/* <SideNavContainer /> */}
         <Route path="/users/:id" component={SideNavContainer}/>
         <ProtectedRoute path="/edit-profile" component={SideNavContainer}/>
         <Route path="/question-sets" component={SideNavContainer} />
         <Route path="/play/:id" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
         <Route path="/quiz-creator" component={SideNavContainer} />
+        <Route path="/join-game" component={SideNavContainer} />
         <Switch>
-            <Route exact path="/quiz-creator" component={NewQuestionSetFormContainer} />
-            <Route exact path="/question-sets/:id/edit" component={QuestionEditFormContainer} />
+            <Route exact path="/join-game" component={JoinGame} />
+            <ProtectedRoute exact path="/quiz-creator" component={NewQuestionSetFormContainer} />
+            <ProtectedRoute exact path="/question-sets/:id/edit" component={QuestionEditFormContainer} />
             <Route exact path="/question-sets/:id" component={QuestionSetShowContainer} />
             <Route exact path="/question-sets" component={QuestionSetIndexContainer} />
             <ProtectedRoute exact path="/edit-profile" component={EditUserFormContainer} />
