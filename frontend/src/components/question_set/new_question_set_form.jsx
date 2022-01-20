@@ -30,7 +30,7 @@ class NewQuestionSetForm extends React.Component {
         this.props.createQuestionSet(this.state)
             .then(() => {
                 if (Object.values(this.props.errors).length === 0) {
-                    this.props.history.push(`/question-sets`)
+                    this.props.history.push(`/question-sets/${this.props.qSetId}/edit`)
                 }
             })
     }

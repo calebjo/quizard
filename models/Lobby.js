@@ -13,7 +13,9 @@ const LobbySchema = new Schema({
     set_id: {
         type: Schema.Types.ObjectId,
         ref: "QuestionSet"
-    }},
+    },
+    players: Array
+    },
     { timestamps: true }
 );
 

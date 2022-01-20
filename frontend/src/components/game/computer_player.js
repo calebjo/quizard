@@ -13,7 +13,7 @@ export default class ComputerPlayer {
                 coefficiant = 3;
                 break;
             case('medium'):
-                coefficiant = 2;
+                coefficiant = 1.5;
                 break;
             case('easy'):
                 coefficiant = 1;
