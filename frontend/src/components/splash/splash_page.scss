@@ -331,8 +331,18 @@ body, html {
     width: 16rem;
     height: 16rem;
     background: rgb(14, 30, 65);
-    transition: 0.3s all ease-out;
     border-radius: 65% 35% 64% 36% / 19% 81% 19% 81%;
+    animation: .25s profile-pop ease-out;
+}
+
+@keyframes profile-pop {
+    from {
+        transform: scale(0) rotate(135deg);
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+    }
 }
 
 .splash-page__profile:hover {
