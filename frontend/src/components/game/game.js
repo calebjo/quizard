@@ -4,7 +4,7 @@ import ComputerPlayer from "./computer_player";
 export default class Game {
     constructor(questions, players) {
         // questions should be an array of question objects
-        // players should ONE object { _id: ['computer', 'username'], _id: ['human', 'username'], _id: ['human', 'username'] }
+        // players should ONE object { computerId: ['computer', 'username'], socketId: ['human', 'username', db_id (if they have one], socketId: ['human', 'username'] }
         this.totalRounds = questions.length;
         this.round = 0;
         this.questions = Game.normalizeQuestions(questions);
@@ -60,7 +60,7 @@ export default class Game {
                     playersObject[id] = new HumanPlayer({id: id, username: players[id][1]})
                     break;
                 case ('computer'): 
-                    playersObject[id] = new ComputerPlayer({ id: id, username: players[id][1] })
+                    playersObject[id] = new ComputerPlayer({ id: id, username: players[id][1]})
                     break;
             }
         })
