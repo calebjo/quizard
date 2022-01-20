@@ -3,6 +3,7 @@ import { fetchQuestionSet } from "../../actions/question_set_actions";
 import { fetchUser } from "../../actions/user_actions";
 import { fetchSetQuestions } from "../../actions/question_actions";
 import QuestionSetShow from "./question_set_show";
+import { createLobby } from "../../actions/lobby_actions";
 
 const mSTP = (state, ownProps) => ({
     currentUser: state.session.user,
@@ -14,7 +15,8 @@ const mSTP = (state, ownProps) => ({
 const mDTP = dispatch => ({
     fetchQuestionSet: (questionSetId) => dispatch(fetchQuestionSet(questionSetId)),
     fetchUser: (userId) => dispatch(fetchUser(userId)),
-    fetchSetQuestions: (setId) => dispatch(fetchSetQuestions(setId))
+    fetchSetQuestions: (setId) => dispatch(fetchSetQuestions(setId)),
+    createLobby: (lobbyData) => dispatch(createLobby(lobbyData))
 });
 
 export default connect(mSTP, mDTP)(QuestionSetShow);

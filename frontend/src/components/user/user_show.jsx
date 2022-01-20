@@ -53,7 +53,7 @@ class UserShow extends React.Component {
     }
 
     render () {
-        const {viewedUser, currentUser, questionSets} = this.props;
+        const {viewedUser, currentUser, questionSets, createLobby} = this.props;
 
         if (!viewedUser) return null;
 
@@ -102,7 +102,9 @@ class UserShow extends React.Component {
                     <h4>Created Question Sets</h4>
                     {
                         questionSets.length > 0 ? (
-                            questionSets.map((qset, i) => <UserShowQsetItem key={`qs${i}`} qset={qset} />)
+                            questionSets.map((qset, i) => 
+                                <UserShowQsetItem key={`qs${i}`} qset={qset} currentUser={currentUser} 
+                                    createLobby={createLobby} history={this.props.history}/>)
                         ) : (
                             <p>None yet!</p>
                         )
