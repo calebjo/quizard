@@ -37,22 +37,19 @@ app.use("/api/lobby/", lobby);
 app.use("/api/game_records/", gameRecords);
 
 const port = process.env.PORT || 4000;
-const server = app.listen(port, () => console.log(`Server is running on port ${port}`))
-
-// WebSocket setup and events ----------------------------
-// const http = require('http')
-// const wsServer = http.createServer(app)
-// wsServer.listen(port)
-// const socket = require('socket.io');
-
-const io = require('socket.io')(server, {
+const wsServer = require('http').createServer(app)
+const socket = require('socket.io');
+const io = socket(wsServer, {
     cors: {
         origin: ["http://localhost:3000", "https://quizard-aa.herokuapp.com/"],
         transports: ["websocket", "polling"]
         // methods: ["GET", "POST"],
         // credentials: true
     }
-})
+});
+
+let clients = {};
+let numClients = 0;
 
 io.on('connection', socket => {
     // REFERENCE FOR FUTURE
@@ -76,13 +73,66 @@ io.on('connection', socket => {
     })
 
     // joining a game room
-    socket.on('joinRoom', (roomId, startGameState) => {
+    socket.on('joinRoom', (roomId, user) => {
+        // return info structure: [{id: [info]}, {id: [info]}]
+        numClients++
         socket.join(roomId)
-        socket.to(roomId).emit('playerJoined', startGameState)
+        const id = socket.client.id;
+
+        if (user) {
+            user = { [id]: ['human', user.username, user.id] }
+        } else {
+            user = { [id]: ['human', `Guest${numClients}`, id]}
+        }
+        if (Array.isArray(clients[roomId])) {
+            clients[roomId].push(user)
+        } else {
+            clients[roomId] = [user]
+        }
+
+        const localClients = clients[roomId];
+        socket.to(roomId).emit('playerJoined', localClients)
     })
 
-    // updating a room's game state
-    socket.on('gameStateUpdate', (roomId, newGameState) => {
-        socket.to(roomId).emit('sendUpdatedState', newGameState)
+    socket.on('secondRound', (roomId) => {
+        const localClients = clients[roomId];
+        socket.to(roomId).emit('sendToRecentClient', localClients) 
     })
-})
+
+    socket.on('disconnect', () => {
+        const id = socket.client.id;
+        let rooms = Object.keys(clients);
+        let roomId;
+        let newRoom;
+        rooms.forEach(roomCode => {
+            let room = clients[roomCode];
+            let sliceIdx;
+            if (room) {
+                room.forEach((client, idx) => {
+                    if (id in client) {
+                        sliceIdx = idx;
+                        roomId = roomCode;
+                        const left = room.slice(0, sliceIdx);
+                        const right = room.slice(sliceIdx + 1)
+                        newRoom = [].concat(left).concat(right);
+                    }
+                })
+            }
+        })
+        clients[roomId] = newRoom;
+        localClients = clients[roomId]
+        socket.emit('playerDisconnect', localClients)
+    })
+
+    socket.on('secondRoundDisconnect', (roomId) => {
+        const localClients = clients[roomId];
+        socket.to(roomId).emit('sendToOldClients', localClients) 
+    })
+
+    // // updating a room's game state
+    // socket.on('gameStateUpdate', (roomId, newGameState) => {
+    //     socket.to(roomId).emit('sendUpdatedState', newGameState)
+    // })
+});
+
+wsServer.listen(port)
