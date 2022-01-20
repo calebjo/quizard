@@ -3,25 +3,32 @@ import {socket} from "../../util/socket_util"
 import "./game.scss"
 import GameChatContainer from "./game_chat_container";
 import GameView from "./game_view";
+import Game from "./game"
 
 // Establishes webSocket conneciton to every joining player
 class GameLobby extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
+            lobby: null,
             creator: null,
             playing: false,
             players: null,
+            questions: null,
+            currentQuestion: null,
+            currentRound: 0, 
+            numPlayers: 0,
+            gameState: null,
+            game: null,
         }
         
-        // this.getData = this.getData.bind(this);
+        this.responses = [];
         this.startGame = this.startGame.bind(this)
     }
 
     componentDidMount() {
         
           window.onbeforeunload = function () {
-            //   socket.emit('disconnect')
             return "Data will be lost if you leave the page, are you sure?";
         };
      
@@ -29,9 +36,19 @@ class GameLobby extends React.Component {
             this.props.fetchQuestionSet(lobby.data.set_id)
             this.props.fetchSetQuestions(lobby.data.set_id)
 
+            let questions; 
+            this.props.questions.length > 10 ? questions = this.props.questions.slice(5, 15) : questions = this.props.questions;
+
             this.setState({
-                creator: lobby.data.creator_id
+                creator: lobby.data.creator_id,
+                questions: questions,
+                lobby: this.props.lobby.room_id
             })
+
+            if (this.state.questions) {
+                const currentQuestion = this.state.questions[this.state.currentRound]
+                this.setState({ currentQuestion })
+            }
 
             socket.emit('joinRoom', this.props.lobby.room_id, this.props.currentUser)
 
@@ -58,9 +75,29 @@ class GameLobby extends React.Component {
                 this.setState({ players })
             })
 
-            // update state whenever the lobby's state updates
-            socket.on('sendUpdatedState', () => {
+            socket.on('clientGameStarted', (roomId, stateObj) => {
+                this.setState(stateObj)
+                socket.emit('gameStartedHandshake', roomId, stateObj)
             })
+
+            socket.on('completeGameStartHandshake', (stateObj) => {
+                this.setState(stateObj)
+            })
+
+            socket.on('serverQuestionResponse', (responseObj) => {
+                this.responses.push(responseObj);
+
+                if (this.responses.length === this.state.numPlayers) {
+                    const game = this.state.game;
+                    game.playRound(this.state.currentQuestion, this.state.players)
+                    console.log(game.activePlayers)
+                    console.log(game.inactivePlayers)
+                }
+            })
+
+            // // update state whenever the lobby's state updates
+            // socket.on('sendUpdatedState', () => {
+            // })
         })
     }
 
@@ -69,9 +106,13 @@ class GameLobby extends React.Component {
     // }
 
     startGame() {
-        this.setState({
-            playing: true
-        })
+        const numPlayers = Object.keys(this.state.players).length
+        const stateObj = {
+            playing: true,
+            game: new Game(this.state.questions, this.state.players),
+            numPlayers
+        }
+        socket.emit('gameStarted', this.state.lobby, stateObj)
     }
     
     render() {
@@ -119,16 +160,19 @@ class GameLobby extends React.Component {
         } else {
             lobbyPlayers = '';
         }
+
         
-        const gameOrLobby = this.state.playing ? (
-            <GameView
+        
+        const gameOrLobby = this.state.playing 
+        ?  (<GameView
+                lobby={this.state.lobby}
                 socket={socket}
                 players={this.state.players}
-                questions={this.props.questions}
+                game={this.state.game}
+                numPlayers={this.state.numPlayers}
                 sendData={this.getData}
-            />
-        ) : (
-            <div className="lobby__container">
+                question={this.state.currentQuestion}/>) 
+        : (<div className="lobby__container">
                 <div className="lobby__quit">
                 </div>
                 <div className="lobby__body">
@@ -137,8 +181,7 @@ class GameLobby extends React.Component {
                         {lobbyPlayers}
                     </div>
                 </div>
-            </div>
-        )
+            </div>)
 
         return(
             <div>

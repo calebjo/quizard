@@ -135,6 +135,22 @@ io.on('connection', socket => {
         socket.to(roomId).emit('sendToOldClients', localClients) 
     })
 
+    socket.on('gameStarted', (roomId, stateObj) => {
+        let roomInfo = roomId; 
+        let stateObject = stateObj
+        socket.to(roomId).emit('clientGameStarted', roomInfo, stateObject)
+    })
+
+    socket.on('gameStartedHandshake', (roomId, stateObj) => {
+        socket.to(roomId).emit('completeGameStartHandshake', stateObj)
+    })
+
+    socket.on('questionResponse', (roomId, responseObj) => {
+        socket.to(roomId).emit('serverQuestionResponse', responseObj)
+    })
+
+
+
     // // updating a room's game state
     // socket.on('gameStateUpdate', (roomId, newGameState) => {
     //     socket.to(roomId).emit('sendUpdatedState', newGameState)

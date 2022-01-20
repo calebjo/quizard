@@ -53,7 +53,6 @@ class GameChat extends React.Component {
     }
     
     render() {
-        // debugger
         const messageList = this.state.messages.length > 0 ? (
             this.state.messages.map((message, idx) => {
                 return (

@@ -5,21 +5,20 @@ export default class Game {
     constructor(questions, players) {
         // questions should be an array of question objects
         // players should ONE object { computerId: ['computer', 'username'], socketId: ['human', 'username', db_id (if they have one], socketId: ['human', 'username'] }
-        debugger
+        this.normalizeQuestions = this.normalizeQuestions.bind(this);
         this.totalRounds = questions.length;
         this.round = 0;
-        this.questions = Game.normalizeQuestions(questions);
+        this.questions = this.normalizeQuestions(questions);
         this.players = Game.createPlayers(players);
         this.activePlayers = this.players;
         this.inactivePlayers = {};
         // this.incorrectAnswersHelper = this.incorrectAnswersHelper.bind(this);
-        // this.normalizeQuestions = this.normalizeQuestions.bind(this);
         // this.playRound = this.playRound.bind(this);
         // this.gameOver = this.gameOver.bind(this);
     }
 
-    static normalizeQuestions(questions) {
-        // Each question object should contain { question, incorrectAnswers, correctAnswer, category, type }        
+    normalizeQuestions(questions) {
+        // Each question object should contain { question, incorrectAnswers, correctAnswer, category, type }    
         let normalizedQuestions = [];
         questions.forEach(question => {
             let _normalizedQuestion = {};
@@ -68,18 +67,12 @@ export default class Game {
         return playersObject
     }
 
-    playRound(question) {
+    playRound(question, playerResponses) {
     // question should be a singular question object
     // responses should be an array of 'response objects'
     // e.g. [{ playerId: response }, { playerId: response }, { playerId: response }]
         const correctAnswer = question.correctAnswer;
         let removals = [];
-        let playerResponses = [];
-
-        let players = Object.values(this.players);
-        players.forEach(player => {
-            player.giveResponse(question)
-        })
 
         playerResponses.forEach(responseObj => {
             const player = Object.keys(responseObj)[0];
