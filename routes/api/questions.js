@@ -89,7 +89,7 @@ router.patch('/:id', (req, res) => {
     };
 
     Question.findOneAndUpdate(filter, updateParams, { new: true })
-        .then(question => res.json(question)).status(200)
+        .then(question => res.json(question).status(200))
         .catch(() => res.json({ error: "Question not found" }).status(404))
 });
 

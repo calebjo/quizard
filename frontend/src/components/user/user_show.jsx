@@ -42,9 +42,9 @@ class UserShow extends React.Component {
         if (games_won === 0 /*&& games_played > 1*/) {
             badges.push({badgeTitle: "Sore Loser", badgeDesc: "Oof... Hasn't won a game yet"});
         } else if ( games_won / games_played > 0.5) {
-            badges.push({badgeTitle: "Formidable Opponent", badgeDesc: "Whoa! Won more than half of the games played"});
+            badges.push({badgeTitle: "Formidable Opponent", badgeDesc: "Whoa! Won more than half of games played"});
         } else if (games_won / games_played > 0.333 ) {
-            badges.push({badgeTitle: "Tough to Beat", badgeDesc: "Nice going! Won more than a third of the games played"});
+            badges.push({badgeTitle: "Tough to Beat", badgeDesc: "Nice going! Won more than a third of games played"});
         }
 
         // badge depending on number of question sets created
