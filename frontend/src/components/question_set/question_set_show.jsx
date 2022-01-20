@@ -28,6 +28,9 @@ class QuestionSetShow extends React.Component {
                 onClick={() => this.props.history.push(`/question-sets/${questionSet._id}/edit`)}>Edit Set</button>
         ) : null;
 
+        // Text snippet showing # of questions
+        const questionCountDisplay = questionCount === 1 ? "1 question" : `${questionCount} questions`;
+
         return (
             <main className="with-nav qset-show raised">
                 <h1>{questionSet.title}</h1>
@@ -35,7 +38,7 @@ class QuestionSetShow extends React.Component {
                 <div className="qset-flex">
                     <div>
                         <p>Description: {questionSet.description || "(none)"}</p>
-                        <p>{questionCount} questions</p>
+                        <p>{questionCountDisplay}</p>
 
                         <div className="qset-flex">
                             <h5 className="raised">Category: {questionSet.category}</h5>
