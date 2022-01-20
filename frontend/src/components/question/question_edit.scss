@@ -176,7 +176,7 @@
     align-items: center;
   }
 
-  h6, button {
+  h6, button.idx-button {
     background-color: #113757;
     height: fit-content;
     padding: 1em;
@@ -186,11 +186,15 @@
     border: 2px outset #ffbc42;
   }
 
-  button {
+  button.idx-button {
     color: gray;
     margin-top: 1em;
   }
-  button:hover {
+  button.edit-button:hover {
+    border-color: white;
+    color: white;
+  }
+  button.idx-button:last-child:hover {
     border-color: #FB3754;
     color: #FB3754;
   }

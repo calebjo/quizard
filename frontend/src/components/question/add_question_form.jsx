@@ -46,8 +46,6 @@ class AddQuestionForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        console.log(this.props.questionSet);
-
         // put incorrect answers into array
         const incorrectAnswers = [this.state.incorrect1, this.state.incorrect2, this.state.incorrect3];
         // pull other fields from state

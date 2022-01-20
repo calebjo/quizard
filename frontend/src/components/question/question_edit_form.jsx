@@ -3,7 +3,6 @@ import "./question_edit.scss";
 import EditQuestionSetFormContainer from "../question_set/edit_question_set_form_container";
 import AddQuestionFormContainer from "./add_question_form_container";
 import QuestionEditIndexItem from "./question_edit_index_item";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,10 +12,6 @@ class QuestionEditForm extends React.Component {
             .then(({questionSet}) => {
                 this.props.fetchSetQuestions(questionSet.data._id);
             });
-    }
-
-    addQuestion (e) {
-        e.preventDefault();
     }
 
     render () {
@@ -50,7 +45,8 @@ class QuestionEditForm extends React.Component {
                     ) : (
                         questions.map((formQ, i) => (
                             <QuestionEditIndexItem key={`fq${i}`} question={formQ} index={i}
-                                deleteQuestion={this.props.deleteQuestion} />
+                                deleteQuestion={this.props.deleteQuestion} updateQuestion={this.props.updateQuestion}
+                                clearQuestionErrors={this.props.clearQuestionErrors} errors={this.props.errors}/>
                         ))
                     )}
                     {/* New Question button */}
