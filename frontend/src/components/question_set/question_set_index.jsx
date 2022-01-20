@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 import './question_set_index.scss'
 
@@ -10,45 +10,52 @@ import SideNavContainer from '../side_nav/side_nav_container'
 
 class QuestionSetIndex extends React.Component {
     constructor(props) {
-        super(props)
-        this.state = {
-            searchString: '',
-            category: null
-        }
-        // SKELETON -- hard coded temporary data
-        this.question = {
-            category: "Geography",
-            question: "Which Eastern European capital is the 24th largest city in the world by population?",
-            correctAnswer: "Moscow",
-            incorrectAnswers: ["Kiev", "London", "Minsk"],
-            type: "Multiple Choice"
-        }
-        this.questions = [
-            this.question, this.question, this.question, this.question
-        ]
+        super(props);
 
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.update = this.update.bind(this)
+        this.state = {
+            searchString: "",
+            filtered: false,
+            shownQuestionSets: []
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.filter = this.filter.bind(this);
     }
 
     componentDidMount() {
-        this.props.fetchAllQuestionSets();
+        this.props.fetchAllQuestionSets()
+            .then(() => this.setState({shownQuestionSets: this.props.state.entities.questionSets}));
     }
 
     handleSubmit(e) {
-        e.preventDefault()
-        // USE THE SEARCH STRING TO FIND MATCHING QUESTION SETS
+        e.preventDefault();
+        const allSets = this.state.filtered ? this.state.shownQuestionSets : this.props.state.entities.questionSets;
+        // default option - show all
+        if (!this.state.searchString) {
+            this.setState({shownQuestionSets: allSets});
+        // if category selected - filter for only that category
+        } else {
+            const selectedSets = allSets.filter((set) => 
+                set.title.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1);
+            this.setState({shownQuestionSets: selectedSets});
+        }
     }
 
-    update(field) {
-        return e => {
-            this.setState({ [field]: e.currentTarget.value })
+    filter (e) {
+        const selectedCat = e.currentTarget.value;
+        const allSets = this.state.searchString ? this.state.shownQuestionSets : this.props.state.entities.questionSets;
+        // default option - show all
+        if (selectedCat === "0") {
+            this.setState({shownQuestionSets: allSets, filtered: false});
+        // if category selected - filter for only that category
+        } else {
+            const selectedSets = allSets.filter((set) => set.category === selectedCat);
+            this.setState({shownQuestionSets: selectedSets, filtered: true});
         }
     }
 
     render(){
-        const indexItems = this.props.state.entities.questionSets.length ? (
-            this.props.state.entities.questionSets.map((questionSet, idx) => {
+        const indexItems = this.state.shownQuestionSets.length ? (
+            this.state.shownQuestionSets.map((questionSet, idx) => {
                 return (
                     <QuestionSetItem 
                         questionSet={questionSet}
@@ -66,7 +73,6 @@ class QuestionSetIndex extends React.Component {
         // Added by VK
          const categories = ["Art and Literature", "Film and TV", "Food and Drink", "General Knowledge", "Geography", "History", "Mixed", "Movies", "Music", "Science", "Society and Culture", "Sport and Leisure"];
 
-
         return(
             // SKELETON -- needs categories to choose from, as well as question set seeds to map
             <div className="question-set-index">
@@ -74,8 +80,8 @@ class QuestionSetIndex extends React.Component {
                 <div className="question-set-index__top-nav">
                     <div className="question-set-index__filters">
                         <div className="question-set-index__categories">
-                            <select onChange={() => this.update('category')}>
-                                <option value="0">Choose a Category</option>
+                            <select onChange={this.filter}>
+                                <option value="0">Choose a Category &or;</option>
                                 {/* Added by VK */}
                                 {categories.map((cat, i) => (
                                     <option key={`opt${i}`} value={cat}>{cat}</option>
@@ -85,10 +91,10 @@ class QuestionSetIndex extends React.Component {
                         <div className="question-set-index__search">
                             <form onSubmit={this.handleSubmit}>
                                 <input
-                                    type="text"
                                     value={this.state.searchString}
+                                    onChange={(e) => this.setState({searchString: e.currentTarget.value})}
+                                    type="text"
                                     placeholder="Find a question set"
-                                    onChange={() => this.update('searchString')}
                                 />
                                 <button type="submit">
                                     <FontAwesomeIcon 
