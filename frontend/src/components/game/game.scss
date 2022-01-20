@@ -62,11 +62,70 @@
 }
 
 .lobby__players-large {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     width: 80vw;
     height: 80vh;
     background: rgba(0, 0, 0, 0.2);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    padding: 2rem;
+    li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem;
+        font-family: 'Fredoka One', cursive;
+        color: #fefefe;
+        font-size: 1.5rem;
+        list-style: none;
+        width: 14rem;
+        max-width: 20%;
+        height: 6rem;
+        background: #081724;
+        border-radius: 8px;
+        padding: 0.75rem;
+        animation: bounce-in-top 1s both;
+    }
+}
+
+@keyframes bounce-in-top {
+    0% {
+        transform: translateY(-500px);
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    38% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+        opacity: 1;
+    }
+    55% {
+        transform: translateY(-65px);
+        animation-timing-function: ease-in;
+    }
+    72% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    81% {
+        transform: translateY(-28px);
+        animation-timing-function: ease-in;
+    }
+    90% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    95% {
+        transform: translateY(-8px);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
 }
 
 // GAME VIEW ----------------------------------
