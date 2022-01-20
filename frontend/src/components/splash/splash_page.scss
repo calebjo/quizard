@@ -81,6 +81,31 @@ body, html {
 
 .splash-page__wizard-quotes {
     margin: 1rem;
+    animation: 0.5s drop-bounce linear;
+}
+
+@keyframes drop-bounce {
+    0% {
+        transform: translateY(-150px) rotate(20deg);
+        filter: opacity(0);
+    }
+
+    70% {
+        transform: translateY(20px);
+    }
+
+    85% {
+        transform: translateY(10px);
+    }
+
+    90% {
+        transform: translateY(2px);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0);
+        filter: opacity(1);
+    }
 }
 
 .splash-page__wizard-sprite {
@@ -232,6 +257,8 @@ body, html {
     letter-spacing: 2px;
     text-align: center;
     margin: 1.5rem 0 2rem;
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 6px;
 }
 
 .splash-page__links-text {
@@ -292,6 +319,20 @@ body, html {
     svg {
         transition: 0.3s all ease-out;
     }
+    transition: 0.3s all ease-out;
+}
+
+.splash-page__profile::after {
+    display: none;
+    z-index: -1;
+    content: '';
+    position: absolute;
+    top: -1rem;
+    width: 16rem;
+    height: 16rem;
+    background: rgb(14, 30, 65);
+    transition: 0.3s all ease-out;
+    border-radius: 65% 35% 64% 36% / 19% 81% 19% 81%;
 }
 
 .splash-page__profile:hover {
@@ -302,8 +343,10 @@ body, html {
     -ms-transform: scale(1.35) rotate(3deg);
     -o-transform: scale(1.35) rotate(3deg);
     border-radius: 1rem;
+    transition: 0.3s all ease-out;
+
     img {
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         transition: 0.3s all ease-out;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
     }
@@ -321,10 +364,13 @@ body, html {
         }
     }
     .profile-name {
-        background: rgba(9, 19, 63, 0.5);
         transition: 0.3s all ease-out;
     }
-    transition: 0.3s all ease-out;
+
+    &::after {
+        display: flex;
+        transition: 0.3s all ease-out;
+    }
 }
 
 .profile__line {
