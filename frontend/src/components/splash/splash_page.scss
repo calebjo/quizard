@@ -1,4 +1,8 @@
 @use '../app.scss';
+@font-face {
+    font-family: Noir Pro;
+    src: url("../../assets/fonts/Noir_medium.otf");
+}
 
 body, html {
     scroll-snap-type: mandatory;
@@ -7,13 +11,10 @@ body, html {
 }
 
 .splash-page__container {
+    // position: relative;
     display: flex;
     flex-direction: column;
 }
-
-// .splash-page__container > div{
-//     height: 100vh;
-// }
 
 .splash-page__main {
     z-index: 1;
@@ -21,11 +22,9 @@ body, html {
     position: relative;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     background-color: #003e5b;
     scroll-snap-align: start;
     overflow: hidden;
-    
 }
 
 .splash-page__main::before {
@@ -197,13 +196,14 @@ body, html {
 // LOWER PAGE STYLES (social links, technologies) ----------------------
 
 .splash-page__bottom {
-    background-color: #1D3354;
+    background-color: #013E5B;
     scroll-snap-align: start;
-    font-family: 'Lato', sans-serif;
-    font-weight: 900;
+    font-family: 'Noir Pro', sans-serif;
+    font-weight: 700;
 }
 
 .splash-page__links-container {
+    z-index: 4;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -213,17 +213,21 @@ body, html {
 }
 
 .splash-page__links {
+    position: relative;
+    z-index: 4;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 3rem;
     height: 100vh;
+    overflow: hidden;
 }
 
 .splash-page__links-header {
-    font-size: 1.75rem;
+    font-size: 2rem;
     color: #ffbc42;
     text-decoration: underline;
+    text-underline-offset: 6px;
     text-decoration-thickness: 0.25rem;
     letter-spacing: 2px;
     text-align: center;
@@ -276,6 +280,69 @@ body, html {
 
 .splash-page__technologies {
     height: 100vh;
+}
+
+// DECORATIVE ELEMENTS -------------------------------------------------
+
+.splash__swipe {
+    position: absolute;
+    width: 15rem;
+    height: 40rem;
+    transform: rotate(45deg);
+}
+
+.swipe-red {
+    background: #FB3754;
+    transform: rotate(135deg);
+    bottom: -20rem;
+    left: 0;
+}
+
+.swipe-red::after {
+    width: 1.25rem;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 2rem;
+    background: #013E5B;
+}
+
+.swipe-yellow {
+    height: calc(200vh);
+    width: 22rem;
+    background: #ffbc42;
+    left: 75%;
+}
+
+.swipe-yellow::after {
+    width: 1.25rem;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 18rem;
+    background: #013E5B;
+}
+
+.swipe-blue {
+    z-index: -1;
+    background: #006495;
+    left: 20rem;
+    height: calc(200vh);
+}
+
+.swipe-blue::after {
+    width: 1.25rem;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 2.5rem;
+    background: #013E5B;
 }
 
 // MEDIA QUERIES -------------------------------------------------------
@@ -335,5 +402,72 @@ body, html {
         flex-direction: row;
     }
 
-    // insert changes for lower social/technologies pages
+    .splash-page__bottom {
+        display: flex;
+        flex-direction: row;
+        // overflow-x: auto;
+    }
+
+    .splash-page__links-container {
+        justify-content: flex-start;
+    }
+
+    .splash-page__links {
+        flex-direction: row;
+        min-width: 100vw;
+    }
+
+    .splash-page__links-header {
+        align-self: flex-start;
+        font-size: 2.5rem;
+        padding-left: 2rem;
+    }
+
+    .splash-page__links-text {
+        font-size: 1.75rem;
+        font-weight: 600;
+        line-height: 150%;
+        width: 35%;
+        span {
+            text-decoration: underline;
+            text-decoration-thickness: 0.25rem;
+            text-underline-offset: 5px;
+        }
+    }
+
+    .splash-page__technologies {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .splash-page__profile-list {
+        margin-top: 7.5rem;
+    }
+
+    .splash-page__profile {
+        width: 9rem;
+        height: 9rem;
+        margin: 2rem 4rem;
+    }
+
+    .splash-page__continue {
+        position: absolute;
+        right: 4rem;
+        display: flex;
+        flex-direction: column-reverse;
+        top: -13rem;
+        font-size: 1.25rem;
+        svg {
+            margin-right: 2.5rem;
+            align-self: flex-end;
+            transform: rotate(-90deg);
+        }
+    }
+    .splash-page__continue-text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 2rem;
+    }
 }

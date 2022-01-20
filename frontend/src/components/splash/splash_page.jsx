@@ -118,12 +118,15 @@ class SplashPage extends React.Component {
                 </div>
                 <div className="splash-page__bottom">
                     <div className="splash-page__links">
+                        <div className="splash__swipe swipe-red" />
+                        <div className="splash__swipe swipe-yellow" />
+                        <div className="splash__swipe swipe-blue" />
                         <div className="splash-page__links-container">
                             <div className="splash-page__links-header">
                                 What is Quizard?
                             </div>
                             <div className="splash-page__links-text">
-                                Quizard is a full stack quiz game built in 4 days by these fine folks:
+                                Quizard is a full stack quiz game built in <span>4 days</span> by these fine folks:
                             </div>
                             <div className="splash-page__profile-list">
                                 <div className="splash-page__profile">
