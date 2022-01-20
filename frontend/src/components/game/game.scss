@@ -68,3 +68,27 @@
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+
+// GAME VIEW ----------------------------------
+
+.game__container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background:#0E273C;
+}
+
+.game__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 75%;
+    height: 12rem;
+    margin: 4rem;
+    font-size: 3rem;
+    font-family: 'Podkova', cursive;
+    font-weight: 700;
+}
