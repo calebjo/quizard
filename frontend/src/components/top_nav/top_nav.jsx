@@ -19,7 +19,7 @@ class TopNav extends React.Component {
                 </div>
                 <div className="top-nav__developers">
                     {/* SKELETON -- Change to an anchor link to splash-page__links */}
-                    Meet the Developers
+                    About Quizard
                 </div>
                 <div className="top-nav__session">
                     <Link to="/login">Login/Sign up</Link>

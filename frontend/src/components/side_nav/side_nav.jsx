@@ -67,8 +67,8 @@ class SideNav extends React.Component {
                 </div>
                 
                 <div className="nav-flex">
-                    {/* SKELETON: must add link to join game!! */}
-                    <button 
+                    {/* Button to join game in progress- always rendered */}
+                    <button onClick={() => this.props.history.push("/join-game")}
                         className="styled-button orange-bg">
                             Join Game</button>
 
@@ -78,6 +78,12 @@ class SideNav extends React.Component {
                             className="styled-button red-bg"
                             onClick={this.handleLogout}>Log Out</button>
                     ) : null }
+
+                    {/* Create account button- only rendered when logged out */}
+                    { currentUser ?  null : (
+                        <button 
+                            className="styled-button red-bg"
+                            onClick={() => this.props.history.push("/signup")}>Create Account</button>)}
 
                 </div>
             </aside>

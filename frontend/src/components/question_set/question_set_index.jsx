@@ -77,8 +77,8 @@ class QuestionSetIndex extends React.Component {
                             <select onChange={() => this.update('category')}>
                                 <option value="0">Choose a Category</option>
                                 {/* Added by VK */}
-                                {categories.map((cat) => (
-                                    <option value={cat}>{cat}</option>
+                                {categories.map((cat, i) => (
+                                    <option key={`opt${i}`} value={cat}>{cat}</option>
                                 ))}
                             </select>
                         </div>
