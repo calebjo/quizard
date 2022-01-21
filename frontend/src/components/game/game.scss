@@ -222,7 +222,7 @@
     transition: 0.25s all linear;
     &::before {
         filter:brightness(1.5);
-        transform: scale(1.15) rotate(45deg);
+        transform: scale(1.25) rotate(45deg);
         transition: 0.3s all ease-in-out;
         border-radius: 2rem;
     }
