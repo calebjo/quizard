@@ -21,7 +21,8 @@ class GameLobby extends React.Component {
             numPlayers: 0,
             activePlayers: null,
             inactivePlayers: null,
-            responses: []
+            responses: [],
+            socket_id: null
         }
         
         this.activePlayers = this.state.players;
@@ -29,6 +30,7 @@ class GameLobby extends React.Component {
         this.startGame = this.startGame.bind(this);
         this.normalizeQuestions = this.normalizeQuestions.bind(this);
         this.playRound = this.playRound.bind(this);
+        this.roundCleanUp = this.roundCleanUp.bind(this);
     }
 
     componentDidMount() {
@@ -91,7 +93,14 @@ class GameLobby extends React.Component {
             })
 
             socket.on('questionResponseHandshake', (localReplies) => {
-                this.setState({ responses: localReplies})
+                this.setState({ responses: localReplies}, () => {
+                    if (this.state.responses.length === this.state.numPlayers) {
+                        const currentQuestion = this.state.questions[this.state.currentRound]
+                        this.playRound(currentQuestion, this.state.responses);
+                        socket.emit('clearResponses')
+                    }
+                    
+                })
             })
 
             // // update state whenever the lobby's state updates
@@ -104,12 +113,20 @@ class GameLobby extends React.Component {
     //     socket.emit('disconnect')
     // }
 
+    roundCleanUp() {
+        let currentRound = this.state.currentRound
+        ++currentRound
+        this.setState({ currentRound });
+        socket.emit('clearResponses')
+    }
+
     startGame() {
         const numPlayers = Object.keys(this.state.players).length
         const stateObj = {
             playing: true,
             numPlayers
         }
+        this.activePlayers = this.state.players;
         socket.emit('gameStarted', this.state.lobby, stateObj)
         this.setState(stateObj)
     }
@@ -155,6 +172,7 @@ class GameLobby extends React.Component {
         // question should be a singular question object
         // responses should be an array of 'response objects'
         // e.g. [{ playerId: response }, { playerId: response }, { playerId: response }]
+
         const correctAnswer = question.correctAnswer;
         let removals = [];
 
@@ -166,6 +184,8 @@ class GameLobby extends React.Component {
             }
         })
 
+        debugger
+
         if (removals.length > 0) {
             removals.forEach(player => {
                 this.inactivePlayers[player] = this.activePlayers[player];
@@ -173,7 +193,8 @@ class GameLobby extends React.Component {
             })
         }
 
-        this.round++;
+        console.log(this.activePlayers)
+        console.log(this.inactivePlayers)
         return true;
     }
 

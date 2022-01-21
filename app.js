@@ -147,7 +147,7 @@ io.on('connection', socket => {
 
     socket.on('questionResponse', (roomId, responseObj) => {
         
-        if (Array.isArray(responses[roomId])) {
+        if (Array.isArray(replies[roomId])) {
             replies[roomId].push(responseObj)
         } else {
             replies[roomId] = [responseObj]
@@ -157,11 +157,12 @@ io.on('connection', socket => {
     })
 
     socket.on('clientQuestionResponse', (roomId) => {
-        const localResponses = responses[roomId]
-        socket.to(roomId).emit('questionResponseHandshake', localResponses)
+        const localReplies = replies[roomId]
+        socket.to(roomId).emit('questionResponseHandshake', localReplies)
     })
 
     socket.on('clearResponses', () => {
+        console.log('trueth')
         replies = {};
     })
 
