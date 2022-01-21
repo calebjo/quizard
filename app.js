@@ -50,8 +50,9 @@ const io = socket(wsServer, {
     }
 });
 
+
 let clients = {};
-let numClients = 0;
+let replies = {};
 
 io.on('connection', socket => {
     // REFERENCE FOR FUTURE
@@ -77,7 +78,6 @@ io.on('connection', socket => {
     // joining a game room
     socket.on('joinRoom', (roomId, user) => {
         // return info structure: [{id: [info]}, {id: [info]}]
-        numClients++
         socket.join(roomId)
         const id = socket.client.id;
 
@@ -97,12 +97,15 @@ io.on('connection', socket => {
         }
 
         const localClients = clients[roomId];
+        socket.emit('userInfo', id)
         socket.to(roomId).emit('playerJoined', localClients)
+        
     })
 
     socket.on('secondRound', (roomId) => {
+        const id = socket.client.id;
         const localClients = clients[roomId];
-        socket.to(roomId).emit('sendToRecentClient', localClients) 
+        socket.to(roomId).emit('sendToRecentClient', localClients, id) 
     })
 
     socket.on('disconnect', () => {
@@ -134,6 +137,39 @@ io.on('connection', socket => {
         const localClients = clients[roomId];
         socket.to(roomId).emit('sendToOldClients', localClients) 
     })
+
+    socket.on('gameStarted', (roomId, stateObj) => {
+        let roomInfo = roomId; 
+        let stateObject = stateObj;
+        socket.to(roomId).emit('clientGameStarted', roomInfo, stateObject)
+    })
+
+    socket.on('gameStartedHandshake', (roomId, stateObj) => {
+        socket.to(roomId).emit('completeGameStartHandshake', stateObj)
+    })
+
+    socket.on('questionResponse', (roomId, responseObj) => {
+        
+        if (Array.isArray(replies[roomId])) {
+            replies[roomId].push(responseObj)
+        } else {
+            replies[roomId] = [responseObj]
+        }
+        let localReplies = replies[roomId]
+        socket.to(roomId).emit('serverQuestionResponse', localReplies)
+    })
+
+    socket.on('clientQuestionResponse', (roomId) => {
+        const localReplies = replies[roomId]
+        socket.to(roomId).emit('questionResponseHandshake', localReplies)
+    })
+
+    socket.on('clearResponses', () => {
+        console.log('trueth')
+        replies = {};
+    })
+
+
 
     // // updating a room's game state
     // socket.on('gameStateUpdate', (roomId, newGameState) => {

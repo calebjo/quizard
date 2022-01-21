@@ -1,25 +1,57 @@
 import React from "react";
-import GameChatContainer from "./game_chat_container";
-import Game from "./game"
+import { socket } from "../../util/socket_util";
 import "./game.scss"
 
 class GameView extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            // SKELETON -- instantialize actual game instance with players in lobby
-            // game: new Game()
+            lobbyId: props.lobby,
+            question: props.question,
             roundActive: false,
+            answers: null,
+            socket: this.props.socket,
+            clickable: true
         }
+
         this.handleGuess = this.handleGuess.bind(this)
+        this.shuffleAnswers = this.shuffleAnswers.bind(this)
     }
 
-    handleGuess(number) {
-        // SKELETON -- sets the user's guess to whichever number they picked
+    handleGuess(e) {
+        e.preventDefault();
+        const id = this.props.socketId;
+        const response = e.target.innerText;
+        const responseObj = { [id]: response }
+        socket.emit('questionResponse', this.state.lobbyId, responseObj)
+        this.setState({ clickable: false })
+    }
+
+    shuffleAnswers() {
+        let answers = [];
+        const question = this.state.question;
+        answers.push(question.correctAnswer)
+        question.incorrectAnswers.forEach(a => answers.push(a));
+        let shuffledAnswers = answers.map(a => ({ a, sortKey: Math.random() })).sort((x, y) => (x.sortKey - y.sortKey)).map(idObject => idObject.a);
+        return shuffledAnswers;
+    }
+
+    componentDidMount() {
+        this.setState({answers: this.shuffleAnswers(this.state.question)})
     }
     
     render() {
+        let clickable = this.state.clickable ? this.handleGuess : '';
         const timeToAnswer = `30s` // SKELETON: change to whatever time you want (setTimeout likely needed in functions)
+
+        const options = this.state.answers ? this.state.answers.map((option, idx) => {
+            return (
+                <div className="game__question-answer guess1" onClick={clickable} >
+                    <p key={idx}>{option}</p>
+                </div>
+            )
+        })  : '';
+
         const questionRound = (
             <div className="game__question-container">
                 <div className="game__question-top">
@@ -29,18 +61,7 @@ class GameView extends React.Component {
                     <div className="game__timer" style={{animationDuration: `${timeToAnswer}`}} />
                 </div>
                 <div className="game__question-answers">
-                    <div className="game__question-answer guess1" onClick={() => this.handleGuess(0)}>
-                        <p>{/* SKELETON -- INSERT ANSWER HERE */}Mumbai</p>
-                    </div>
-                    <div className="game__question-answer guess2" onClick={() => this.handleGuess(1)}>
-                        <p>{/* SKELETON -- INSERT ANSWER HERE */}New Delhi</p>
-                    </div>
-                    <div className="game__question-answer guess3" onClick={() => this.handleGuess(2)}>
-                        <p>{/* SKELETON -- INSERT ANSWER HERE */}Jaipur</p>
-                    </div>
-                    <div className="game__question-answer guess4" onClick={() => this.handleGuess(3)}>
-                        <p>{/* SKELETON -- INSERT ANSWER HERE */}Surat</p>
-                    </div>
+                    {options}
                 </div>
             </div>
         )
@@ -104,16 +125,13 @@ class GameView extends React.Component {
         return(
             <div className="game__container">
                 <div className="game__header">
-                    {/* SKELETON -- insert question set title */}
-                    What is the capital of India?
+                    {this.state.question.question}
                 </div>
                 <div className="game__content">
                     {questionRound}
                     {/* roundEnd */}
                     {/* gameEnd */}
                 </div>
-                <GameChatContainer
-                    socket={this.props.socket}/>
             </div>
         )
     }
