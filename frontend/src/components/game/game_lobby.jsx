@@ -255,7 +255,7 @@ class GameLobby extends React.Component {
                     navigator.clipboard.writeText(`${this.props.lobby.room_id}`);
                     e.stopPropagation();
                     }}
-                ><FontAwesomeIcon icon={faCopy} size="0.5x"/></span>
+                ><FontAwesomeIcon icon={faCopy}/></span>
             </button>
             <div className="lobby__quiz-title">
                 Lobby : <span>{questionSet ? (questionSet.title) : ("")}</span>
