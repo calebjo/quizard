@@ -11,7 +11,7 @@ class GameChat extends React.Component {
             message: "" ,
             messages: [],
             roomId: this.props.location.pathname.split("/")[2],
-            user: {username: "DebugDude61"}// SKELETON -- hard coded for now, get current user when ready
+            user: {username: 'username'}
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.update = this.update.bind(this)
@@ -22,6 +22,14 @@ class GameChat extends React.Component {
                 this.addMessage(message, user)
             }
         })
+    }
+
+    componentDidMount() {
+        const players = this.props.players;
+        const socketId = this.props.socketId;
+        const userArray = players[socketId];
+        const username = userArray[1];
+        this.setState({user: { username }});
     }
 
     addMessage(message, user) {

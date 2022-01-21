@@ -14,6 +14,7 @@ class GameLobby extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
+            socketId: null,
             totalRounds: null,
             lobby: null,
             creator: null,
@@ -25,7 +26,6 @@ class GameLobby extends React.Component {
             activePlayers: null,
             inactivePlayers: null,
             responses: [],
-            socket_id: null
         }
         
         this.activePlayers = this.state.players;
@@ -59,15 +59,22 @@ class GameLobby extends React.Component {
             socket.emit('joinRoom', this.props.lobby.room_id, this.props.currentUser)
 
             // on a new client connection, give them the game state data
-            socket.on('playerJoined', (localClients) => {
+            socket.on('playerJoined', (localClients, id) => {
                 let players = Object.assign(...localClients);
                 this.setState({ players })
                 socket.emit('secondRound', this.props.lobby.room_id)
             })
 
-            socket.on('sendToRecentClient', (localClients) => {
+            socket.on('userInfo', (id) =>{
+                const socketId = id;
+                this.setState({ socketId });
+                console.log('test')
+            })
+
+            socket.on('sendToRecentClient', (localClients, id) => {
                 let players = Object.assign(...localClients);
-                this.setState({ players })
+                
+                this.setState({ players });
             })
 
             socket.on('playerDisconnect', (localClients) => {
@@ -187,8 +194,6 @@ class GameLobby extends React.Component {
             }
         })
 
-        debugger
-
         if (removals.length > 0) {
             removals.forEach(player => {
                 this.inactivePlayers[player] = this.activePlayers[player];
@@ -268,23 +273,35 @@ class GameLobby extends React.Component {
         // Creates a list of the players currently in the lobby
         // { SOCKET OR DB id: ['human', 'username', DB id if they have one]}
         let lobbyPlayers;
+        let gameChat;
          if (this.state.players) {
             const ids = Object.keys(this.state.players);
+
             lobbyPlayers = Object.values(this.state.players).map((playerDataArray, idx) => {
                 return <li key={ids[idx]}>{playerDataArray[1]}</li>
             })
+
+            gameChat = (
+                 <GameChatContainer
+                     socket={socket}
+                     players={this.state.players}
+                     socketId={this.state.socketId} />)
+
         } else {
             lobbyPlayers = (
                 <div className="lobby__empty">
                     Waiting for more players to join...
                 </div>
             )
+
+            gameChat = '';
         }
 
         const gameOrLobby = this.state.playing 
         ?  (<GameView
                 lobby={this.state.lobby}
                 socket={socket}
+                socketId={this.state.socketId}
                 players={this.state.players}
                 game={this.state.game}
                 numPlayers={this.state.numPlayers}
@@ -304,8 +321,7 @@ class GameLobby extends React.Component {
         return(
             <div>
                 {gameOrLobby}
-                <GameChatContainer
-                    socket={socket} />
+                {gameChat}
             </div>
         )
     }

@@ -20,7 +20,7 @@ class GameView extends React.Component {
 
     handleGuess(e) {
         e.preventDefault();
-        const id = this.props.socket.id;
+        const id = this.props.socketId;
         const response = e.target.innerText;
         const responseObj = { [id]: response }
         socket.emit('questionResponse', this.state.lobbyId, responseObj)
