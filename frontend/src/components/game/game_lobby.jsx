@@ -20,12 +20,12 @@ class GameLobby extends React.Component {
             currentRound: 0, 
             numPlayers: 0,
             activePlayers: null,
-            inactivePlayers: null
+            inactivePlayers: null,
+            responses: []
         }
         
         this.activePlayers = this.state.players;
         this.inactivePlayers = {};
-        this.responses = [];
         this.startGame = this.startGame.bind(this);
         this.normalizeQuestions = this.normalizeQuestions.bind(this);
         this.playRound = this.playRound.bind(this);
@@ -44,12 +44,11 @@ class GameLobby extends React.Component {
                 if (normalizedQuestions.length > 10) {
                     normalizedQuestions = normalizedQuestions.slice(10, 20);
                 }
-                this.setState({ questions: normalizedQuestions,
+                this.setState({ 
+                    questions: normalizedQuestions,
                     creator: lobby.data.creator_id,
                     lobby: this.props.lobby.room_id, 
                 })
-
-                debugger
             })
 
             socket.emit('joinRoom', this.props.lobby.room_id, this.props.currentUser)
@@ -86,14 +85,13 @@ class GameLobby extends React.Component {
                 this.setState(stateObj)
             })
 
-            socket.on('serverQuestionResponse', (responseObj) => {
-                this.responses.push(responseObj);
+            socket.on('serverQuestionResponse', (localReplies) => {
+                this.setState({ responses: localReplies })
+                socket.emit('clientQuestionResponse', this.props.lobby.room_id)
+            })
 
-                if (this.responses.length === this.state.numPlayers) {
-                    this.playRound(this.state.currentQuestion, this.state.players)
-                    console.log(this.activePlayers)
-                    console.log(this.inactivePlayers)
-                }
+            socket.on('questionResponseHandshake', (localReplies) => {
+                this.setState({ responses: localReplies})
             })
 
             // // update state whenever the lobby's state updates
@@ -254,8 +252,6 @@ class GameLobby extends React.Component {
             )
         }
 
-        
-        
         const gameOrLobby = this.state.playing 
         ?  (<GameView
                 lobby={this.state.lobby}

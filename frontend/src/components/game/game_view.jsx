@@ -10,10 +10,10 @@ class GameView extends React.Component {
             question: props.question,
             roundActive: false,
             answers: null,
-            socket: this.props.socket
+            socket: this.props.socket,
+            clickable: true
         }
 
-        // debugger
         this.handleGuess = this.handleGuess.bind(this)
         this.shuffleAnswers = this.shuffleAnswers.bind(this)
     }
@@ -24,6 +24,7 @@ class GameView extends React.Component {
         const response = e.target.innerText;
         const responseObj = { [id]: response }
         socket.emit('questionResponse', this.state.lobbyId, responseObj)
+        this.setState({ clickable: false })
     }
 
     shuffleAnswers() {
@@ -40,11 +41,12 @@ class GameView extends React.Component {
     }
     
     render() {
+        let clickable = this.state.clickable ? this.handleGuess : '';
         const timeToAnswer = `30s` // SKELETON: change to whatever time you want (setTimeout likely needed in functions)
 
         const options = this.state.answers ? this.state.answers.map((option, idx) => {
             return (
-                <div className="game__question-answer guess1" onClick={this.handleGuess}>
+                <div className="game__question-answer guess1" onClick={clickable} >
                     <p key={idx}>{option}</p>
                 </div>
             )

@@ -50,8 +50,9 @@ const io = socket(wsServer, {
     }
 });
 
+
 let clients = {};
-let numClients = 0;
+let replies = {};
 
 io.on('connection', socket => {
     // REFERENCE FOR FUTURE
@@ -77,7 +78,6 @@ io.on('connection', socket => {
     // joining a game room
     socket.on('joinRoom', (roomId, user) => {
         // return info structure: [{id: [info]}, {id: [info]}]
-        numClients++
         socket.join(roomId)
         const id = socket.client.id;
 
@@ -146,7 +146,23 @@ io.on('connection', socket => {
     })
 
     socket.on('questionResponse', (roomId, responseObj) => {
-        socket.to(roomId).emit('serverQuestionResponse', responseObj)
+        
+        if (Array.isArray(responses[roomId])) {
+            replies[roomId].push(responseObj)
+        } else {
+            replies[roomId] = [responseObj]
+        }
+        let localReplies = replies[roomId]
+        socket.to(roomId).emit('serverQuestionResponse', localReplies)
+    })
+
+    socket.on('clientQuestionResponse', (roomId) => {
+        const localResponses = responses[roomId]
+        socket.to(roomId).emit('questionResponseHandshake', localResponses)
+    })
+
+    socket.on('clearResponses', () => {
+        replies = {};
     })
 
 
