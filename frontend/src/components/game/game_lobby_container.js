@@ -10,7 +10,6 @@ const mSTP = (state, ownProps) => ({
     questionSets: state.entities.questionSets,
     lobby: state.entities.lobbies[ownProps.match.params.id],
     currentUser: state.session.user,
-    questions: state.entities.questions,
     state
 });
 

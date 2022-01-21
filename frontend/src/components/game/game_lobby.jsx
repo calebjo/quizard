@@ -38,10 +38,18 @@ class GameLobby extends React.Component {
         };
 
         this.props.fetchLobby(this.props.match.params.id).then(({lobby}) => {
-            let questions;
             this.props.fetchQuestionSet(lobby.data.set_id)
-            this.props.fetchSetQuestions(lobby.data.set_id).then(fetchedQuestions => {
-                questions = fetchedQuestions;
+            this.props.fetchSetQuestions(lobby.data.set_id).then(questions => {
+                let normalizedQuestions = this.normalizeQuestions(Object.values(questions.questions.data));
+                if (normalizedQuestions.length > 10) {
+                    normalizedQuestions = normalizedQuestions.slice(10, 20);
+                }
+                this.setState({ questions: normalizedQuestions,
+                    creator: lobby.data.creator_id,
+                    lobby: this.props.lobby.room_id, 
+                })
+
+                debugger
             })
 
             socket.emit('joinRoom', this.props.lobby.room_id, this.props.currentUser)
@@ -82,23 +90,10 @@ class GameLobby extends React.Component {
                 this.responses.push(responseObj);
 
                 if (this.responses.length === this.state.numPlayers) {
-                    const game = this.state.game;
                     this.playRound(this.state.currentQuestion, this.state.players)
-                    console.log(game.activePlayers)
-                    console.log(game.inactivePlayers)
+                    console.log(this.activePlayers)
+                    console.log(this.inactivePlayers)
                 }
-            })
-
-            let normalizedQuestions = this.normalizeQuestions(Object.values(questions));
-
-            if (normalizedQuestions.length > 10) {
-                normalizedQuestions = normalizedQuestions.slice(10, 20);
-            }
-
-            this.setState({
-                creator: lobby.data.creator_id,
-                lobby: this.props.lobby.room_id,
-                questions: normalizedQuestions
             })
 
             // // update state whenever the lobby's state updates
@@ -118,6 +113,7 @@ class GameLobby extends React.Component {
             numPlayers
         }
         socket.emit('gameStarted', this.state.lobby, stateObj)
+        this.setState(stateObj)
     }
     
     normalizeQuestions(questions) {
