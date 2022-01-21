@@ -5,7 +5,7 @@ Looking to sharpen your trivia skills? Searching for a new virtual platform to c
 # Overview
 Quizard is an interactive platform that allows users to play multiplayer quiz games with their friends. Users can create their own sets of questions or start a game with questions from premade quiz banks. As users play, win, and create their own custom question sets, they will earn badges and ultimately become Quizards themselves!
 
-( splash page screenshot goes here )
+![splash](/frontend/src/assets/images/splash-page-screenshot.png)
 
 Quizard features a sleek and navigable user interface along with a number of interactive features, including a live chat function during games. Although only logged-in users may create custom question sets, Quizard flexibly allows users to browse the question set library and play games regardless of logged-in status.
 
