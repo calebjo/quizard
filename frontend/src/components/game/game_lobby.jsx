@@ -6,6 +6,9 @@ import GameView from "./game_view";
 import HumanPlayer from "./human_player";
 import ComputerPlayer from "./computer_player";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+
 // Establishes webSocket conneciton to every joining player
 class GameLobby extends React.Component {
     constructor (props) {
@@ -240,7 +243,12 @@ class GameLobby extends React.Component {
         && this.props.currentUser.id === this.state.creator ? 
         (<div className="lobby__top-bar">
             <button className="lobby__invite">
-                Invite Players{/* generates link to url */}
+                Lobby ID: {this.props.lobby.room_id}&nbsp; 
+                <span onClick={(e) => {
+                    navigator.clipboard.writeText(`${this.props.lobby.room_id}`);
+                    e.stopPropagation();
+                    }}
+                ><FontAwesomeIcon icon={faCopy} size="0.5x"/></span>
             </button>
             <div className="lobby__quiz-title">
                 Lobby : <span>{questionSet ? (questionSet.title) : ("")}</span>
