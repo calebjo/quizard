@@ -23,13 +23,11 @@ class GameLobby extends React.Component {
             questions: null,
             currentRound: 0, 
             numPlayers: 0,
-            activePlayers: null,
-            inactivePlayers: null,
+            activePlayers: {},
+            inactivePlayers: {},
             responses: [],
         }
-        
-        this.activePlayers = this.state.players;
-        this.inactivePlayers = {};
+
         this.startGame = this.startGame.bind(this);
         this.normalizeQuestions = this.normalizeQuestions.bind(this);
         this.playRound = this.playRound.bind(this);
@@ -132,11 +130,12 @@ class GameLobby extends React.Component {
 
     startGame() {
         const numPlayers = Object.keys(this.state.players).length
+        const activePlayers = this.state.players;
         const stateObj = {
             playing: true,
-            numPlayers
+            numPlayers,
+            activePlayers
         }
-        this.activePlayers = this.state.players;
         socket.emit('gameStarted', this.state.lobby, stateObj)
         this.setState(stateObj)
     }
@@ -194,15 +193,18 @@ class GameLobby extends React.Component {
             }
         })
 
+        const inactivePlayers = this.state.inactivePlayers;
+        const activePlayers = this.state.activePlayers
+
         if (removals.length > 0) {
             removals.forEach(player => {
-                this.inactivePlayers[player] = this.activePlayers[player];
-                delete this.activePlayers[player];
+                inactivePlayers[player] = activePlayers[player];
+                delete activePlayers[player];
             })
         }
 
-        console.log(this.activePlayers)
-        console.log(this.inactivePlayers)
+        this.setState({ activePlayers, inactivePlayers })
+
         return true;
     }
 
