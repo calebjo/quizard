@@ -40,6 +40,10 @@
         font-size: 2rem;
         text-decoration: underline;
     }
+    button:hover {
+        color: white;
+        outline: 2px solid white;
+    }
 }
 
 .lobby__top-bar > div {
@@ -158,4 +162,88 @@
     font-size: 3rem;
     font-family: 'Podkova', cursive;
     font-weight: 700;
+    background: #0b1f31;
+    border-radius: 12px;
+}
+
+.game__content {
+    width: 55%;
+    height: 100%;
+}
+
+.game__question-answers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #0B1F31;
+    border-radius: 12px;
+    padding: 4rem 2rem;
+}
+
+.game__question-answer::before {
+    content: '';
+    width: 3rem;
+    height: 3rem;
+    background: red;
+    border-radius: 0.5rem;
+    margin-right: 1rem;
+    transition: 0.3s all ease-in-out;
+}
+
+.game__question-answer.guess1::before {
+    background: #FB3754;
+}
+
+.game__question-answer.guess2::before {
+    background: #ffbc42;
+}
+
+.game__question-answer.guess3::before {
+    background: #63a2eb;
+}
+
+.game__question-answer.guess4::before {
+    background: #71bb75;
+}
+
+.game__question-answer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    cursor: pointer;
+    font-size: 2rem;
+    width: 40%;
+    min-width: 20rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    transition: 0.25s all linear;
+}
+
+.game__question-answer:hover {
+    background: #06111b;
+    transition: 0.25s all linear;
+    &::before {
+        filter:brightness(1.5);
+        transform: scale(1.25) rotate(45deg);
+        transition: 0.3s all ease-in-out;
+        border-radius: 2rem;
+    }
+}
+
+.guess1 {
+    color:#FB3754;
+}
+
+.guess2 {
+    color:#ffbc42;
+}
+
+.guess3 {
+    color:#63a2eb;
+}
+
+.guess4 {
+    color:#71bb75;
 }
