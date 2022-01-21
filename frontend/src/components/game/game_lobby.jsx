@@ -57,21 +57,19 @@ class GameLobby extends React.Component {
             socket.emit('joinRoom', this.props.lobby.room_id, this.props.currentUser)
 
             // on a new client connection, give them the game state data
-            socket.on('playerJoined', (localClients, id) => {
+            socket.on('playerJoined', (localClients) => {
                 let players = Object.assign(...localClients);
                 this.setState({ players })
-                socket.emit('secondRound', this.props.lobby.room_id)
+                // socket.emit('secondRound', this.props.lobby.room_id)
             })
 
             socket.on('userInfo', (id) =>{
                 const socketId = id;
                 this.setState({ socketId });
-                console.log('test')
             })
 
             socket.on('sendToRecentClient', (localClients, id) => {
                 let players = Object.assign(...localClients);
-                
                 this.setState({ players });
             })
 

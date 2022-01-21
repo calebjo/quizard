@@ -98,15 +98,15 @@ io.on('connection', socket => {
 
         const localClients = clients[roomId];
         socket.emit('userInfo', id)
-        socket.to(roomId).emit('playerJoined', localClients)
+        io.to(roomId).emit('playerJoined', localClients)
         
     })
 
-    socket.on('secondRound', (roomId) => {
-        const id = socket.client.id;
-        const localClients = clients[roomId];
-        socket.to(roomId).emit('sendToRecentClient', localClients, id) 
-    })
+    // socket.on('secondRound', (roomId) => {
+    //     const id = socket.client.id;
+    //     const localClients = clients[roomId];
+    //     socket.to(roomId).emit('sendToRecentClient', localClients, id) 
+    // })
 
     socket.on('disconnect', () => {
         const id = socket.client.id;
