@@ -40,6 +40,10 @@
         font-size: 2rem;
         text-decoration: underline;
     }
+    button:hover {
+        color: white;
+        outline: 2px solid white;
+    }
 }
 
 .lobby__top-bar > div {
