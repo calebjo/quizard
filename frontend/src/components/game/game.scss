@@ -52,6 +52,13 @@
     padding: 0.5rem 1rem;
     border-radius: 6px;
     color: black;
+
+    span {
+        cursor: pointer;
+    }
+    span:active {
+        color: #235074;
+    }
 }
 
 .lobby__start {
