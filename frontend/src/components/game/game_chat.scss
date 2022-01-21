@@ -5,7 +5,7 @@
     justify-content: flex-end;
     z-index: 10;
     position: absolute;
-    bottom: 3rem;
+    bottom: 2rem;
     right: 1.5rem;
     width: 18rem;
     height: 28rem;
@@ -28,6 +28,7 @@
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
+    height: 20rem;
     padding: 1rem;
 }
 
@@ -59,8 +60,7 @@
     border-radius: 8px;
     margin: 0.25rem 0.5rem 0.25rem 0;
     overflow: hidden;
-    line-height: 1rem;
-    height: fit-content;
+    min-height: 1.5rem;
     p {
         text-overflow: ellipsis;
         min-height: 1rem;
