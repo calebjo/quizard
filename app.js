@@ -99,14 +99,7 @@ io.on('connection', socket => {
         const localClients = clients[roomId];
         socket.emit('userInfo', id)
         io.to(roomId).emit('playerJoined', localClients)
-        
     })
-
-    // socket.on('secondRound', (roomId) => {
-    //     const id = socket.client.id;
-    //     const localClients = clients[roomId];
-    //     socket.to(roomId).emit('sendToRecentClient', localClients, id) 
-    // })
 
     socket.on('disconnect', () => {
         const id = socket.client.id;
@@ -129,43 +122,25 @@ io.on('connection', socket => {
             }
         })
         clients[roomId] = newRoom;
-        localClients = clients[roomId]
-        socket.emit('playerDisconnect', localClients)
+        localClients = clients[roomId];
+        io.to(roomId).emit('playerDisconnect', localClients)
     })
 
-    socket.on('secondRoundDisconnect', (roomId) => {
-        const localClients = clients[roomId];
-        socket.to(roomId).emit('sendToOldClients', localClients) 
-    })
-
-    socket.on('gameStarted', (roomId, stateObj) => {
-        let roomInfo = roomId; 
-        let stateObject = stateObj;
-        socket.to(roomId).emit('clientGameStarted', roomInfo, stateObject)
-    })
-
-    socket.on('gameStartedHandshake', (roomId, stateObj) => {
-        socket.to(roomId).emit('completeGameStartHandshake', stateObj)
+    socket.on('gameStarted', (roomId, stateObj) => { 
+        io.to(roomId).emit('clientGameStarted', stateObj)
     })
 
     socket.on('questionResponse', (roomId, responseObj) => {
-        
         if (Array.isArray(replies[roomId])) {
             replies[roomId].push(responseObj)
         } else {
             replies[roomId] = [responseObj]
         }
-        let localReplies = replies[roomId]
-        socket.to(roomId).emit('serverQuestionResponse', localReplies)
-    })
-
-    socket.on('clientQuestionResponse', (roomId) => {
-        const localReplies = replies[roomId]
-        socket.to(roomId).emit('questionResponseHandshake', localReplies)
+        let localReplies = replies[roomId];
+        io.to(roomId).emit('serverQuestionResponse', localReplies)
     })
 
     socket.on('clearResponses', () => {
-        console.log('trueth')
         replies = {};
     })
 

@@ -60,7 +60,6 @@ class GameLobby extends React.Component {
             socket.on('playerJoined', (localClients) => {
                 let players = Object.assign(...localClients);
                 this.setState({ players })
-                // socket.emit('secondRound', this.props.lobby.room_id)
             })
 
             socket.on('userInfo', (id) =>{
@@ -76,37 +75,19 @@ class GameLobby extends React.Component {
             socket.on('playerDisconnect', (localClients) => {
                 let players = Object.assign(...localClients);
                 this.setState({ players })
-                socket.emit('secondRoundDisconnect', this.props.lobby.room_id)
             })
 
-            socket.on('sendToOldClients', (localClients) => {
-                let players = Object.assign(...localClients);
-                this.setState({ players })
-            })
-
-            socket.on('clientGameStarted', (roomId, stateObj) => {
-                this.setState(stateObj)
-                socket.emit('gameStartedHandshake', roomId, stateObj)
-            })
-
-            socket.on('completeGameStartHandshake', (stateObj) => {
+            socket.on('clientGameStarted', (stateObj) => {
                 this.setState(stateObj)
             })
 
             socket.on('serverQuestionResponse', (localReplies) => {
                 this.setState({ responses: localReplies })
-                socket.emit('clientQuestionResponse', this.props.lobby.room_id)
-            })
-
-            socket.on('questionResponseHandshake', (localReplies) => {
-                this.setState({ responses: localReplies}, () => {
-                    if (this.state.responses.length === this.state.numPlayers) {
-                        const currentQuestion = this.state.questions[this.state.currentRound]
-                        this.playRound(currentQuestion, this.state.responses);
-                        socket.emit('clearResponses')
-                    }
-                    
-                })
+                if (this.state.responses.length === this.state.numPlayers) {
+                    const currentQuestion = this.state.questions[this.state.currentRound]
+                    this.playRound(currentQuestion, this.state.responses);
+                    socket.emit('clearResponses')
+                }
             })
 
             // // update state whenever the lobby's state updates
@@ -115,9 +96,9 @@ class GameLobby extends React.Component {
         })
     }
 
-    // componentWillUnmount() {
-    //     socket.emit('disconnect')
-    // }
+    componentWillUnmount() {
+        socket.disconnect();
+    }
 
     roundCleanUp() {
         let currentRound = this.state.currentRound
@@ -135,7 +116,6 @@ class GameLobby extends React.Component {
             activePlayers
         }
         socket.emit('gameStarted', this.state.lobby, stateObj)
-        this.setState(stateObj)
     }
     
     normalizeQuestions(questions) {
