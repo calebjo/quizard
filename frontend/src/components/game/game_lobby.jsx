@@ -3,13 +3,14 @@ import {socket} from "../../util/socket_util"
 import "./game.scss"
 import GameChatContainer from "./game_chat_container";
 import GameView from "./game_view";
-import HumanPlayer from "./human_player";
-import ComputerPlayer from "./computer_player";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 
 // Establishes webSocket conneciton to every joining player
+
+// questions should be an array of question objects
+// players should ONE object { computerId: ['computer', 'username'], socketId: ['human', 'username', db_id (if they have one], socketId: ['human', 'username'] }
 class GameLobby extends React.Component {
     constructor (props) {
         super(props);
@@ -21,22 +22,16 @@ class GameLobby extends React.Component {
             playing: false,
             players: null,
             questions: null,
-            currentRound: 0, 
-            numPlayers: 0,
-            activePlayers: {},
-            inactivePlayers: {},
-            responses: [],
         }
 
         this.startGame = this.startGame.bind(this);
         this.normalizeQuestions = this.normalizeQuestions.bind(this);
-        this.playRound = this.playRound.bind(this);
-        this.roundCleanUp = this.roundCleanUp.bind(this);
     }
 
     componentDidMount() {
         
-          window.onbeforeunload = function () {
+        window.onbeforeunload = function () {
+            socket.disconnect();
             return "Data will be lost if you leave the page, are you sure?";
         };
 
@@ -80,31 +75,11 @@ class GameLobby extends React.Component {
             socket.on('clientGameStarted', (stateObj) => {
                 this.setState(stateObj)
             })
-
-            socket.on('serverQuestionResponse', (localReplies) => {
-                this.setState({ responses: localReplies })
-                if (this.state.responses.length === this.state.numPlayers) {
-                    const currentQuestion = this.state.questions[this.state.currentRound]
-                    this.playRound(currentQuestion, this.state.responses);
-                    socket.emit('clearResponses')
-                }
-            })
-
-            // // update state whenever the lobby's state updates
-            // socket.on('sendUpdatedState', () => {
-            // })
         })
     }
 
     componentWillUnmount() {
         socket.disconnect();
-    }
-
-    roundCleanUp() {
-        let currentRound = this.state.currentRound
-        ++currentRound
-        this.setState({ currentRound });
-        socket.emit('clearResponses')
     }
 
     startGame() {
@@ -155,61 +130,36 @@ class GameLobby extends React.Component {
         return newAnswersArray;
     }
 
-    playRound(question, playerResponses) {
-        // question should be a singular question object
-        // responses should be an array of 'response objects'
-        // e.g. [{ playerId: response }, { playerId: response }, { playerId: response }]
+    // playRound(question, playerResponses) {
+    //     // question should be a singular question object
+    //     // responses should be an array of 'response objects'
+    //     // e.g. [{ playerId: response }, { playerId: response }, { playerId: response }]
 
-        const correctAnswer = question.correctAnswer;
-        let removals = [];
+    //     const correctAnswer = question.correctAnswer;
+    //     let removals = [];
 
-        playerResponses.forEach(responseObj => {
-            const player = Object.keys(responseObj)[0];
-            const response = Object.values(responseObj)[0];
-            if (response !== correctAnswer) {
-                removals.push(player);
-            }
-        })
+    //     playerResponses.forEach(responseObj => {
+    //         const player = Object.keys(responseObj)[0];
+    //         const response = Object.values(responseObj)[0];
+    //         if (response !== correctAnswer) {
+    //             removals.push(player);
+    //         }
+    //     })
 
-        const inactivePlayers = this.state.inactivePlayers;
-        const activePlayers = this.state.activePlayers
+    //     const inactivePlayers = this.state.inactivePlayers;
+    //     const activePlayers = this.state.activePlayers
 
-        if (removals.length > 0) {
-            removals.forEach(player => {
-                inactivePlayers[player] = activePlayers[player];
-                delete activePlayers[player];
-            })
-        }
+    //     if (removals.length > 0) {
+    //         removals.forEach(player => {
+    //             inactivePlayers[player] = activePlayers[player];
+    //             delete activePlayers[player];
+    //         })
+    //     }
 
-        this.setState({ activePlayers, inactivePlayers })
+    //     this.setState({ activePlayers, inactivePlayers })
 
-        return true;
-    }
-
-    gameOver() {
-        let result;
-        this.round === this.totalRounds ? result = true : result = false;
-        return result;
-    }
-
-    static createPlayers(players) {
-        const playerIds = Object.keys(players)
-        const playersObject = {};
-        playerIds.forEach(id => {
-            switch (players[id][0]) {
-                case ('human'):
-                    playersObject[id] = new HumanPlayer({ id: id, username: players[id][1] })
-                    break;
-                case ('computer'):
-                    playersObject[id] = new ComputerPlayer({ id: id, username: players[id][1] })
-                    break;
-                default:
-                    playersObject[id] = new HumanPlayer({ id: id, username: players[id][1] })
-                    break;
-            }
-        })
-        return playersObject
-    }
+    //     return true;
+    // }
 
     render() {
         // socket.emit('gameStateUpdate', this.props.lobbyId, this.state)
@@ -273,7 +223,6 @@ class GameLobby extends React.Component {
                     Waiting for more players to join...
                 </div>
             )
-
             gameChat = '';
         }
 
@@ -285,8 +234,8 @@ class GameLobby extends React.Component {
                 players={this.state.players}
                 game={this.state.game}
                 numPlayers={this.state.numPlayers}
-                sendData={this.getData}
-                question={this.state.questions[this.state.currentRound]}/>) 
+                questions={this.state.questions}
+                deleteLobby={this.props.deleteLobby}/>) 
         : (<div className="lobby__container">
                 <div className="lobby__quit">
                 </div>

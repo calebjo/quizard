@@ -145,11 +145,6 @@ io.on('connection', socket => {
     })
 
 
-
-    // // updating a room's game state
-    // socket.on('gameStateUpdate', (roomId, newGameState) => {
-    //     socket.to(roomId).emit('sendUpdatedState', newGameState)
-    // })
 });
 
 wsServer.listen(port)
