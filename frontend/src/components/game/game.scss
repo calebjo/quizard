@@ -198,22 +198,6 @@
     transition: 0.3s all ease-in-out;
 }
 
-.game__question-answer.guess1::before {
-    background: #FB3754;
-}
-
-.game__question-answer.guess2::before {
-    background: #ffbc42;
-}
-
-.game__question-answer.guess3::before {
-    background: #63a2eb;
-}
-
-.game__question-answer.guess4::before {
-    background: #71bb75;
-}
-
 .game__question-answer {
     display: flex;
     justify-content: center;
@@ -239,18 +223,34 @@
     }
 }
 
-.guess1 {
+.game__question-answer:nth-child(1)::before {
+    background: #FB3754;
+}
+
+.game__question-answer:nth-child(2)::before {
+    background: #ffbc42;
+}
+
+.game__question-answer:nth-child(3)::before {
+    background: #63a2eb;
+}
+
+.game__question-answer:nth-child(4)::before {
+    background: #71bb75;
+}
+
+.game__question-answer:nth-child(1) {
     color:#FB3754;
 }
 
-.guess2 {
+.game__question-answer:nth-child(2) {
     color:#ffbc42;
 }
 
-.guess3 {
+.game__question-answer:nth-child(3) {
     color:#63a2eb;
 }
 
-.guess4 {
+.game__question-answer:nth-child(4) {
     color:#71bb75;
 }
