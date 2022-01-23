@@ -100,8 +100,6 @@
         color: #fefefe;
         font-size: 1.5rem;
         list-style: none;
-        // width: 14rem;
-        // max-width: 20%;
         height: 6rem;
         background: #081724;
         border-radius: 8px;
@@ -149,6 +147,13 @@
 
 // GAME VIEW ----------------------------------
 
+.game__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .game__container {
     display: flex;
     align-items: center;
@@ -158,7 +163,7 @@
     background:#0E273C;
 }
 
-.game__header {
+.game__header, .game__round-end-top {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -171,6 +176,7 @@
     font-weight: 700;
     background: #0b1f31;
     border-radius: 12px;
+    text-align: center;
 }
 
 .game__content {
@@ -253,4 +259,75 @@
 
 .game__question-answer:nth-child(4) {
     color:#71bb75;
+}
+
+// GAME ROUND END styles ------------------------------
+
+.game__round-end-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80vw;
+    height: 50vh;
+    color: white;
+}
+
+.game__round-end-top {
+    span {
+        padding-left: 0.5rem;
+        color:#ff88ef;
+    }
+}
+
+.game__round-end-deadors,
+.game__round-end-survivors {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+    height: 80%;
+    color: white;
+    margin: 2rem;
+    font-size: 2rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: #0b1f31;
+    border-radius: 12px;
+}
+
+.game__round-end-players {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;
+    height: 90%;
+    padding: 2rem;
+}
+
+.game__round-end-deadors {
+    color: #FB3754;
+    padding: 2rem;
+}
+
+.game__round-end-survivors {
+    color: #71bb75;
+    padding: 2rem;
+}
+
+.game__player-change {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 8px;
+    &.deador {
+        background: rgb(41, 29, 29);
+    }
+    &.survivor {
+        background: rgb(24, 32, 24);
+    }
 }

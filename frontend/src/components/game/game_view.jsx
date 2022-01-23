@@ -206,7 +206,7 @@ class GameView extends React.Component {
             survivors.map((survivor, idx) => {
                 if (survivor)
                 return (
-                    <div className="game__survivor" key={idx}>
+                    <div className="game__player-change survivor" key={idx}>
                         {survivor[1]}
                     </div>
                 )
@@ -217,7 +217,7 @@ class GameView extends React.Component {
             deadors.map((deador, idx) => {
                 if (deador)
                 return (
-                    <div className="game__survivor" key={idx}>
+                    <div className="game__player-change deador" key={idx}>
                         {deador[1]}
                     </div>
                 )
@@ -228,13 +228,20 @@ class GameView extends React.Component {
         const roundEnd = (
             <div className="game__round-end-container">
                 <div className="game__round-end-top">
-                    Let's see who didn't survive...
+                    The correct answer was <span> {this.state.correctAnswer}</span>!
                 </div>
-                <div className="game__round-end-players">
-                    { deadorsElement }
+                <div className="game__round-end-deadors">
+                    <p>Let's see who didn't survive...</p>
+                    <div className="game__round-end-players">
+                        { deadorsElement }
+                    </div>
                 </div>
-                <div>
-                    The correct answer was {this.state.correctAnswer}
+                
+                <div className="game__round-end-survivors">
+                    <p>Players remaining:</p>
+                    <div className="game__round-end-players">
+                        { survivorsElement }
+                    </div>
                 </div>
             </div>
         )
@@ -264,7 +271,7 @@ class GameView extends React.Component {
             display = roundEnd;
             setTimeout(() => {
                 this.setState({roundActive: true})
-            }, 5000)
+            }, 8000)
         } else {
             display = gameEnd;
         }
@@ -273,7 +280,7 @@ class GameView extends React.Component {
         // -- when a round ends, render roundEnd
         // -- when the game ends, render gameEnd
         return(
-            <div>
+            <div className="game__wrapper">
                 {display}
             </div>
         )
