@@ -30,9 +30,12 @@ export default function(state = initialState, action) {
                 user: undefined
             };
         case RECEIVE_USER_SIGN_IN:
+            const signInData = action.user.data;
+            const fixId= {id: signInData._id};
+            const fixedData = Object.assign(signInData, fixId);
             return {
                 isAuthenticated: true,
-                user: action.user
+                user: fixedData
             }
         case UPDATE_CURRENT_USER:
             const userData = action.user.data;

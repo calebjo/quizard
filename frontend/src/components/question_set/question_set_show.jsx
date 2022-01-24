@@ -34,8 +34,6 @@ class QuestionSetShow extends React.Component {
         const {questionSet, users, questions, currentUser} = this.props;
         if (!questionSet) return null;
 
-        console.log(questionSet);
-
         // Get associated user, question data
         const creator = users[questionSet.creator_id] || {username: "", _id: 0};
         const questionCount = questions.filter((question) => question.set_id === questionSet._id).length;
