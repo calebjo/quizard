@@ -3,7 +3,7 @@ import GameLobby from "./game_lobby"
 
 import { fetchQuestionSet } from "../../actions/question_set_actions";
 import { fetchSetQuestions } from "../../actions/question_actions";
-import { fetchLobby } from "../../actions/lobby_actions";
+import { fetchLobby, deleteLobby } from "../../actions/lobby_actions";
 
 
 const mSTP = (state, ownProps) => ({
@@ -16,7 +16,8 @@ const mSTP = (state, ownProps) => ({
 const mDTP = dispatch => ({
     fetchQuestionSet: (setId) => dispatch(fetchQuestionSet(setId)),
     fetchSetQuestions: (setId) => dispatch(fetchSetQuestions(setId)),
-    fetchLobby: (roomId) => dispatch(fetchLobby(roomId))
+    fetchLobby: (roomId) => dispatch(fetchLobby(roomId)),
+    deleteLobby: (roomId) => dispatch(deleteLobby(roomId))
 });
 
 export default connect(mSTP, mDTP)(GameLobby);
