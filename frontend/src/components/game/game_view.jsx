@@ -5,6 +5,9 @@ import ComputerPlayer from "./computer_player";
 import { withRouter } from "react-router-dom";
 import "./game.scss"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+
 class GameView extends React.Component {
     constructor (props) {
         super(props);
@@ -249,6 +252,11 @@ class GameView extends React.Component {
         // When the game ends, show the remaining players with conclusion text
         const gameEnd = (
             <div className="game__end-container">
+                <FontAwesomeIcon 
+                    icon={faTrophy} 
+                    size="4x"
+                    color="gold"
+                />
                 <div className="game__end-top">
                     <p>The game is over!</p>
                 </div>

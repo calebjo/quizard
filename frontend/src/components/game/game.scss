@@ -331,3 +331,45 @@
         background: rgb(24, 32, 24);
     }
 }
+
+.game__end-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80vh;
+    background:#0b1f31;
+    color: white;
+    margin: 2rem;
+    font-size: 2rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: #0b1f31;
+    border-radius: 12px;
+    svg {
+        animation: 2.25s shake infinite;
+    }
+}
+
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0%);
+        transform-origin: 50% 50%;
+    }
+    15% {
+        transform: translateX(-30px) rotate(-6deg);
+    }
+    30% {
+        transform: translateX(15px) rotate(6deg);
+    }
+    45% {
+        transform: translateX(-15px) rotate(-3.6deg);
+    }
+    60% {
+        transform: translateX(9px) rotate(2.4deg);
+    }
+    75% {
+        transform: translateX(-6px) rotate(-1.2deg);
+    }
+}
