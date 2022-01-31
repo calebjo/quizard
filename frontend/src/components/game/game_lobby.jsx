@@ -39,9 +39,6 @@ class GameLobby extends React.Component {
             this.props.fetchQuestionSet(lobby.data.set_id)
             this.props.fetchSetQuestions(lobby.data.set_id).then(questions => {
                 let normalizedQuestions = this.normalizeQuestions(Object.values(questions.questions.data));
-                if (normalizedQuestions.length > 10) {
-                    normalizedQuestions = normalizedQuestions.slice(10, 20);
-                }
                 this.setState({ 
                     questions: normalizedQuestions,
                     creator: lobby.data.creator_id,

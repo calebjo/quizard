@@ -4,6 +4,7 @@ import HumanPlayer from "./human_player";
 import ComputerPlayer from "./computer_player";
 import { withRouter } from "react-router-dom";
 import "./game.scss"
+import GameClock from "./game_clock";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
@@ -26,12 +27,9 @@ class GameView extends React.Component {
             inactivePlayers: {},
             responses: [],
             gameOver: false,
-            time: 30,
         }
 
-        this.id;
-        this.tick = this.tick.bind(this);
-
+        this.timesUp = this.timesUp.bind(this);
         this.handleGuess = this.handleGuess.bind(this);
         this.shuffleAnswers = this.shuffleAnswers.bind(this);
         this.playRound = this.playRound.bind(this);
@@ -39,19 +37,11 @@ class GameView extends React.Component {
         this.gameOver = this.gameOver.bind(this);
     }
 
-    tick() {
-        let time = this.state.time;
-        --time
-        if (time === 0 && this.state.clickable) {
-            clearInterval(this.id);
-            const id = this.props.socketId;
-            const responseObj = { [id]: '' }
-            socket.emit('questionResponse', this.state.lobbyId, responseObj);
-        } else if (time === 0) {
-            clearInterval(this.id);
-        } else {
-            this.setState({ time })
-        }
+    timesUp() {
+        const id = this.props.socketId;
+        const responseObj = { [id]: '' };
+        socket.emit('questionResponse', this.state.lobbyId, responseObj);
+        this.setState({ clickable: false });
     }
 
     handleGuess(e) {
@@ -136,8 +126,7 @@ class GameView extends React.Component {
     roundCleanUp() {
         let currentRound = this.state.currentRound
         ++currentRound
-        const time = 30;
-        this.setState({ currentRound, time }, () => {
+        this.setState({ currentRound }, () => {
             this.gameOver();
         });
         socket.emit('clearResponses');
@@ -175,9 +164,6 @@ class GameView extends React.Component {
 
     
     render() {
-        // let clickable = this.state.clickable ?  : '';
-        const timeToAnswer = `30s` // SKELETON: change to whatever time you want (setTimeout likely needed in functions)
-        this.id = setInterval(this.tick, 1000);
         const currentQuestion = this.state.questions[this.state.currentRound]
 
         const options = this.state.answers ? this.state.answers.map((option, idx) => {
@@ -190,6 +176,7 @@ class GameView extends React.Component {
 
         const questionRound = (
             <div className="game__container">
+                <GameClock timesUp={this.timesUp}/>
                 <div className="game__header">
                     {currentQuestion ? currentQuestion.question : ''}
                 </div>
@@ -210,28 +197,31 @@ class GameView extends React.Component {
             remainingPlayerText = 'No one survived...'
         }
 
-        // SKELETON -- delete debugSurvivors and pass in the activePlayers from the game
         // NOTE: map needs the data formatted as an iterable (cannot iterate over duplicate keys)
         const survivors = Object.values(this.state.activePlayers);
         const survivorsElement = (
             survivors.map((survivor, idx) => {
-                if (survivor)
+                if (survivor) {
                 return (
                     <div className="game__player-change survivor" key={idx}>
                         {survivor[1]}
                     </div>
-                )
+                )} else {
+                    return ''
+                }
             })
         )
         const deadors = Object.values(this.state.inactivePlayers);
         const deadorsElement = (
             deadors.map((deador, idx) => {
-                if (deador)
+                if (deador) {
                 return (
                     <div className="game__player-change deador" key={idx}>
                         {deador[1]}
                     </div>
-                )
+                )} else {
+                    return ''
+                }
             })
         )
 
