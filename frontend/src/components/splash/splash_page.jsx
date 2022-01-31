@@ -111,7 +111,7 @@ class SplashPage extends React.Component {
                                 </button>
                                 <button
                                     className="splash-page__center-button"
-                                    onClick={(e) => {e.preventDefault(); this.props.history.push("/question-sets")}}>
+                                    onClick={(e) => {e.preventDefault(); this.props.history.push("/login")}}>
                                     { this.state.createButtonText }
                                 </button>
                             </div>
