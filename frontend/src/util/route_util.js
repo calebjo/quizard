@@ -7,7 +7,7 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
     !loggedIn ? (
       <Component {...props} />
     ) : (
-      <Redirect to="/question-sets" /> //VK: double check route when CJ adds to app.js
+      <Redirect to="/question-sets" />
     )
   )} />
 );

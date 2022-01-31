@@ -20,16 +20,16 @@ const App = () => (
     <div className="app">
         <Route path="/users/:id" component={SideNavContainer}/>
         <ProtectedRoute path="/edit-profile" component={SideNavContainer}/>
-        <Route path="/question-sets" component={SideNavContainer} />
+        <ProtectedRoute path="/question-sets" component={SideNavContainer} />
         <Route path="/play/:id" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
-        <Route path="/quiz-creator" component={SideNavContainer} />
+        <ProtectedRoute path="/quiz-creator" component={SideNavContainer} />
         <Route path="/join-game" component={SideNavContainer} />
         <Switch>
             <Route exact path="/join-game" component={JoinGame} />
             <ProtectedRoute exact path="/quiz-creator" component={NewQuestionSetFormContainer} />
             <ProtectedRoute exact path="/question-sets/:id/edit" component={QuestionEditFormContainer} />
-            <Route exact path="/question-sets/:id" component={QuestionSetShowContainer} />
-            <Route exact path="/question-sets" component={QuestionSetIndexContainer} />
+            <ProtectedRoute exact path="/question-sets/:id" component={QuestionSetShowContainer} />
+            <ProtectedRoute exact path="/question-sets" component={QuestionSetIndexContainer} />
             <ProtectedRoute exact path="/edit-profile" component={EditUserFormContainer} />
             <Route exact path="/users/:id" component={UserShowContainer} />
             <AuthRoute exact path="/login" component={LoginFormContainer} />
