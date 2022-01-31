@@ -60,7 +60,7 @@ class QuestionEditIndexItem extends React.Component {
         // combine fields to send to backend
         const updateData = Object.assign(stateData,  {incorrectAnswers}, {});
 
-        console.log(updateData);
+        // console.log(updateData);
 
         this.props.updateQuestion(updateData)
             .then(() => {

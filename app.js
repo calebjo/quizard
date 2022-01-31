@@ -24,8 +24,10 @@ if (process.env.NODE_ENV === 'production') {
 
 mongoose
     .connect(db, { useNewUrlParser: true })
-    .then(() => console.log("Connected to MongoDB successfully"))
-    .catch(err => console.log(err));
+    // .then(() => console.log("Connected to MongoDB successfully"))
+    .then()
+    // .catch(err => console.log(err));
+    .catch();
 
 app.use(passport.initialize());
 require('./config/passport')(passport);

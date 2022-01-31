@@ -26,7 +26,7 @@ class QuestionSetItem extends React.Component {
 
     startLobby(e) {
         e.preventDefault()
-        console.log(`Creating a lobby from a ${this.props.questionSet.category} set!`)
+        // console.log(`Creating a lobby from a ${this.props.questionSet.category} set!`)
 
         const creator_id = this.props.currentUser.id
         const set_id = this.props.questionSet._id

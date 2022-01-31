@@ -49,7 +49,7 @@ class EditQuestionSetForm extends React.Component {
         e.preventDefault();
         const newData = (({id, title, category, description}) => ({id, title, category, description}))(this.state);
 
-        console.log(newData);
+        // console.log(newData);
 
         this.props.updateQuestionSet(newData)
             .then(() => {

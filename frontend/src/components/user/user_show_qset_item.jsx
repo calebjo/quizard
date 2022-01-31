@@ -10,7 +10,7 @@ class UserShowQsetItem extends React.Component {
 
     startLobby(e) {
         e.preventDefault();
-        console.log(`Creating a lobby from a ${this.props.qset.category} set!`);
+        // console.log(`Creating a lobby from a ${this.props.qset.category} set!`);
 
         const creator_id = this.props.currentUser.id;
         const set_id = this.props.qset._id;
