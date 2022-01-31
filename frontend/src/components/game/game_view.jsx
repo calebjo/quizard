@@ -29,7 +29,7 @@ class GameView extends React.Component {
             time: 30,
         }
 
-        this.id;
+        this.id = null;
         this.tick = this.tick.bind(this);
 
         this.handleGuess = this.handleGuess.bind(this);
@@ -175,9 +175,8 @@ class GameView extends React.Component {
 
     
     render() {
-        // let clickable = this.state.clickable ?  : '';
-        const timeToAnswer = `30s` // SKELETON: change to whatever time you want (setTimeout likely needed in functions)
         this.id = setInterval(this.tick, 1000);
+        console.log(this.id)
         const currentQuestion = this.state.questions[this.state.currentRound]
 
         const options = this.state.answers ? this.state.answers.map((option, idx) => {
