@@ -208,9 +208,9 @@ class SplashPage extends React.Component {
                                         <a href="https://github.com/calebjo" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faGithubAlt} />
                                         </a>
-                                        {/* <a href="" target="_blank" rel="noreferrer">
+                                        <a href="https://angel.co/u/caleb-jones-15" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faAngellist} />
-                                        </a> */}
+                                        </a>
                                     </div>
                                 </div>
                                 <div className="splash-page__profile">
@@ -224,9 +224,9 @@ class SplashPage extends React.Component {
                                         <a href="https://github.com/virgknight" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faGithubAlt} />
                                         </a>
-                                        {/* <a href="" target="_blank" rel="noreferrer">
+                                        <a href="https://angel.co/u/virginia-knight-2" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faAngellist} />
-                                        </a> */}
+                                        </a>
                                     </div>
                                 </div>
                                 <div className="splash-page__profile">
@@ -240,9 +240,9 @@ class SplashPage extends React.Component {
                                         <a href="https://github.com/jdtavarez" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faGithubAlt} />
                                         </a>
-                                        {/* <a href="" target="_blank" rel="noreferrer">
+                                        <a href="https://angel.co/u/julio-tavarez-1" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faAngellist} />
-                                        </a> */}
+                                        </a>
                                     </div>
                                 </div>
                             </div>

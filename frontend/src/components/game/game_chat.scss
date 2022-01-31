@@ -21,6 +21,96 @@
         -moz-box-sizing: border-box;    /* Firefox, other Gecko */
         box-sizing: border-box;         /* Opera/IE 8+ */
     }
+    -webkit-animation: slide-in 0.35s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in 0.35s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.chat__container.off {
+    -webkit-animation: slide-out 0.35s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-out 0.35s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-out {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+        opacity: 0;
+    }
+  }
+@keyframes slide-out {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes slide-in {
+    0% {
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+  }
+@keyframes slide-in {
+    0% {
+        -webkit-transform: translateX(1000px);
+        transform: translateX(1000px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.chat__upper {
+    z-index: 11;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    background: #588cbc3a;
+    display: flex;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.chat__modal-open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    position: absolute;
+    bottom: 2rem;
+    right: 1.5rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+    background: rgb(24, 57, 83);
+    cursor: pointer;
+    svg {
+        filter: invert(46%) sepia(17%) saturate(1083%) hue-rotate(167deg) brightness(93%) contrast(97%);
+    }
+    -webkit-animation: slide-in 0.35s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in 0.35s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .chat__body {
