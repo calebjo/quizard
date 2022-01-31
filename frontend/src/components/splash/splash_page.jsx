@@ -202,13 +202,13 @@ class SplashPage extends React.Component {
                                     <img src={caleb} alt=""/>
                                     <div className="profile__line" />
                                     <div className="profile__social-links">
-                                        <a href="https://www.linkedin.com/in/caleb-jones-928521126/">
+                                        <a href="https://www.linkedin.com/in/caleb-jones-928521126/" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faLinkedin} />
                                         </a>
-                                        <a href="https://github.com/calebjo">
+                                        <a href="https://github.com/calebjo" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faGithubAlt} />
                                         </a>
-                                        {/* <a href="">
+                                        {/* <a href="" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faAngellist} />
                                         </a> */}
                                     </div>
@@ -218,13 +218,13 @@ class SplashPage extends React.Component {
                                     <img src={virginia} alt=""/>
                                     <div className="profile__line" />
                                     <div className="profile__social-links">
-                                        <a href="https://www.linkedin.com/in/virginia-knight-2a75aaa6/">
+                                        <a href="https://www.linkedin.com/in/virginia-knight-2a75aaa6/" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faLinkedin} />
                                         </a>
-                                        <a href="https://github.com/virgknight">
+                                        <a href="https://github.com/virgknight" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faGithubAlt} />
                                         </a>
-                                        {/* <a href="">
+                                        {/* <a href="" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faAngellist} />
                                         </a> */}
                                     </div>
@@ -234,13 +234,13 @@ class SplashPage extends React.Component {
                                     <img src={julio} alt=""/>
                                     <div className="profile__line" />
                                     <div className="profile__social-links">
-                                        <a href="https://www.linkedin.com/in/julio-tavarez-2404a118b/">
+                                        <a href="https://www.linkedin.com/in/julio-tavarez-2404a118b/" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faLinkedin} />
                                         </a>
-                                        <a href="https://github.com/jdtavarez">
+                                        <a href="https://github.com/jdtavarez" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faGithubAlt} />
                                         </a>
-                                        {/* <a href="">
+                                        {/* <a href="" target="_blank" rel="noreferrer">
                                             <FontAwesomeIcon icon={faAngellist} />
                                         </a> */}
                                     </div>
