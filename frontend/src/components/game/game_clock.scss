@@ -1,0 +1,50 @@
+.game-clock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 3.5rem;
+    width: 5rem;
+    height: 5rem;
+    padding: 0.5rem;
+    border-radius: 2.5rem;
+    background: #0B1F31;
+}
+
+.game-clock__label {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    top: 1.25rem;
+    color: #fefefe;
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+}
+  
+.game-clock__circle {
+    fill: none;
+    stroke: none;
+}
+  
+.game-clock__path-elapsed {
+    stroke-width: 10px;
+    stroke: #ffbc42;
+    stroke-dasharray: 280px;
+    stroke-dashoffset: 0px;
+    stroke-linecap: round;
+    fill: none;
+    animation: countdown 30s linear forwards;
+}
+
+@keyframes countdown {
+    from {
+      stroke-dashoffset: 0px;
+    }
+    to {
+      stroke-dashoffset: 280px;
+    }
+}
