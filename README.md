@@ -11,6 +11,9 @@ Quizard features a sleek and navigable user interface along with a number of int
 
 [Check out the live site here!](https://quizard-aa.herokuapp.com/)
 
+![game lobby](/frontend/src/assets/images/game-lobby-screenshot.png)
+![question sets](/frontend/src/assets/images/set-index-screenshot.png)
+
 # Technologies
 Quizard is built with the MERN stack (MongoDB, Express, React, and Node) in conjunction with WebSockets, allowing for realtime updates to all clients connected to the server during gameplay. 
 
@@ -28,7 +31,8 @@ Frontend:
 
 ### Game logic
 Quizard games follow single elimination logic: in each round of the game, a quiz question is presented to the players, and any of the players that do not select the correct answer are eliminated from the game. Players are allowed to continue viewing the game as inactive players after elimination, but they are no longer in contention for winning.
-
+![game](/frontend/src/assets/images/game-page-screenshot.png)
+![round end screen](/frontend/src/assets/images/round-end-screenshot.png)
 ```javascript
 playRound(question) {
     // question should be a singular question object
