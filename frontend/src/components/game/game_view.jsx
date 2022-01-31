@@ -281,10 +281,7 @@ class GameView extends React.Component {
         } else {
             display = gameEnd;
         }
-
-        // SKELETON -- when a round begins, render questionRound
-        // -- when a round ends, render roundEnd
-        // -- when the game ends, render gameEnd
+        
         return(
             <div className="game__wrapper">
                 {display}
