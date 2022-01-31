@@ -26,13 +26,32 @@ class GameView extends React.Component {
             inactivePlayers: {},
             responses: [],
             gameOver: false,
+            time: 30,
         }
+
+        this.id;
+        this.tick = this.tick.bind(this);
 
         this.handleGuess = this.handleGuess.bind(this);
         this.shuffleAnswers = this.shuffleAnswers.bind(this);
         this.playRound = this.playRound.bind(this);
         this.roundCleanUp = this.roundCleanUp.bind(this);
         this.gameOver = this.gameOver.bind(this);
+    }
+
+    tick() {
+        let time = this.state.time;
+        --time
+        if (time === 0 && this.state.clickable) {
+            clearInterval(this.id);
+            const id = this.props.socketId;
+            const responseObj = { [id]: '' }
+            socket.emit('questionResponse', this.state.lobbyId, responseObj);
+        } else if (time === 0) {
+            clearInterval(this.id);
+        } else {
+            this.setState({ time })
+        }
     }
 
     handleGuess(e) {
@@ -64,7 +83,6 @@ class GameView extends React.Component {
         const correctAnswer = currentQuestion.correctAnswer
         
         this.setState({answers, correctAnswer})
-
         socket.on('serverQuestionResponse', (localReplies) => {
             this.setState({ responses: localReplies })
             if (this.state.responses.length === this.state.numPlayers) {
@@ -118,7 +136,8 @@ class GameView extends React.Component {
     roundCleanUp() {
         let currentRound = this.state.currentRound
         ++currentRound
-        this.setState({ currentRound }, () => {
+        const time = 30;
+        this.setState({ currentRound, time }, () => {
             this.gameOver();
         });
         socket.emit('clearResponses');
@@ -158,7 +177,7 @@ class GameView extends React.Component {
     render() {
         // let clickable = this.state.clickable ?  : '';
         const timeToAnswer = `30s` // SKELETON: change to whatever time you want (setTimeout likely needed in functions)
-
+        this.id = setInterval(this.tick, 1000);
         const currentQuestion = this.state.questions[this.state.currentRound]
 
         const options = this.state.answers ? this.state.answers.map((option, idx) => {
@@ -170,17 +189,6 @@ class GameView extends React.Component {
         }) : '';
 
         const questionRound = (
-            // <div className="game__question-container">
-            //     <div className="game__question-top">
-            //         <div className="game__question-text">
-            //             <p>{/* SKELETON -- INSERT QUESTION HERE */}</p>
-            //         </div>
-            //         <div className="game__timer" style={{animationDuration: `${timeToAnswer}`}} />
-            //     </div>
-            //     <div className="game__question-answers">
-            //         {options}
-            //     </div>
-            // </div>
             <div className="game__container">
                 <div className="game__header">
                     {currentQuestion ? currentQuestion.question : ''}

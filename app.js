@@ -47,11 +47,8 @@ const io = socket(wsServer, {
     cors: {
         origin: ["http://localhost:3000", "https://quizard-aa.herokuapp.com/"],
         transports: ["websocket", "polling"]
-        // methods: ["GET", "POST"],
-        // credentials: true
     }
 });
-
 
 let clients = {};
 let replies = {};
@@ -145,8 +142,8 @@ io.on('connection', socket => {
     socket.on('clearResponses', () => {
         replies = {};
     })
-
-
 });
+
+
 
 wsServer.listen(port)
