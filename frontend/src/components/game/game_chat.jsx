@@ -2,12 +2,14 @@ import React from "react";
 import "./game_chat.scss"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt, faMinus } from '@fortawesome/free-solid-svg-icons';
 // Displays messages that users have written in chat via webSocket connection
 class GameChat extends React.Component {
     constructor (props) {
         super(props);
         this.state = { 
+            classList: "chat__container",
+            toggled: true,
             message: "" ,
             messages: [],
             roomId: this.props.location.pathname.split("/")[2],
@@ -16,6 +18,7 @@ class GameChat extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.update = this.update.bind(this)
         this.addMessage = this.addMessage.bind(this)
+        this.toggleModal = this.toggleModal.bind(this)
 
         this.props.socket.on('message', (message, user, roomId) => {
             if (roomId === this.state.roomId) {
@@ -62,6 +65,24 @@ class GameChat extends React.Component {
             })
         }
     }
+
+    toggleModal() {
+        if (this.state.toggled) {
+            this.setState({
+                classList: "chat__container off"
+            })
+            setTimeout(() => {
+                this.setState({
+                    toggled: false
+                })
+            }, 55)
+        } else {
+            this.setState({
+                classList: "chat__container",
+                toggled: true
+            })
+        }
+    }
     
     render() {
         const messageList = this.state.messages.length > 0 ? (
@@ -82,8 +103,12 @@ class GameChat extends React.Component {
                 </div>
             </div>
         )
-        return(
-            <div className="chat__container">
+
+        const chatBox = this.state.toggled ? (
+            <div className={this.state.classList}>
+                <div className="chat__upper" onClick={this.toggleModal}>
+                    <FontAwesomeIcon icon={ faMinus } size="2x" color="black"/>
+                </div>
                 <div className="chat__body">
                     { messageList }
                 </div>
@@ -105,6 +130,13 @@ class GameChat extends React.Component {
                     </form>
                 </div>
             </div>
+        ) : (
+            <div className="chat__modal-open" onClick={this.toggleModal}>
+                <FontAwesomeIcon icon={ faCommentAlt } size="2x" />
+            </div>
+        )
+        return(
+            chatBox
         )
     }
 }
