@@ -26,6 +26,7 @@ class GameLobby extends React.Component {
 
         this.startGame = this.startGame.bind(this);
         this.normalizeQuestions = this.normalizeQuestions.bind(this);
+        this.handleCreatorExit = this.handleCreatorExit.bind(this);
     }
 
     componentDidMount() {
@@ -71,6 +72,10 @@ class GameLobby extends React.Component {
 
             socket.on('clientGameStarted', (stateObj) => {
                 this.setState(stateObj)
+            })
+
+            socket.on('game-over', () => {
+                socket.disconnect();
             })
         })
     }
@@ -125,6 +130,12 @@ class GameLobby extends React.Component {
         }
 
         return newAnswersArray;
+    }
+
+    handleCreatorExit () {
+        socket.emit('cancel-game', this.state.lobby);
+        this.props.deleteLobby(this.state.lobby);
+        this.props.history.push("/");
     }
 
     // playRound(question, playerResponses) {
@@ -182,7 +193,7 @@ class GameLobby extends React.Component {
         const lobbyNav = this.props.currentUser 
         && this.props.currentUser.id === this.state.creator ? 
         (<div className="lobby__top-bar">
-            <div className="lobby__home-button red" onClick={() => this.props.history.push("/")}>
+            <div className="lobby__home-button red" onClick={this.handleCreatorExit}>
                 <FontAwesomeIcon icon={faHome}/>
                 <span className="hovertext">Cancel game and return to home screen</span>
             </div>

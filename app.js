@@ -142,6 +142,10 @@ io.on('connection', socket => {
     socket.on('clearResponses', () => {
         replies = {};
     })
+
+    socket.on('cancel-game', (roomId) => {
+        io.to(roomId).emit('game-over') 
+    })
 });
 
 wsServer.listen(port)
