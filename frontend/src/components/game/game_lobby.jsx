@@ -5,7 +5,7 @@ import GameChatContainer from "./game_chat_container";
 import GameView from "./game_view";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faHome } from '@fortawesome/free-solid-svg-icons';
 
 // Establishes webSocket conneciton to every joining player
 
@@ -26,6 +26,7 @@ class GameLobby extends React.Component {
 
         this.startGame = this.startGame.bind(this);
         this.normalizeQuestions = this.normalizeQuestions.bind(this);
+        this.handleCreatorExit = this.handleCreatorExit.bind(this);
     }
 
     componentDidMount() {
@@ -71,6 +72,15 @@ class GameLobby extends React.Component {
 
             socket.on('clientGameStarted', (stateObj) => {
                 this.setState(stateObj)
+            })
+
+            socket.on('game-over', () => {
+                socket.disconnect();
+                if (this.props.currentUser && this.props.currentUser.id === this.state.creator) {
+                    this.props.history.push("/");
+                } else {
+                    this.props.history.push("/game-cancelled");
+                }
             })
         })
     }
@@ -127,6 +137,11 @@ class GameLobby extends React.Component {
         return newAnswersArray;
     }
 
+    handleCreatorExit () {
+        this.props.deleteLobby(this.state.lobby);
+        socket.emit('cancel-game', this.state.lobby);
+    }
+
     // playRound(question, playerResponses) {
     //     // question should be a singular question object
     //     // responses should be an array of 'response objects'
@@ -165,22 +180,44 @@ class GameLobby extends React.Component {
             return (
                 <div className="lobby__error">
                     Sorry, your lobby was not found.
+                    <div>
+                        <button className="styled-button red-bg" onClick={() => this.props.history.push("/join-game")}>
+                            Try another lobby code
+                        </button>
+                        <button className="styled-button orange-bg" onClick={() => this.props.history.push("/")}>
+                            Return to home page
+                        </button>
+                    </div>
                 </div>
             )
         }
 
-        const questionSet = this.props.questionSets[this.props.lobby.set_id]
+        const questionSet = this.props.questionSets[this.props.lobby.set_id];
+
+        const homeButton = this.props.currentUser 
+        && this.props.currentUser.id === this.state.creator ? 
+        (
+            <div className="lobby__home-button red" onClick={this.handleCreatorExit}>
+                <FontAwesomeIcon icon={faHome}/>
+                <span className="hovertext">Cancel game and return to home screen</span>
+            </div>
+        ) : (
+            <div className="lobby__home-button white" onClick={() => this.props.history.push("/")}>
+                <FontAwesomeIcon icon={faHome}/>
+                <span className="hovertext">Exit game and return to home screen</span>
+            </div>
+        )
 
         const lobbyNav = this.props.currentUser 
         && this.props.currentUser.id === this.state.creator ? 
         (<div className="lobby__top-bar">
+            {homeButton}
             <button className="lobby__invite">
-                Lobby ID: {this.props.lobby.room_id}&nbsp; 
                 <span onClick={(e) => {
                     navigator.clipboard.writeText(`${this.props.lobby.room_id}`);
                     e.stopPropagation();
                     }}
-                ><FontAwesomeIcon icon={faCopy}/></span>
+                >Lobby ID: {this.props.lobby.room_id}&nbsp; <FontAwesomeIcon icon={faCopy}/></span>
             </button>
             <div className="lobby__quiz-title">
                 Lobby : <span>{questionSet ? (questionSet.title) : ("")}</span>
@@ -192,6 +229,7 @@ class GameLobby extends React.Component {
             </button>
         </div>) : 
         (<div className="lobby__top-bar">
+            {homeButton}
             <div className="lobby__quiz-title">
                 Lobby : <span>{questionSet ? (questionSet.title) : ("")}</span>
             </div>
@@ -224,15 +262,18 @@ class GameLobby extends React.Component {
         }
 
         const gameOrLobby = this.state.playing 
-        ?  (<GameView
-                lobby={this.state.lobby}
-                socket={socket}
-                socketId={this.state.socketId}
-                players={this.state.players}
-                game={this.state.game}
-                numPlayers={this.state.numPlayers}
-                questions={this.state.questions}
-                deleteLobby={this.props.deleteLobby}/>) 
+        ?  (<div className="playing-game-view">
+                {homeButton}
+                <GameView
+                    lobby={this.state.lobby}
+                    socket={socket}
+                    socketId={this.state.socketId}
+                    players={this.state.players}
+                    game={this.state.game}
+                    numPlayers={this.state.numPlayers}
+                    questions={this.state.questions}
+                    deleteLobby={this.props.deleteLobby}/>
+            </div>) 
         : (<div className="lobby__container">
                 <div className="lobby__quit">
                 </div>

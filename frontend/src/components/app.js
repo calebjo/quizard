@@ -14,6 +14,7 @@ import QuestionSetShowContainer from './question_set/question_set_show_container
 import NewQuestionSetFormContainer from './question_set/new_question_set_form_container';
 import QuestionEditFormContainer from './question/question_edit_form_container';
 import JoinGame from "./game/join_game";
+import GameCancelled from "./game/game_cancelled";
 
 
 const App = () => (
@@ -24,6 +25,7 @@ const App = () => (
         <Route path="/play/:id" component={GameLobbyContainer} /> {/* DEBUG -- REMOVE OR CONFLICT */}
         <ProtectedRoute path="/quiz-creator" component={SideNavContainer} />
         <Route path="/join-game" component={SideNavContainer} />
+        <Route path="/game-cancelled" component={GameCancelled} />
         <Switch>
             <Route exact path="/join-game" component={JoinGame} />
             <ProtectedRoute exact path="/quiz-creator" component={NewQuestionSetFormContainer} />
