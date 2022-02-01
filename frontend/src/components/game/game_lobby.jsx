@@ -76,7 +76,11 @@ class GameLobby extends React.Component {
 
             socket.on('game-over', () => {
                 socket.disconnect();
-                this.props.history.push("/");
+                if (this.props.currentUser && this.props.currentUser.id === this.state.creator) {
+                    this.props.history.push("/");
+                } else {
+                    this.props.history.push("/game-cancelled");
+                }
             })
         })
     }
