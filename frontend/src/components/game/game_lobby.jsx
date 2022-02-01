@@ -192,15 +192,26 @@ class GameLobby extends React.Component {
             )
         }
 
-        const questionSet = this.props.questionSets[this.props.lobby.set_id]
+        const questionSet = this.props.questionSets[this.props.lobby.set_id];
 
-        const lobbyNav = this.props.currentUser 
+        const homeButton = this.props.currentUser 
         && this.props.currentUser.id === this.state.creator ? 
-        (<div className="lobby__top-bar">
+        (
             <div className="lobby__home-button red" onClick={this.handleCreatorExit}>
                 <FontAwesomeIcon icon={faHome}/>
                 <span className="hovertext">Cancel game and return to home screen</span>
             </div>
+        ) : (
+            <div className="lobby__home-button white" onClick={() => this.props.history.push("/")}>
+                <FontAwesomeIcon icon={faHome}/>
+                <span className="hovertext">Exit game and return to home screen</span>
+            </div>
+        )
+
+        const lobbyNav = this.props.currentUser 
+        && this.props.currentUser.id === this.state.creator ? 
+        (<div className="lobby__top-bar">
+            {homeButton}
             <button className="lobby__invite">
                 <span onClick={(e) => {
                     navigator.clipboard.writeText(`${this.props.lobby.room_id}`);
@@ -218,10 +229,7 @@ class GameLobby extends React.Component {
             </button>
         </div>) : 
         (<div className="lobby__top-bar">
-            <div className="lobby__home-button white" onClick={() => this.props.history.push("/")}>
-                <FontAwesomeIcon icon={faHome}/>
-                <span className="hovertext">Exit game and return to home screen</span>
-            </div>
+            {homeButton}
             <div className="lobby__quiz-title">
                 Lobby : <span>{questionSet ? (questionSet.title) : ("")}</span>
             </div>
@@ -254,15 +262,18 @@ class GameLobby extends React.Component {
         }
 
         const gameOrLobby = this.state.playing 
-        ?  (<GameView
-                lobby={this.state.lobby}
-                socket={socket}
-                socketId={this.state.socketId}
-                players={this.state.players}
-                game={this.state.game}
-                numPlayers={this.state.numPlayers}
-                questions={this.state.questions}
-                deleteLobby={this.props.deleteLobby}/>) 
+        ?  (<div className="playing-game-view">
+                {homeButton}
+                <GameView
+                    lobby={this.state.lobby}
+                    socket={socket}
+                    socketId={this.state.socketId}
+                    players={this.state.players}
+                    game={this.state.game}
+                    numPlayers={this.state.numPlayers}
+                    questions={this.state.questions}
+                    deleteLobby={this.props.deleteLobby}/>
+            </div>) 
         : (<div className="lobby__container">
                 <div className="lobby__quit">
                 </div>
