@@ -165,6 +165,14 @@ class GameLobby extends React.Component {
             return (
                 <div className="lobby__error">
                     Sorry, your lobby was not found.
+                    <div>
+                        <button className="styled-button red-bg" onClick={() => this.props.history.push("/join-game")}>
+                            Try another code
+                        </button>
+                        <button className="styled-button orange-bg" onClick={() => this.props.history.push("/")}>
+                            Return to home
+                        </button>
+                    </div>
                 </div>
             )
         }
