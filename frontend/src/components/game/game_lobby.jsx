@@ -5,7 +5,7 @@ import GameChatContainer from "./game_chat_container";
 import GameView from "./game_view";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faHome } from '@fortawesome/free-solid-svg-icons';
 
 // Establishes webSocket conneciton to every joining player
 
@@ -167,10 +167,10 @@ class GameLobby extends React.Component {
                     Sorry, your lobby was not found.
                     <div>
                         <button className="styled-button red-bg" onClick={() => this.props.history.push("/join-game")}>
-                            Try another code
+                            Try another lobby code
                         </button>
                         <button className="styled-button orange-bg" onClick={() => this.props.history.push("/")}>
-                            Return to home
+                            Return to home page
                         </button>
                     </div>
                 </div>
@@ -182,13 +182,16 @@ class GameLobby extends React.Component {
         const lobbyNav = this.props.currentUser 
         && this.props.currentUser.id === this.state.creator ? 
         (<div className="lobby__top-bar">
+            <div className="lobby__home-button red" onClick={() => this.props.history.push("/")}>
+                <FontAwesomeIcon icon={faHome}/>
+                <span className="hovertext">Cancel game and return to home screen</span>
+            </div>
             <button className="lobby__invite">
-                Lobby ID: {this.props.lobby.room_id}&nbsp; 
                 <span onClick={(e) => {
                     navigator.clipboard.writeText(`${this.props.lobby.room_id}`);
                     e.stopPropagation();
                     }}
-                ><FontAwesomeIcon icon={faCopy}/></span>
+                >Lobby ID: {this.props.lobby.room_id}&nbsp; <FontAwesomeIcon icon={faCopy}/></span>
             </button>
             <div className="lobby__quiz-title">
                 Lobby : <span>{questionSet ? (questionSet.title) : ("")}</span>
@@ -200,6 +203,10 @@ class GameLobby extends React.Component {
             </button>
         </div>) : 
         (<div className="lobby__top-bar">
+            <div className="lobby__home-button white" onClick={() => this.props.history.push("/")}>
+                <FontAwesomeIcon icon={faHome}/>
+                <span className="hovertext">Exit game and return to home screen</span>
+            </div>
             <div className="lobby__quiz-title">
                 Lobby : <span>{questionSet ? (questionSet.title) : ("")}</span>
             </div>

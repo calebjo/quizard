@@ -46,13 +46,49 @@
     font-size: 1.5rem;
     font-weight: 700;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.692);
-    span {
-        font-size: 2rem;
-        text-decoration: underline;
+    > span {
+        font-size: 1.5rem;
     }
     button:hover {
         color: white;
         outline: 2px solid white;
+    }
+    .lobby__home-button {
+        position: relative;
+    }
+    .lobby__home-button .hovertext {
+        visibility: hidden;
+        width: 150px;
+        background-color: #003e5b;
+        color: white;
+        font-family: "Podkova", serif;
+        font-size: 16px;
+        text-align: center;
+        padding: 5px;
+        border-radius: 6px;
+        // border: 1px solid #ffbc42;
+        border: 1px solid white;
+        position: absolute;
+        z-index: 1;
+        top: 28px;
+        right: -40px;
+    }
+    .lobby__home-button.red .hovertext {
+        color: #FB3754;
+        border: 1px solid #FB3754;
+    }
+    .lobby__home-button:hover {
+        cursor: pointer;
+
+        .hovertext {
+            visibility: visible;
+        }
+    }
+    .lobby__home-button.white:hover {
+        color: white;
+    }
+    .lobby__home-button.red:hover {
+        color: #FB3754;
     }
 }
 
