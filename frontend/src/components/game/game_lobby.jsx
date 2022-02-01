@@ -76,6 +76,7 @@ class GameLobby extends React.Component {
 
             socket.on('game-over', () => {
                 socket.disconnect();
+                this.props.history.push("/");
             })
         })
     }
@@ -133,9 +134,8 @@ class GameLobby extends React.Component {
     }
 
     handleCreatorExit () {
-        socket.emit('cancel-game', this.state.lobby);
         this.props.deleteLobby(this.state.lobby);
-        this.props.history.push("/");
+        socket.emit('cancel-game', this.state.lobby);
     }
 
     // playRound(question, playerResponses) {
